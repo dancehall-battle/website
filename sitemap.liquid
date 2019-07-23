@@ -1,0 +1,25 @@
+---
+permalink: /sitemap.xml
+sitemapIgnore: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    {% for item in collections.all %}
+    {% if item.data.sitemapIgnore != true %}
+    <url>
+        <loc>{{ site.baseURL }}{{ item.url }}</loc>
+        {% if item.data.lastModIsToday == true %}
+            <lastmod>{{ "now" | date: "%Y-%m-%d" }}</lastmod>
+        {% else if %}
+            <lastmod>{{ item.date | date: "%Y-%m-%d" }}</lastmod>
+        {% endif %}
+        {% if item.data.changeFreq %}
+        <changefreq>{{ item.data.changeFreq }}</changefreq>
+        {% endif %}
+        {% if item.data.priority %}
+        <priority>{{ item.data.priority }}</priority>
+        {% endif %}
+    </url>
+    {% endif %}
+    {% endfor %}
+</urlset>

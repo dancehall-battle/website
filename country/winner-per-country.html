@@ -1,0 +1,84 @@
+---
+layout: year-nav
+pagination:
+  data: battles.countries
+  size: 1
+  addAllPagesToCollections: true
+permalink: /country/{{ pagination.items[0].code }}//index.html
+lastModIsToday: true
+changeFreq: weekly
+priority: 0.9
+---
+
+{% assign data = pagination.items[0] %}
+
+<script type="application/ld+json">
+  {{battles.originalQueryResults}}
+</script>
+
+<h3 class="country-title">Winners from {{data.name}} <span class="flag-icon flag-icon-{{data.code}}"></span> </h3>
+
+<div id="events" class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
+      <th class="event">Event</th>
+      <th class="date">Date</th>
+      <th class="category">Category</th>
+      <th class="winner">Winner</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for year in data.years reversed %}
+
+    {% if year != "2019" %}
+    <tr id="{{year}}" class="year-row">
+      <td colspan="4" class="text-center year">{{year}}
+      </td>
+    </tr>
+    {% endif %}
+
+    {% assign i = 0 %}
+
+    {% for battle in data.perYear[year] %}
+    {% assign m = i | modulo: 2 %}
+    <tr class="event-row
+            {% if m == "1" %}
+    grey-bckgrnd
+    {% endif %}
+    "
+    >
+    {% assign i = i | plus: 1 %}
+    <td class="event-only">{{battle.atEvent.name}} <span class="flag-icon flag-icon-{{battle.atEvent.location}}"></span> <span class="kg-url hidden" data-url="{{battle.atEvent.id}}">🔗</span></td>
+    <td class="date">{{battle.date}}</td>
+    <td class="category">{{battle.name}}</td>
+
+    {% if battle.participants == '1' %}
+    <td>
+      {{battle.hasWinner[0].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span>
+    </td>
+    {% else %}
+      {% if battle.hasWinner[0].country == battle.hasWinner[1].country %}
+      <td>{{battle.hasWinner[0].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span> and {{battle.hasWinner[1].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[1].id}}">🔗</span></td>
+      {% else %}
+      <td>{{battle.hasWinner[0].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span>
+        <span class="flag-icon flag-icon-{{battle.hasWinner[0].country}}"></span>
+        and {{battle.hasWinner[1].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[1].id}}">🔗</span>
+        <span class="flag-icon flag-icon-{{battle.hasWinner[1].country}}"></span>
+      </td>
+      {% endif %}
+    {% endif %}
+    </tr>
+    <tr class="details-sm
+            {% if m == "1" %}
+    grey-bckgrnd
+    {% endif %}
+    ">
+    <td colspan="2">{{battle.category}} - {{battle.date}}</td>
+    </tr>
+    {% endfor %}
+    {% endfor %}
+    </tbody>
+  </table>
+</div>

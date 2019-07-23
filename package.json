@@ -1,0 +1,28 @@
+{
+  "name": "dancehall-battle-winners",
+  "version": "0.0.1",
+  "description": "Website with the winners of Dancehall battles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Pieter Heyvaert",
+  "license": "MIT",
+  "dependencies": {
+    "@11ty/eleventy": "^0.8.3",
+    "cheerio": "^1.0.0-rc.3",
+    "country-list": "^2.1.1",
+    "csv-parse": "^4.3.3",
+    "date-fns": "^2.0.0-alpha.27",
+    "follow-redirects": "^1.7.0",
+    "fs-extra": "^8.1.0",
+    "graphql-ld": "^1.0.0",
+    "graphql-ld-comunica": "^1.0.0",
+    "jsonld": "^1.6.2",
+    "q": "^1.5.1",
+    "recursive-json-key-transform": "^0.2.0"
+  },
+  "devDependencies": {
+    "http-server": "^0.11.1"
+  }
+}

@@ -1,0 +1,15 @@
+---
+layout: blogpost
+---
+
+<h1>Blog</h1>
+
+{% assign posts = collections.blogpost | reverse %}
+
+{% for post in posts %}
+  <p>
+    <a class="font-weight-bold" href="{{ post.url }}">{{ post.data.title }}</a>
+   {{ post.data.summary }}
+    <span class="font-italic">{{ post.data.date | date: "%Y-%m-%d" }}</span>
+  </p>
+{% endfor %}
