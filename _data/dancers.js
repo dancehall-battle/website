@@ -44,7 +44,13 @@ const client = new Client({ context, queryEngine: new QueryEngineComunica(comuni
 
 // Define a query
 const query = `
-  query { ... on Battle {
+  query { 
+    type # useful for the embedded JSON-LD 
+    id @single
+    name @single
+    country @single
+    wins {
+      id @single
       type # useful for the embedded JSON-LD 
       name @single
       level @single
@@ -60,19 +66,8 @@ const query = `
         name @single
         location @single
       }
-      hasWinner {
-        type # useful for the embedded JSON-LD 
-        id @single
-        name @single
-        country @single
-      }
     }
   }`;
-
-const yearBattleMap = {};
-const winnerCountryBattleMap = {};
-const recentBattles = [];
-const eventIDsOfRecentBattles = [];
 
 async function executeQuery(query){
   const {data} = await client.query({ query });
@@ -80,130 +75,51 @@ async function executeQuery(query){
   return data;
 }
 
-function parseDates(battle) {
+function parseDates(battle, dancer) {
   const date = new Date(battle.start);
 
   battle.date = format(date, 'MMM d', {awareOfUnicodeTokens: true});
   battle.year = (date.getFullYear());
 
-  if (!yearBattleMap[battle.year]) {
-    yearBattleMap[battle.year] = [];
+  if (!dancer.yearBattleMap) {
+    dancer.yearBattleMap = {};
   }
 
-  yearBattleMap[battle.year].push(battle);
+  if (!dancer.yearBattleMap[battle.year]) {
+    dancer.yearBattleMap[battle.year] = [];
+  }
+
+  dancer.yearBattleMap[battle.year].push(battle);
 }
 
-function parseCountry(battle) {
-  // This is an array.
-  const winnerCountries = battle.hasWinner.map(winner => winner.country);
-  const duplicateCountries = [];
-
-  winnerCountries.forEach(country => {
-    if (country !== '' && duplicateCountries.indexOf(country) === -1) {
-      // To make sure that 2 vs 2 winners from the same country don't add that battle twice to that one country.
-      duplicateCountries.push(country);
-
-      if (!winnerCountryBattleMap[country]) {
-        winnerCountryBattleMap[country] = {};
-      }
-
-      if (!winnerCountryBattleMap[country][battle.year]) {
-        winnerCountryBattleMap[country][battle.year] = [];
-      }
-
-      winnerCountryBattleMap[country][battle.year].push(battle);
-    }
-  });
-}
-
-function addToRecentBattles(battles) {
-  battles.forEach(battle => {
-    if (eventIDsOfRecentBattles.indexOf(battle.atEvent.id) !== -1 || eventIDsOfRecentBattles.length <= 20) {
-      if (eventIDsOfRecentBattles.indexOf(battle.atEvent.id) === -1) {
-        eventIDsOfRecentBattles.push(battle.atEvent.id);
-      }
-
-      recentBattles.push(battle);
-    }
-  });
+function getPostfix(dancer) {
+  dancer.postfix = dancer.id.replace('https://dancehallbattle.org/dancer/', '');
 }
 
 module.exports = async () => {
   // Execute the query
-  let result = await executeQuery(query);
+  let dancers = await executeQuery(query);
   originalQueryResults['@graph'] = recursiveJSONKeyTransform(key => {
     if (key === 'id' || key === 'type') {
       key = '@' + key;
     }
 
     return key;
-  })(JSON.parse(JSON.stringify(result)));
+  })(JSON.parse(JSON.stringify(dancers)));
 
-  //console.log(result);
+  console.log(dancers);
   //console.dir(result, { depth: null });
 
-  result = result.sort((a, b) => {
-    const aDate = new Date(a.start);
-    const bDate = new Date(b.start);
+  dancers.forEach(dancer => {
+    getPostfix(dancer);
 
-    if (aDate < bDate) {
-      return 1;
-    } else if (aDate > bDate) {
-      return -1;
-    } else {
-      return 0;
-    }
+    dancer.wins.forEach(battle => {
+      parseDates(battle, dancer);
+      battle.name = createNameForBattle(battle);
+    });
+
+    dancer.years = Object.keys(dancer.yearBattleMap);
   });
 
-  result.forEach(battle => {
-    battle.name = createNameForBattle(battle);
-    parseDates(battle);
-    parseCountry(battle);
-  });
-
-  addToRecentBattles(result);
-
-  const countryCodes = Object.keys(winnerCountryBattleMap);
-  const countries = [];
-
-  countryCodes.forEach(code => {
-    const country = {
-      code,
-      name: getCountryName(code),
-      years: Object.keys(winnerCountryBattleMap[code]),
-      perYear: winnerCountryBattleMap[code]
-    };
-
-    countries.push(country);
-  });
-
-  // Sort countries alphabetically.
-  countries.sort((a, b) => {
-    if (a.name > b.name) {
-      return 1;
-    } else if (a.name < b.name) {
-      return -1;
-    } else {
-      return 0;
-    }
-  });
-
-  //console.dir(recentBattles, {depth: null});
-
-  const recent = {
-    perYear: {}
-  };
-
-
-  recentBattles.forEach(battle => {
-    if (!recent.perYear[battle.year]) {
-      recent.perYear[battle.year] = [];
-    }
-
-    recent.perYear[battle.year].push(battle);
-  });
-
-  recent.years = Object.keys(recent.perYear);
-
-  return {perYear: yearBattleMap, countries, recent, originalQueryResults};
+  return {originalQueryResults, data: dancers};
 };
