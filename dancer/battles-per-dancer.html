@@ -25,7 +25,6 @@ priority: 0.9
       <th class="event">Event</th>
       <th class="date">Date</th>
       <th class="category">Category</th>
-      <th class="winner">Winner</th>
     </tr>
     </thead>
     <tbody>
@@ -53,29 +52,13 @@ priority: 0.9
     <td class="event-only">{{battle.atEvent.name}} <span class="flag-icon flag-icon-{{battle.atEvent.location}}"></span> <span class="kg-url hidden" data-url="{{battle.atEvent.id}}">🔗</span></td>
     <td class="date">{{battle.date}}</td>
     <td class="category">{{battle.name}}</td>
-
-    {% if battle.participants == '1' %}
-    <td>
-      {{battle.hasWinner[0].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span>
-    </td>
-    {% else %}
-      {% if battle.hasWinner[0].country == battle.hasWinner[1].country %}
-      <td>{{battle.hasWinner[0].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span> and {{battle.hasWinner[1].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[1].id}}">🔗</span></td>
-      {% else %}
-      <td>{{battle.hasWinner[0].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span>
-        <span class="flag-icon flag-icon-{{battle.hasWinner[0].country}}"></span>
-        and {{battle.hasWinner[1].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[1].id}}">🔗</span>
-        <span class="flag-icon flag-icon-{{battle.hasWinner[1].country}}"></span>
-      </td>
-      {% endif %}
-    {% endif %}
     </tr>
     <tr class="details-sm
             {% if m == "1" %}
     grey-bckgrnd
     {% endif %}
     ">
-    <td colspan="2">{{battle.category}} - {{battle.date}}</td>
+    <td colspan="2">{{battle.name}} - {{battle.date}}</td>
     </tr>
     {% endfor %}
     {% endfor %}
