@@ -107,11 +107,21 @@ module.exports = async () => {
     return key;
   })(JSON.parse(JSON.stringify(dancers)));
 
-  console.log(dancers);
+  //console.log(dancers);
   //console.dir(result, { depth: null });
+
+  const perLetter = {};
 
   dancers.forEach(dancer => {
     getPostfix(dancer);
+
+    const firstLetter = dancer.name[0];
+
+    if (!perLetter[firstLetter]) {
+      perLetter[firstLetter] = [];
+    }
+
+    perLetter[firstLetter].push(dancer);
 
     dancer.wins.forEach(battle => {
       parseDates(battle, dancer);
@@ -121,5 +131,21 @@ module.exports = async () => {
     dancer.years = Object.keys(dancer.yearBattleMap);
   });
 
-  return {originalQueryResults, data: dancers};
+  const letters = Object.keys(perLetter).sort();
+
+  letters.forEach(letter => {
+    perLetter[letter].sort((a, b) => {
+      if (a.name < b.name) {
+        return -1;
+      } else if (a.name > b.name) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  });
+
+  //console.log(perLetter);
+
+  return {originalQueryResults, data: dancers, perLetter, letters};
 };

@@ -16,7 +16,12 @@ priority: 0.9
   {{dancer.originalQueryResults}}
 </script>
 
-<h3 class="country-title">Wins by {{dancer.name}} <span class="flag-icon flag-icon-{{dancer.country}}"></span> </h3>
+<h3 class="country-title">Wins by {{dancer.name}}
+
+  {% if dancer.country != ''%}
+  <span class="flag-icon flag-icon-{{dancer.country}}"></span>
+  {% endif %}
+</h3>
 
 <div id="events" class="table-responsive">
   <table class="table">

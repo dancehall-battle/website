@@ -1,0 +1,23 @@
+---
+layout: year-nav
+---
+
+<h3 id="dancer-list-title" class="">Dancers</h3>
+
+
+<!-- 4 countries on 1 row -->
+{% for letter in dancers.letters %}
+  <div class="letter-list">
+    <p class="font-weight-bold">{{ letter }}</p>
+
+    <ul>
+      {% for dancer in dancers.perLetter[letter] %}
+      <li><a href="/dancer/{{dancer.postfix}}">{{dancer.name}}</a>
+        {% if dancer.country != ''%}
+        <span class="flag-icon flag-icon-{{dancer.country}}"></span>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}
