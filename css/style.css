@@ -85,11 +85,11 @@ footer {
     font-size: 18px;
 }
 
-#years a, #blogpost a, .card-text {
+#years a, #blogpost a, .card-text, .letter-list a {
     color: #862b20
 }
 
-#years a:hover, #blogpost a:hover, .card-text:hover {
+#years a:hover, #blogpost a:hover, .card-text:hover, .letter-list a:hover {
     color: #601e17;
 }
 
