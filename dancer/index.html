@@ -2,15 +2,19 @@
 layout: year-nav
 ---
 
+<script type="application/ld+json">
+  {{dancerList.originalQueryResults}}
+</script>
+
 <h3 id="dancer-list-title" class="battle-title">Dancers</h3>
 
 
-{% for letter in dancers.letters %}
+{% for letter in dancerList.letters %}
   <div class="letter-list">
     <p class="font-weight-bold">{{ letter }}</p>
 
     <ul>
-      {% for dancer in dancers.perLetter[letter] %}
+      {% for dancer in dancerList.perLetter[letter] %}
       <li><a href="/dancer/{{dancer.postfix}}">{{dancer.name}}</a>
         {% if dancer.country != ''%}
         <span class="flag-icon flag-icon-{{dancer.country}}"></span>

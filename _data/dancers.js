@@ -1,7 +1,6 @@
 const {Client} = require('graphql-ld/index');
 const {QueryEngineComunica} = require('graphql-ld-comunica/index');
 const {format} = require('date-fns');
-const getCountryName = require('country-list').getName;
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {createNameForBattle} = require('./utils');
 
