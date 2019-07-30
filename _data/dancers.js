@@ -30,9 +30,7 @@ const context = {
   }
 };
 
-const originalQueryResults = {
-  '@context': JSON.parse(JSON.stringify(context['@context']))
-};
+const originalContext =  JSON.parse(JSON.stringify(context['@context']));
 
 // Create a GraphQL-LD client based on a client-side Comunica engine
 const comunicaConfig = {
@@ -99,13 +97,20 @@ function getPostfix(dancer) {
 module.exports = async () => {
   // Execute the query
   let dancers = await executeQuery(query);
-  originalQueryResults['@graph'] = recursiveJSONKeyTransform(key => {
-    if (key === 'id' || key === 'type') {
-      key = '@' + key;
-    }
 
-    return key;
-  })(JSON.parse(JSON.stringify(dancers)));
+  dancers.forEach(dancer => {
+    dancer.originalQueryResults = {
+      '@context': originalContext,
+      '@graph': recursiveJSONKeyTransform(key => {
+        if (key === 'id' || key === 'type') {
+          key = '@' + key;
+        }
+
+        return key;
+      })(JSON.parse(JSON.stringify(dancer)))
+    };
+  });
+
 
   //console.log(dancers);
   //console.dir(result, { depth: null });
@@ -147,5 +152,5 @@ module.exports = async () => {
 
   //console.log(perLetter);
 
-  return {originalQueryResults, data: dancers, perLetter, letters};
+  return {data: dancers, perLetter, letters};
 };
