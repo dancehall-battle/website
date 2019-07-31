@@ -1,5 +1,5 @@
 const {Client} = require('graphql-ld/index');
-const {QueryEngineComunica} = require('graphql-ld-comunica/index');
+const queryEngine = require('./engine');
 const {format} = require('date-fns');
 const getCountryName = require('country-list').getName;
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
@@ -35,12 +35,7 @@ const originalQueryResults = {
 };
 
 // Create a GraphQL-LD client based on a client-side Comunica engine
-const comunicaConfig = {
-  sources: [
-    { type: "hypermedia", value: "https://data.dancehallbattle.org/data" },
-  ],
-};
-const client = new Client({ context, queryEngine: new QueryEngineComunica(comunicaConfig) });
+const client = new Client({ context, queryEngine });
 
 // Define a query
 const query = `

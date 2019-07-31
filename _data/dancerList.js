@@ -1,5 +1,5 @@
 const {Client} = require('graphql-ld/index');
-const {QueryEngineComunica} = require('graphql-ld-comunica/index');
+const queryEngine = require('./engine');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 
 // Define a JSON-LD context
@@ -15,12 +15,7 @@ const context = {
 const originalContext =  JSON.parse(JSON.stringify(context['@context']));
 
 // Create a GraphQL-LD client based on a client-side Comunica engine
-const comunicaConfig = {
-  sources: [
-    { type: "hypermedia", value: "https://data.dancehallbattle.org/data" },
-  ],
-};
-const client = new Client({ context, queryEngine: new QueryEngineComunica(comunicaConfig) });
+const client = new Client({ context, queryEngine });
 
 // Define a query
 const query = `

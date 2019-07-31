@@ -89,7 +89,7 @@ footer {
     color: #862b20
 }
 
-#years a:hover, #blogpost a:hover, .card-text:hover, .letter-list a:hover {
+#years a:hover, #blogpost a:hover, .card-text:hover, .letter-list a:hover, .country-item a:hover {
     color: #601e17;
 }
 

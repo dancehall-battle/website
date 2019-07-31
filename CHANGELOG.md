@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Page with list of dancers
 - Separate page for each dancer
+- Separate JS file for Comunica engine
+
+### Fixed
+- Titles in navbar
 
 ## [1.0.2] - 2019-07-28
 
