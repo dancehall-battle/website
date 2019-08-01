@@ -10,10 +10,10 @@ The code for the website of [Dancehallbattle.org](https://dancehallbattle.org).
 Install the dependencies via `yarn install`.
 
 ## Build
-Build the website via `./11-build.sh`.
+Build the website via `./build.sh`.
 
 ## Serve locally
-Serve the website locally via `./11-serve.sh`.
+Serve the website locally via `./serve.sh`.
 
 ## Contributions
 Contributions are welcome, and bug reports or pull requests are always helpful. 
