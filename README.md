@@ -14,6 +14,7 @@ Build the website via `./build.sh`.
 
 ## Serve locally
 Serve the website locally via `./serve.sh`.
+This will also build the website and watches for changes.
 
 ## Contributions
 Contributions are welcome, and bug reports or pull requests are always helpful. 
