@@ -31,7 +31,7 @@ layout: year-nav
     {% assign i = i | plus: 1 %}
     <td class="event-only">{{battle.atEvent.name}} <span class="flag-icon flag-icon-{{battle.atEvent.location}}"></span> <span class="kg-url hidden" data-url="{{battle.atEvent.id}}">🔗</span></td>
     <td class="date">{{battle.date}}</td>
-    <td class="category">{{battle.name}}</td>
+    <td class="category">{{battle.name}} <span class="kg-url hidden" data-url="{{battle.id}}">🔗</span></td>
 
     {% if battle.participants == '1' %}
     <td>{{battle.hasWinner[0].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span>
@@ -60,7 +60,7 @@ layout: year-nav
     grey-bckgrnd
     {% endif %}
     ">
-    <td colspan="2">{{battle.name}} - {{battle.date}}</td>
+    <td colspan="2">{{battle.name}} <span class="kg-url hidden" data-url="{{battle.id}}">🔗</span> - {{battle.date}}</td>
     </tr>
     {% endfor %}
     </tbody>

@@ -39,8 +39,9 @@ const client = new Client({ context, queryEngine });
 
 // Define a query
 const query = `
-  query { ... on Battle {
+  query { 
       type # useful for the embedded JSON-LD 
+      id @single
       name @single
       level @single
       gender @single
@@ -61,7 +62,6 @@ const query = `
         name @single
         country @single
       }
-    }
   }`;
 
 const yearBattleMap = {};
