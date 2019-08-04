@@ -1,0 +1,28 @@
+---
+layout: year-nav
+---
+
+<div id="world-map" style="width: 600px; height: 400px"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const countries = {
+      'be': 2,
+      'ru': 10,
+      'se': 5,
+      'fr': 4
+    };
+
+    $('#world-map').vectorMap({
+      map: 'world_mill',
+      series: {
+        regions: [{
+          values: countries,
+          scale: ['#C8EEFF', '#0071A4'],
+          normalizeFunction: 'polynomial'
+        }]
+      },
+      onRegionTipShow: function(e, el, code){
+        el.html(el.html()+' (GDP - '+gdpData[code]+')');
+      }});
+  });
+</script>
