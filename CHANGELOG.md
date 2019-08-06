@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [2.0.2] - 2019-08-06
+
+### Fixed
+- Don't try to show flag on country page next to dancer who doesn't have a country specified
+
 ## [2.0.1] - 2019-08-04
 
 ### Added
@@ -39,6 +44,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[2.0.2]: https://github.com/dancehall-battle/website/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/dancehall-battle/website/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/dancehall-battle/website/compare/v1.0.2...v2.0.0
 [1.0.2]: https://github.com/dancehall-battle/website/compare/v1.0.1...v1.0.2
