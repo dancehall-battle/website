@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- Social media links ([issue 9](https://github.com/dancehall-battle/website/issues/9))
+
 ## [2.0.2] - 2019-08-06
 
 ### Fixed
