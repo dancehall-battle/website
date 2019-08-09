@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Fixed
+- Show country flag always for every dancer in 2 vs 2 ([issue 8](https://github.com/dancehall-battle/website/issues/8))
+
 ## [2.0.2] - 2019-08-06
 
 ### Fixed
