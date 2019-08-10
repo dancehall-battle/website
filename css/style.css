@@ -29,8 +29,16 @@ table {
     width: 80px;
 }
 
+#upcoming-events .date {
+    width: 160px;
+}
+
 .category {
     width: 100px;
+}
+
+.more-information {
+    width: 110px;
 }
 
 .winner {
@@ -93,7 +101,7 @@ footer {
     color: #601e17;
 }
 
-.country-title, .battle-title {
+.country-title, .battle-title, .page-title {
     margin-top: 30px;
 }
 

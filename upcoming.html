@@ -11,22 +11,22 @@ priority: 0.9
   {{upcoming.originalQueryResults}}
 </script>
 
-<h3 class="upcoming-title">Upcoming events</h3>
+<h3 class="page-title">Upcoming events</h3>
 
-<div id="events" class="table-responsive">
+<div id="upcoming-events" class="table-responsive">
   <table class="table">
     <thead>
     <tr>
       <th class="event">Event</th>
       <th class="date">Dates</th>
-      <th class="category">More infomation</th>
+      <th class="more-information">More info</th>
     </tr>
     </thead>
     <tbody>
 
-    {% for event in upcoming.data %}
-
     {% assign i = 0 %}
+
+    {% for event in upcoming.data %}
 
     {% assign m = i | modulo: 2 %}
     <tr class="event-row
@@ -36,8 +36,19 @@ priority: 0.9
     "
     >
     {% assign i = i | plus: 1 %}
-    <td class="event-only">{{event.name}} <span class="flag-icon flag-icon-{{event.location}}"></span> <span class="kg-url hidden" data-url="{{event.id}}">🔗</span></td>
-    <td class="date">{{event.start}} - {{event.end}}</td>
+    <td class="event-only">{{event.name}}
+      {% if event.location != "" %}
+        <span class="flag-icon flag-icon-{{event.location}}"></span>
+      {% endif %}
+
+      <span class="kg-url hidden" data-url="{{event.id}}">🔗</span></td>
+    <td class="date">
+      {% if event.start == event.end %}
+        {{event.start}}
+      {% else %}
+        {{event.start}} - {{event.end}}
+      {% endif %}
+    </td>
     <td class="more-information">
       {% if event.instagram != "" %}
         <a href="https://instagram.com/{{event.instagram}}">Instagram</a>
@@ -45,11 +56,11 @@ priority: 0.9
     </td>
     </tr>
     <tr class="details-sm
-            {% if m == "1" %}
-    grey-bckgrnd
-    {% endif %}
+      {% if m == "1" %}
+        grey-bckgrnd
+      {% endif %}
     ">
-    <td colspan="2">{{battle.name}} - {{battle.date}}</td>
+    <td colspan="2">{{event.start}} - {{event.end}}</td>
     </tr>
     {% endfor %}
     </tbody>
