@@ -76,7 +76,7 @@ footer {
     font-size: 14px;
 }
 
-#footer-links a {
+#footer-links a, #social-media a {
     color: dimgrey;
 }
 
