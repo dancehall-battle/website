@@ -40,9 +40,6 @@ layout: year-nav
       {% endif %}
     </td>
     {% else %}
-    {% if battle.hasWinner[0].country == battle.hasWinner[1].country %}
-    <td>{{battle.hasWinner[0].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span> and {{battle.hasWinner[1].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[1].id}}">🔗</span> <span class="flag-icon flag-icon-{{battle.hasWinner[0].country}}"></span></td>
-    {% else %}
     <td>{{battle.hasWinner[0].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span>
       {% if battle.hasWinner[0].country  != ''%}
       <span class="flag-icon flag-icon-{{battle.hasWinner[0].country}}"></span>
@@ -52,7 +49,6 @@ layout: year-nav
       <span class="flag-icon flag-icon-{{battle.hasWinner[1].country}}"></span>
       {% endif %}
     </td>
-    {% endif %}
     {% endif %}
     </tr>
     <tr class="details-sm

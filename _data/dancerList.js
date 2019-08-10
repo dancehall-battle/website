@@ -1,24 +1,28 @@
 const {Client} = require('graphql-ld/index');
 const queryEngine = require('./engine');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
+const {useCache} = require('./utils');
 
-// Define a JSON-LD context
-const context = {
-  "@context": {
-    "type":  { "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" },
-    "name":  { "@id": "http://schema.org/name" },
-    "wins":    { "@reverse": "https://dancebattle.org/ontology/hasWinner" },
-    "country":    { "@id": "https://dancebattle.org/ontology/representsCountry" }
-  }
-};
+module.exports = useCache(main, 'dancer-list.json');
 
-const originalContext =  JSON.parse(JSON.stringify(context['@context']));
+async function main() {
+  // Define a JSON-LD context
+  const context = {
+    "@context": {
+      "type": {"@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"},
+      "name": {"@id": "http://schema.org/name"},
+      "wins": {"@reverse": "https://dancebattle.org/ontology/hasWinner"},
+      "country": {"@id": "https://dancebattle.org/ontology/representsCountry"}
+    }
+  };
 
-// Create a GraphQL-LD client based on a client-side Comunica engine
-const client = new Client({ context, queryEngine });
+  const originalContext = JSON.parse(JSON.stringify(context['@context']));
 
-// Define a query
-const query = `
+  // Create a GraphQL-LD client based on a client-side Comunica engine
+  const client = new Client({context, queryEngine});
+
+  // Define a query
+  const query = `
   query { 
     type # useful for the embedded JSON-LD 
     id @single
@@ -29,17 +33,6 @@ const query = `
     }
   }`;
 
-async function executeQuery(query){
-  const {data} = await client.query({ query });
-
-  return data;
-}
-
-function getPostfix(dancer) {
-  dancer.postfix = dancer.id.replace('https://dancehallbattle.org/dancer/', '');
-}
-
-module.exports = async () => {
   // Execute the query
   let dancers = await executeQuery(query);
 
@@ -88,4 +81,14 @@ module.exports = async () => {
   //console.log(perLetter);
 
   return {originalQueryResults, perLetter, letters};
-};
+
+  async function executeQuery(query) {
+    const {data} = await client.query({query});
+
+    return data;
+  }
+
+  function getPostfix(dancer) {
+    dancer.postfix = dancer.id.replace('https://dancehallbattle.org/dancer/', '');
+  }
+}
