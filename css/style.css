@@ -136,6 +136,10 @@ footer {
     font-size: 15px;
 }
 
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #862b20
+}
+
 @media (min-width: 992px) {
     .navbar-nav {
         float: none;
