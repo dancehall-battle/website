@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- Page with upcoming events
+
+### Fixed
+- Use Bootstrap navbar
+
 ## [2.0.3] - 2019-08-10
 
 ### Added
