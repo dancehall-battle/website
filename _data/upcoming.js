@@ -2,6 +2,7 @@ const {Client} = require('graphql-ld/index');
 const queryEngine = require('./engine');
 const {format} = require('date-fns');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
+const {useCache} = require('./utils');
 
 // Define a JSON-LD context
 const context = {
@@ -46,7 +47,7 @@ function parseDates(event) {
   event.end = format(new Date(event.end), 'MMM d', {awareOfUnicodeTokens: true});
 }
 
-module.exports = async () => {
+async function main() {
   // Execute the query
   let result = await executeQuery(query);
   originalQueryResults['@graph'] = recursiveJSONKeyTransform(key => {
@@ -82,4 +83,6 @@ module.exports = async () => {
   console.log(result);
 
   return {data: result, originalQueryResults};
-};
+}
+
+module.exports = useCache(main, 'upcoming.json');
