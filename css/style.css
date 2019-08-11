@@ -29,8 +29,16 @@ table {
     width: 80px;
 }
 
+#upcoming-events .date {
+    width: 160px;
+}
+
 .category {
     width: 100px;
+}
+
+.more-information {
+    width: 110px;
 }
 
 .winner {
@@ -85,7 +93,7 @@ footer {
     font-size: 18px;
 }
 
-#years a, #blogpost a, .card-text, .letter-list a {
+#years a, #blogpost a, .card-text, .letter-list a, .more-information a, .nav-item a {
     color: #862b20
 }
 
@@ -93,7 +101,7 @@ footer {
     color: #601e17;
 }
 
-.country-title, .battle-title {
+.country-title, .battle-title, .page-title {
     margin-top: 30px;
 }
 
@@ -120,6 +128,42 @@ footer {
 
 .letter-list ul {
     list-style: none;
+}
+
+.navbar-brand {
+    visibility: hidden;
+    display: none;
+    font-size: 15px;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: #862b20
+}
+
+@media (min-width: 992px) {
+    .navbar-nav {
+        float: none;
+        margin: 0 auto;
+        display: block;
+        text-align: center;
+    }
+
+    .navbar-nav > li {
+        display: inline-block;
+        float: none;
+    }
+}
+
+@media only screen and (max-width: 991px){
+    #title {
+        visibility: hidden;
+        display: none;
+    }
+
+    .navbar-brand {
+        visibility: visible;
+        display: block;
+    }
 }
 
 @media only screen and (min-width: 700px){

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [2.1.0] - 2019-08-11
+
+### Added
+- Page with upcoming events
+- Titles to existing pages
+
+### Fixed
+- Use Bootstrap navbar
+
 ## [2.0.3] - 2019-08-10
 
 ### Added
@@ -51,6 +60,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[2.1.0]: https://github.com/dancehall-battle/website/compare/v2.0.3...v2.1.0
 [2.0.3]: https://github.com/dancehall-battle/website/compare/v2.0.2...v2.0.3
 [2.0.2]: https://github.com/dancehall-battle/website/compare/v2.0.1...v2.0.2
 [2.0.1]: https://github.com/dancehall-battle/website/compare/v2.0.0...v2.0.1
