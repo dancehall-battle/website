@@ -61,7 +61,10 @@ async function main() {
   //console.log(result);
   //console.dir(result, { depth: null });
 
-  result = result.filter(event => new Date() <= new Date(event.end));
+  let today = new Date();
+  today = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
+
+  result = result.filter(event => today <= new Date(event.end));
 
   result = result.sort((a, b) => {
     const aDate = new Date(a.start);
