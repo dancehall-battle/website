@@ -43,11 +43,7 @@ priority: 0.9
 
       <span class="kg-url hidden" data-url="{{event.id}}">🔗</span></td>
     <td class="date">
-      {% if event.start == event.end %}
-        {{event.start}}
-      {% else %}
-        {{event.start}} - {{event.end}}
-      {% endif %}
+      {{event.formattedDate}}
     </td>
     <td class="more-information">
       {% if event.instagram != "" %}
@@ -61,11 +57,7 @@ priority: 0.9
       {% endif %}
     ">
     <td colspan="2">
-      {% if event.start == event.end %}
-        {{event.start}}
-      {% else %}
-        {{event.start}} - {{event.end}}
-      {% endif %}
+      {{event.formattedDate}}
     </td>
     </tr>
     {% endfor %}
