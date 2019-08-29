@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Fixed
+- Show only one date when start and end date are the same for upcoming events (see [issue 14](https://github.com/dancehall-battle/website/issues/14))
+
 ## [2.1.1] - 2019-08-12
 
 ### Fixed

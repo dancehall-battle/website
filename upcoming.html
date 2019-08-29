@@ -60,7 +60,13 @@ priority: 0.9
         grey-bckgrnd
       {% endif %}
     ">
-    <td colspan="2">{{event.start}} - {{event.end}}</td>
+    <td colspan="2">
+      {% if event.start == event.end %}
+        {{event.start}}
+      {% else %}
+        {{event.start}} - {{event.end}}
+      {% endif %}
+    </td>
     </tr>
     {% endfor %}
     </tbody>
