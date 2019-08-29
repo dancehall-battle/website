@@ -1,6 +1,6 @@
 const {Client} = require('graphql-ld/index');
 const queryEngine = require('./engine');
-const {format} = require('date-fns');
+const {format, compareAsc} = require('date-fns');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {useCache} = require('./utils');
 
@@ -43,6 +43,24 @@ async function executeQuery(query){
 }
 
 function parseDates(event) {
+  const startDate = new Date(event.start);
+  const endDate = new Date(event.end);
+
+  if (compareAsc(startDate, endDate) === 0) {
+    event.formattedDate = format(startDate, 'MMM d, yyyy', {awareOfUnicodeTokens: true});
+  } else {
+    let start;
+    const end = format(new Date(event.end), 'MMM d, yyyy', {awareOfUnicodeTokens: true});
+
+    if (startDate.getFullYear() === endDate.getFullYear()) {
+      start = format(startDate, 'MMM d', {awareOfUnicodeTokens: true});
+    } else {
+      start = format(startDate, 'MMM d, yyyy', {awareOfUnicodeTokens: true});
+    }
+
+    event.formattedDate = `${start} - ${end}`;
+  }
+
   event.start = format(new Date(event.start), 'MMM d', {awareOfUnicodeTokens: true});
   event.end = format(new Date(event.end), 'MMM d', {awareOfUnicodeTokens: true});
 }
