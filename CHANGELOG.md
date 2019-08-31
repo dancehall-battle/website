@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Fixed
+- Link per battle is now shown at country page (see [issue 19](https://github.com/dancehall-battle/website/issues/19))
+
 ## [2.1.2] - 2019-08-29
 
 ### Fixed
