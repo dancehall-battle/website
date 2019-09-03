@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- Links pages of dancers in lists of battles (see [see issue 22](https://github.com/dancehall-battle/website/issues/22))
+
 ## [2.1.3] - 2019-08-31
 
 ### Fixed
