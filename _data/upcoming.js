@@ -101,7 +101,7 @@ async function main() {
     parseDates(event);
   });
 
-  console.log(result);
+  //console.log(result);
 
   return {data: result, originalQueryResults};
 }
