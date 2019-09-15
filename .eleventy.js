@@ -22,34 +22,40 @@ module.exports = function(eleventyConfig) {
   eleventyConfig.addTransform("generateJSONLD", function(content, outputPath) {
     if( outputPath.endsWith("index.html") ) {
       const $ = cheerio.load(content);
-      const jsonLD = $(`script[type="application/ld+json"]`).html();
+      const jsonLDs = $(`script[type="application/ld+json"]`);
 
-      if(jsonLD) {
+      if(jsonLDs.length > 0) {
         const dir = outputPath.replace('index.html', '');
 
         fs.ensureDir(dir, async err => {
           if (err) {
             console.error(`Could not create dir ${dir}.`);
           } else {
-            // JSON-LD file
-            const jsonLDPath = outputPath.replace('index.html', 'index.jsonld');
+            let nquads = '';
 
-            fs.writeFile(jsonLDPath, jsonLD, 'utf-8', err => {
-              if (err) {
-                console.log(__dirname);
-                console.error(`Error when writing ${jsonLDPath}`);
-                console.error(err);
-              }
-            });
+            for (let i = 0; i < jsonLDs.length; i  ++) {
+              const $jsonLD = $(jsonLDs[i]);
+
+              nquads += '\n'  + await jsonld.toRDF(JSON.parse($jsonLD.html()), {format: 'application/n-quads'});
+            }
 
             // NQuads file
             const nquadsPath = outputPath.replace('index.html', 'index.nq');
-            const nquads = await jsonld.toRDF(JSON.parse(jsonLD), {format: 'application/n-quads'});
-
             fs.writeFile(nquadsPath, nquads, 'utf-8', err => {
               if (err) {
                 console.log(__dirname);
                 console.error(`Error when writing ${nquadsPath}`);
+                console.error(err);
+              }
+            });
+
+            // JSON-LD file
+            const jsonLDPath = outputPath.replace('index.html', 'index.jsonld');
+
+            fs.writeFile(jsonLDPath, JSON.stringify(await jsonld.fromRDF(nquads, {format: 'application/n-quads'})), 'utf-8', err => {
+              if (err) {
+                console.log(__dirname);
+                console.error(`Error when writing ${jsonLDPath}`);
                 console.error(err);
               }
             });

@@ -7,10 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [2.2.0] - 2019-09-15
+
+### Added
+- Show events organised in a specific country on the country's page (see [issue 25](https://github.com/dancehall-battle/website/issues/25))
+
+### Fixed
+- Multiple JSON-LD script tags in HTML are dumped to JSON-LD and N-Quad files
+- Second winner of 2 vs 2 on country page has link (see [issue 26](https://github.com/dancehall-battle/website/issues/26))
+
 ## [2.1.4] - 2019-09-03
 
 ### Added
-- Links pages of dancers in lists of battles (see [see issue 22](https://github.com/dancehall-battle/website/issues/22))
+- Links pages of dancers in lists of battles (see [issue 22](https://github.com/dancehall-battle/website/issues/22))
 
 ## [2.1.3] - 2019-08-31
 
@@ -81,6 +90,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[2.2.0]: https://github.com/dancehall-battle/website/compare/v2.1.4...v2.2.0
 [2.1.4]: https://github.com/dancehall-battle/website/compare/v2.1.3...v2.1.4
 [2.1.3]: https://github.com/dancehall-battle/website/compare/v2.1.2...v2.1.3
 [2.1.2]: https://github.com/dancehall-battle/website/compare/v2.1.1...v2.1.2
