@@ -140,6 +140,10 @@ footer {
     background-color: #862b20
 }
 
+#country-events .permanent-date {
+    width: 200px;
+}
+
 @media (min-width: 992px) {
     .navbar-nav {
         float: none;
@@ -213,6 +217,10 @@ footer {
     .details-sm > td {
         padding-top: 0px;
         border-top: none;
+    }
+
+    #country-events .permanent-date {
+        width: 120px;
     }
 }
 

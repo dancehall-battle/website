@@ -1,0 +1,46 @@
+<h4 class="page-title">Events</h4>
+
+{% if events %}
+
+{% for event in events %}
+<script type="application/ld+json">
+  {{event.originalQueryResults}}
+</script>
+{% endfor %}
+
+<div id="country-events" class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="event">Name</th>
+            <th class="permanent-date">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% assign i = 0 %}
+
+        {% for event in events %}
+        {% assign m = i | modulo: 2 %}
+        <tr class="
+            {% if m == "1" %}
+        grey-bckgrnd
+        {% endif %}
+        "
+        >
+        {% assign i = i | plus: 1 %}
+        <td class="event-only">{{event.name}} <span class="kg-url hidden" data-url="{{event.id}}">🔗</span></td>
+        <td class="permanent-date">{{event.formattedDate}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% else %}
+
+<p>
+No events have taken place in this country yet.
+</p>
+
+{% endif %}
