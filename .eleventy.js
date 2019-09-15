@@ -31,15 +31,13 @@ module.exports = function(eleventyConfig) {
           if (err) {
             console.error(`Could not create dir ${dir}.`);
           } else {
-            let nquads = [];
+            let nquads = '';
 
-            for (let i = 0; i < jsonLDs.length; i ++) {
-              const jsonLD = jsonLDs[i];
+            for (let i = 0; i < jsonLDs.length; i  ++) {
+              const $jsonLD = $(jsonLDs[i]);
 
-              nquads = nquads.concat(await jsonld.toRDF(JSON.parse(jsonLD.html()), {format: 'application/n-quads'}));
+              nquads += '\n'  + await jsonld.toRDF(JSON.parse($jsonLD.html()), {format: 'application/n-quads'});
             }
-
-            console.log(nquads);
 
             // NQuads file
             const nquadsPath = outputPath.replace('index.html', 'index.nq');

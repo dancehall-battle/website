@@ -7,10 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- Show events organised in a specific country on the country's page (see [issue 25](https://github.com/dancehall-battle/website/issues/25))
+
+### Fixed
+- Multiple JSON-LD script tags in HTML are dumped to JSON-LD and N-Quad files
+
 ## [2.1.4] - 2019-09-03
 
 ### Added
-- Links pages of dancers in lists of battles (see [see issue 22](https://github.com/dancehall-battle/website/issues/22))
+- Links pages of dancers in lists of battles (see [issue 22](https://github.com/dancehall-battle/website/issues/22))
 
 ## [2.1.3] - 2019-08-31
 
