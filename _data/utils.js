@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
+const {format, compareAsc} = require('date-fns');
 
 function createNameForBattle(battle) {
   let label = battle.name;
@@ -54,7 +55,47 @@ async function useCache(main, cacheFilename) {
   return dataInCache;
 }
 
+function parseDates(event) {
+  const startDate = new Date(event.start);
+  const endDate = new Date(event.end);
+
+  if (compareAsc(startDate, endDate) === 0) {
+    event.formattedDate = format(startDate, 'MMM d, yyyy', {awareOfUnicodeTokens: true});
+  } else {
+    let start;
+    const end = format(new Date(event.end), 'MMM d, yyyy', {awareOfUnicodeTokens: true});
+
+    if (startDate.getFullYear() === endDate.getFullYear()) {
+      start = format(startDate, 'MMM d', {awareOfUnicodeTokens: true});
+    } else {
+      start = format(startDate, 'MMM d, yyyy', {awareOfUnicodeTokens: true});
+    }
+
+    event.formattedDate = `${start} - ${end}`;
+  }
+
+  event.start = format(new Date(event.start), 'MMM d', {awareOfUnicodeTokens: true});
+  event.end = format(new Date(event.end), 'MMM d', {awareOfUnicodeTokens: true});
+}
+
+function sortOnStartDate(events) {
+  return events.sort((a, b) => {
+    const aDate = new Date(a.start);
+    const bDate = new Date(b.start);
+
+    if (aDate < bDate) {
+      return 1;
+    } else if (aDate > bDate) {
+      return -1;
+    } else {
+      return 0;
+    }
+  });
+}
+
 module.exports = {
   createNameForBattle,
-  useCache
+  useCache,
+  parseDates,
+  sortOnStartDate
 };

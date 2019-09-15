@@ -4,3 +4,5 @@ yarn.lock
 _data/engine.js
 _data/utils.js
 _cache
+README.md
+CHANGELOG.md
