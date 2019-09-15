@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Multiple JSON-LD script tags in HTML are dumped to JSON-LD and N-Quad files
+- Second winner of 2 vs 2 on country page has link (see [issue 26](https://github.com/dancehall-battle/website/issues/26))
 
 ## [2.1.4] - 2019-09-03
 
