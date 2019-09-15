@@ -42,7 +42,8 @@
         </td>
         {% else %}
         {% if battle.hasWinner[0].country == battle.hasWinner[1].country %}
-        <td><a href="{{battle.hasWinner[0].id}}">{{battle.hasWinner[0].name}}</a> <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span> and {{battle.hasWinner[1].name}} <span class="kg-url hidden" data-url="{{battle.hasWinner[1].id}}">🔗</span></td>
+        <td><a href="{{battle.hasWinner[0].id}}">{{battle.hasWinner[0].name}}</a> <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span> and
+            <a href="{{battle.hasWinner[1].id}}">{{battle.hasWinner[1].name}}</a> <span class="kg-url hidden" data-url="{{battle.hasWinner[1].id}}">🔗</span></td>
         {% else %}
         <td><a href="{{battle.hasWinner[0].id}}">{{battle.hasWinner[0].name}}</a> <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span>
             {% if battle.hasWinner[0].country != "" %}
