@@ -144,6 +144,11 @@ footer {
     width: 200px;
 }
 
+/* FAQ page */
+.question {
+    padding-top: 20px;
+}
+
 @media (min-width: 992px) {
     .navbar-nav {
         float: none;
