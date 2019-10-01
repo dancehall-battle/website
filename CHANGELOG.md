@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [2.2.2] - 2019-10-01
+
+### Fixed
+- Add F.A.Q. to nav bar (see [issue 34](https://github.com/dancehall-battle/website/issues/34))
+
 ## [2.2.1] - 2019-10-01
 
 ### Added
