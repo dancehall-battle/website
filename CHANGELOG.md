@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
-## Added
+## [2.2.1] - 2019-10-01
+
+### Added
 - F.A.Q. page (see [issue 31](https://github.com/dancehall-battle/website/issues/31))
 
 ## [2.2.0] - 2019-09-15
@@ -93,6 +95,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[2.2.1]: https://github.com/dancehall-battle/website/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/dancehall-battle/website/compare/v2.1.4...v2.2.0
 [2.1.4]: https://github.com/dancehall-battle/website/compare/v2.1.3...v2.1.4
 [2.1.3]: https://github.com/dancehall-battle/website/compare/v2.1.2...v2.1.3
