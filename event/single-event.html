@@ -1,0 +1,16 @@
+---
+layout: year-nav
+pagination:
+  data: events
+  size: 1
+  addAllPagesToCollections: true
+permalink: /event/{{ pagination.items[0].slug }}/index.html
+---
+
+{% assign event = pagination.items[0] %}
+
+<script type="application/ld+json">
+  {{event.originalQueryResults}}
+</script>
+
+<h3 class="page-title">{{event.name}} <span class="flag-icon flag-icon-{{event.location}}"></span> </h3>
