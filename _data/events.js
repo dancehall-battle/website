@@ -3,7 +3,7 @@ const queryEngine = require('./engine');
 const {format} = require('date-fns');
 const getCountryName = require('country-list').getName;
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
-const {createNameForBattle, useCache} = require('./utils');
+const {createNameForBattle, useCache, parseDates} = require('./utils');
 
 module.exports = useCache(main, 'events.json');
 
@@ -50,14 +50,31 @@ async function main() {
     location @single
     start @single
     end @single
-    hasBattle
+    hasBattle {
+      id @single
+      name @single
+      level @single
+      gender @single
+      age @single
+      start @single 
+      end @single
+      participants @single
+      inviteOnly @single
+    }
   }`;
 
   // Execute the query
-  let result = await executeQuery(query);
-  result.forEach(event => {
+  let events = await executeQuery(query);
+  events.forEach(event => {
     event.slug = event.id.replace('https://dancehallbattle.org/event/', '');
+    parseDates(event);
+
+    event.hasBattle.forEach(battle => {
+      battle.name = createNameForBattle(battle);
+      parseDates(battle);
+    });
   });
+
 
   originalQueryResults['@graph'] = recursiveJSONKeyTransform(key => {
     if (key === 'id' || key === 'type') {
@@ -65,11 +82,11 @@ async function main() {
     }
 
     return key;
-  })(JSON.parse(JSON.stringify(result)));
+  })(JSON.parse(JSON.stringify(events)));
 
-  console.log(result);
+  //console.log(result);
 
-  return result;
+  return events;
 
   async function executeQuery(query) {
     const {data} = await client.query({query});

@@ -1,0 +1,32 @@
+<h4 class="page-title">Battles</h4>
+
+<div id="event-battles" class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="category">Category</th>
+            <th class="permanent-date">Date</th>
+            <th class="winner">Winner</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% assign i = 0 %}
+
+        {% for battle in battles %}
+        {% assign m = i | modulo: 2 %}
+        <tr class="
+            {% if m == "1" %}
+        grey-bckgrnd
+        {% endif %}
+        "
+        >
+        {% assign i = i | plus: 1 %}
+        <td class="battle-only">{{battle.name}} <span class="kg-url hidden" data-url="{{battle.id}}">🔗</span></td>
+        <td class="permanent-date">{{battle.formattedDate}}</td>
+        <td class="">{{battle.winner}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
