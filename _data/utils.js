@@ -56,26 +56,29 @@ async function useCache(main, cacheFilename) {
 }
 
 function parseDates(event) {
-  const startDate = new Date(event.start);
-  const endDate = new Date(event.end);
+  if (event.start !== '' && event.end !== '') {
+    const startDate = new Date(event.start);
+    const endDate = new Date(event.end);
 
-  if (compareAsc(startDate, endDate) === 0) {
-    event.formattedDate = format(startDate, 'MMM d, yyyy', {awareOfUnicodeTokens: true});
-  } else {
-    let start;
-    const end = format(new Date(event.end), 'MMM d, yyyy', {awareOfUnicodeTokens: true});
-
-    if (startDate.getFullYear() === endDate.getFullYear()) {
-      start = format(startDate, 'MMM d', {awareOfUnicodeTokens: true});
+    if (compareAsc(startDate, endDate) === 0) {
+      event.formattedDate = format(startDate, 'MMM d, yyyy', {awareOfUnicodeTokens: true});
     } else {
-      start = format(startDate, 'MMM d, yyyy', {awareOfUnicodeTokens: true});
+      let start;
+      //console.log(endDate);
+      const end = format(endDate, 'MMM d, yyyy', {awareOfUnicodeTokens: true});
+
+      if (startDate.getFullYear() === endDate.getFullYear()) {
+        start = format(startDate, 'MMM d', {awareOfUnicodeTokens: true});
+      } else {
+        start = format(startDate, 'MMM d, yyyy', {awareOfUnicodeTokens: true});
+      }
+
+      event.formattedDate = `${start} - ${end}`;
     }
 
-    event.formattedDate = `${start} - ${end}`;
+    event.start = format(new Date(event.start), 'MMM d', {awareOfUnicodeTokens: true});
+    event.end = format(new Date(event.end), 'MMM d', {awareOfUnicodeTokens: true});
   }
-
-  event.start = format(new Date(event.start), 'MMM d', {awareOfUnicodeTokens: true});
-  event.end = format(new Date(event.end), 'MMM d', {awareOfUnicodeTokens: true});
 }
 
 function sortOnStartDate(events) {

@@ -30,7 +30,8 @@ async function main() {
       "participants": {"@id": "https://dancebattle.org/ontology/amountOfParticipants"},
       "Event": {"@id": "https://dancebattle.org/ontology/DanceEvent"},
       "Battle": {"@id": "https://dancebattle.org/ontology/DanceBattle"},
-      "Dancer": {"@id": "https://dancebattle.org/ontology/Dancer"}
+      "Dancer": {"@id": "https://dancebattle.org/ontology/Dancer"},
+      "instagram": {"@id": "https://dancebattle.org/ontology/instagram"},
     }
   };
 
@@ -50,6 +51,7 @@ async function main() {
     location @single
     start @single
     end @single
+    instagram @single
     hasBattle {
       id @single
       name @single
@@ -68,6 +70,10 @@ async function main() {
   events.forEach(event => {
     event.slug = event.id.replace('https://dancehallbattle.org/event/', '');
     parseDates(event);
+    event.location = {
+      code: event.location,
+      name: getCountryName(event.location)
+    };
 
     event.hasBattle.forEach(battle => {
       battle.name = createNameForBattle(battle);

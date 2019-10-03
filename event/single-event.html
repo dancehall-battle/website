@@ -9,12 +9,24 @@ permalink: /event/{{ pagination.items[0].slug }}/index.html
 
 {% assign event = pagination.items[0] %}
 
+
 <script type="application/ld+json">
   {{event.originalQueryResults}}
 </script>
 
-<h3 class="page-title">{{event.name}} <span class="flag-icon flag-icon-{{event.location}}"></span> </h3>
+<h3 class="page-title">{{event.name}} <span class="flag-icon flag-icon-{{event.location.code}}"></span> </h3>
 
 <div>
-  {{ event.formattedDate }}
+  <p>
+    {{ event.formattedDate }} in {{ event.location.name }}
+  </p>
+  <p>
+    {% if event.instagram != "" %}
+    Instagram: <a href="https://instagram.com/{{event.instagram}}">@{{event.instagram}}</a>
+    {% endif %}
+  </p>
 </div>
+
+{% assign battles = event.hasBattle %}
+
+{% include event-battle-table with battles %}
