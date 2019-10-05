@@ -24,7 +24,9 @@
         {% assign i = i | plus: 1 %}
         <td class="battle-only">{{battle.name}} <span class="kg-url hidden" data-url="{{battle.id}}">🔗</span></td>
         <td class="permanent-date">{{battle.formattedDate}}</td>
-        <td class="">{{battle.winner}}</td>
+
+        {% include winner-cell with battle %}
+
         </tr>
         {% endfor %}
         </tbody>

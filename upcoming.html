@@ -36,7 +36,7 @@ priority: 0.9
     "
     >
     {% assign i = i | plus: 1 %}
-    <td class="event-only">{{event.name}}
+    <td class="event-only"><a href="{{event.id}}">{{event.name}}</a>
       {% if event.location != "" %}
         <span class="flag-icon flag-icon-{{event.location}}"></span>
       {% endif %}

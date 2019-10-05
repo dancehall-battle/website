@@ -62,6 +62,12 @@ async function main() {
       end @single
       participants @single
       inviteOnly @single
+      hasWinner {
+        type # useful for the embedded JSON-LD 
+        id @single
+        name @single
+        country @single
+      }
     }
   }`;
 
