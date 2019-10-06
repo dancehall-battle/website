@@ -93,11 +93,11 @@ footer {
     font-size: 18px;
 }
 
-#years a, #blogpost a, .card-text, .letter-list a, .more-information a, .nav-item a, td a {
+#years a, #blogpost a, .card-text, .letter-list a, .more-information a, .nav-item a, td a, a.instagram {
     color: #862b20
 }
 
-#years a:hover, #blogpost a:hover, .card-text:hover, .letter-list a:hover, .country-item a:hover, td a:hover {
+#years a:hover, #blogpost a:hover, .card-text:hover, .letter-list a:hover, .country-item a:hover, td a:hover, a.instagram:hover {
     color: #601e17;
 }
 
