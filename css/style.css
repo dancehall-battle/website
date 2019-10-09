@@ -33,6 +33,10 @@ table {
     width: 160px;
 }
 
+#event-battles .permanent-date {
+    width: auto;
+}
+
 .category {
     width: 100px;
 }
