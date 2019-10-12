@@ -28,6 +28,13 @@
         {% include winner-cell with battle %}
 
         </tr>
+        <tr class="details-sm
+            {% if m == "1" %}
+            grey-bckgrnd
+            {% endif %}
+            ">
+            <td colspan="2">{{battle.formattedDate}}</td>
+         </tr>
         {% endfor %}
         </tbody>
     </table>

@@ -214,6 +214,17 @@ footer {
         visibility: hidden;
     }
 
+    #event-battles .permanent-date {
+        display: none;
+        visibility: hidden;
+    }
+
+    #event-battles .category {
+        display: table-cell;
+        visibility: visible;
+        border-bottom-width: 1px;
+    }
+
     .details-sm {
         display: table-row;
         visibility: visible;
