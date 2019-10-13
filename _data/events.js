@@ -1,6 +1,5 @@
 const {Client} = require('graphql-ld/index');
 const queryEngine = require('./engine');
-const {format} = require('date-fns');
 const getCountryName = require('country-list').getName;
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {createNameForBattle, useCache, parseDates} = require('./utils');
@@ -35,9 +34,7 @@ async function main() {
     }
   };
 
-  const originalQueryResults = {
-    '@context': JSON.parse(JSON.stringify(context['@context']))
-  };
+  const originalContext = JSON.parse(JSON.stringify(context['@context']));
 
 // Create a GraphQL-LD client based on a client-side Comunica engine
   const client = new Client({context, queryEngine});
@@ -73,7 +70,19 @@ async function main() {
 
   // Execute the query
   let events = await executeQuery(query);
+
   events.forEach(event => {
+    event.originalQueryResults = {
+      '@graph': recursiveJSONKeyTransform(key => {
+        if (key === 'id' || key === 'type') {
+          key = '@' + key;
+        }
+
+        return key;
+      })(JSON.parse(JSON.stringify(event))),
+      '@context': originalContext
+    };
+
     event.slug = event.id.replace('https://dancehallbattle.org/event/', '');
     parseDates(event);
     event.location = {
@@ -86,17 +95,6 @@ async function main() {
       parseDates(battle);
     });
   });
-
-
-  originalQueryResults['@graph'] = recursiveJSONKeyTransform(key => {
-    if (key === 'id' || key === 'type') {
-      key = '@' + key;
-    }
-
-    return key;
-  })(JSON.parse(JSON.stringify(events)));
-
-  //console.log(result);
 
   return events;
 
