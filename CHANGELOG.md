@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- Apple touch icon (see [issue 36](https://github.com/dancehall-battle/website/issues/36))
+
 ## [3.0.0] - 2019-10-13
 
 ### Added
