@@ -69,7 +69,7 @@ async function main() {
   }`;
 
   // Execute the query
-  let events = await executeQuery(query);
+  const events = await executeQuery(query);
 
   events.forEach(event => {
     event.originalQueryResults = {
