@@ -29,7 +29,7 @@
         "
         >
         {% assign i = i | plus: 1 %}
-        <td class="event-only">{{event.name}} <span class="kg-url hidden" data-url="{{event.id}}">🔗</span></td>
+        <td class="event-only"><a href="{{event.id}}">{{event.name}}</a> <span class="kg-url hidden" data-url="{{event.id}}">🔗</span></td>
         <td class="permanent-date">{{event.formattedDate}}</td>
         </tr>
         {% endfor %}

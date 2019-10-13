@@ -32,7 +32,7 @@
         "
         >
         {% assign i = i | plus: 1 %}
-        <td class="event-only">{{battle.atEvent.name}} <span class="flag-icon flag-icon-{{battle.atEvent.location}}"></span> <span class="kg-url hidden" data-url="{{battle.atEvent.id}}">🔗</span></td>
+        <td class="event-only"><a href="{{battle.atEvent.id}}">{{battle.atEvent.name}}</a> <span class="flag-icon flag-icon-{{battle.atEvent.location}}"></span> <span class="kg-url hidden" data-url="{{battle.atEvent.id}}">🔗</span></td>
         <td class="date">{{battle.date}}</td>
         <td class="category">{{battle.name}} <span class="kg-url hidden" data-url="{{battle.id}}">🔗</span></td>
 

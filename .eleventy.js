@@ -34,31 +34,38 @@ module.exports = function(eleventyConfig) {
             let nquads = '';
 
             for (let i = 0; i < jsonLDs.length; i  ++) {
-              const $jsonLD = $(jsonLDs[i]);
+              let $jsonLD = $(jsonLDs[i]);
 
-              nquads += '\n'  + await jsonld.toRDF(JSON.parse($jsonLD.html()), {format: 'application/n-quads'});
+              try {
+                $jsonLD = JSON.parse($jsonLD.html());
+                nquads += '\n' + await jsonld.toRDF($jsonLD, {format: 'application/n-quads'});
+              } catch (e) {
+                console.error(`Invalid JSON-LD at ${outputPath}`);
+              }
             }
 
-            // NQuads file
-            const nquadsPath = outputPath.replace('index.html', 'index.nq');
-            fs.writeFile(nquadsPath, nquads, 'utf-8', err => {
-              if (err) {
-                console.log(__dirname);
-                console.error(`Error when writing ${nquadsPath}`);
-                console.error(err);
-              }
-            });
+            if (nquads !== '') {
+              // NQuads file
+              const nquadsPath = outputPath.replace('index.html', 'index.nq');
+              fs.writeFile(nquadsPath, nquads, 'utf-8', err => {
+                if (err) {
+                  console.log(__dirname);
+                  console.error(`Error when writing ${nquadsPath}`);
+                  console.error(err);
+                }
+              });
 
-            // JSON-LD file
-            const jsonLDPath = outputPath.replace('index.html', 'index.jsonld');
+              // JSON-LD file
+              const jsonLDPath = outputPath.replace('index.html', 'index.jsonld');
 
-            fs.writeFile(jsonLDPath, JSON.stringify(await jsonld.fromRDF(nquads, {format: 'application/n-quads'})), 'utf-8', err => {
-              if (err) {
-                console.log(__dirname);
-                console.error(`Error when writing ${jsonLDPath}`);
-                console.error(err);
-              }
-            });
+              fs.writeFile(jsonLDPath, JSON.stringify(await jsonld.fromRDF(nquads, {format: 'application/n-quads'})), 'utf-8', err => {
+                if (err) {
+                  console.log(__dirname);
+                  console.error(`Error when writing ${jsonLDPath}`);
+                  console.error(err);
+                }
+              });
+            }
           }
         });
       }

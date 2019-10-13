@@ -4,7 +4,7 @@ pagination:
   data: dancers
   size: 1
   addAllPagesToCollections: true
-permalink: /dancer/{{ pagination.items[0].postfix }}//index.html
+permalink: /dancer/{{ pagination.items[0].postfix }}/index.html
 lastModIsToday: true
 changeFreq: weekly
 priority: 0.9
@@ -54,9 +54,9 @@ priority: 0.9
     "
     >
     {% assign i = i | plus: 1 %}
-    <td class="event-only">{{battle.atEvent.name}} <span class="flag-icon flag-icon-{{battle.atEvent.location}}"></span> <span class="kg-url hidden" data-url="{{battle.atEvent.id}}">🔗</span></td>
+    <td class="event-only"><a href="{{battle.atEvent.id}}">{{battle.atEvent.name}}</a> <span class="flag-icon flag-icon-{{battle.atEvent.location}}"></span> <span class="kg-url hidden" data-url="{{battle.atEvent.id}}">🔗</span></td>
     <td class="date">{{battle.date}}</td>
-    <td class="category">{{battle.name}}</td>
+    <td class="category">{{battle.name}} <span class="kg-url hidden" data-url="{{battle.id}}">🔗</span></td>
     </tr>
     <tr class="details-sm
             {% if m == "1" %}

@@ -15,4 +15,10 @@ rm -rf _site
 # Create needed folders
 mkdir _cache
 
-ELEVENTY_SERVE=true node ./node_modules/@11ty/eleventy/cmd.js --serve --port 8080
+envVars="ELEVENTY_SERVE=true"
+
+if [ "$1" == "-v" ]; then
+    envVars="$envVars DEBUG=Eleventy*"
+fi
+
+eval $envVars node ./node_modules/@11ty/eleventy/cmd.js --serve --port 8080
