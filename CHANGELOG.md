@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [3.0.1] - 2019-10-19
+
+### Added
+- Apple touch icon (see [issue 36](https://github.com/dancehall-battle/website/issues/36))
+
+### Removed
+- Unused dependency: csv-parse (see [issue 45](https://github.com/dancehall-battle/website/issues/45))
+
 ## [3.0.0] - 2019-10-13
 
 ### Added
@@ -110,6 +118,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[3.0.1]: https://github.com/dancehall-battle/website/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/dancehall-battle/website/compare/v2.3.0...v3.0.0
 [2.3.0]: https://github.com/dancehall-battle/website/compare/v2.2.2...v2.3.0
 [2.2.2]: https://github.com/dancehall-battle/website/compare/v2.2.1...v2.2.2
