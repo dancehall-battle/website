@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Apple touch icon (see [issue 36](https://github.com/dancehall-battle/website/issues/36))
 
+### Removed
+- Unused dependency: csv-parse (see [issue 45](https://github.com/dancehall-battle/website/issues/45))
+
 ## [3.0.0] - 2019-10-13
 
 ### Added
