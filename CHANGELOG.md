@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- FAQ: difference event and battle (see [issue 37](https://github.com/dancehall-battle/website/issues/37))
+
 ## [3.0.1] - 2019-10-19
 
 ### Added
