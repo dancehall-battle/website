@@ -9,6 +9,7 @@ let result;
 module.exports = useCache(main, 'battles.json');
 
 async function main() {
+  console.log(`${__filename} started.`);
 
   if (!result) {
 // Define a JSON-LD context
@@ -179,6 +180,8 @@ async function main() {
       });
     }
   }
+
+  console.log(`${__filename} done.`);
 
   return result;
 }
