@@ -1,5 +1,3 @@
-
-
 async function main() {
   const events = await require('./_events');
   const countryToEvents = {};

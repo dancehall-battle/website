@@ -4,6 +4,7 @@ yarn.lock
 _data/engine.js
 _data/utils.js
 _data/_events.js
+_data/_battles.js
 _cache
 README.md
 CHANGELOG.md

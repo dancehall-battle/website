@@ -1,4 +1,3 @@
-
 async function main() {
   return await require('./_events');
 }
