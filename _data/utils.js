@@ -57,6 +57,9 @@ async function useCache(main, cacheFilename) {
 
 function parseDates(event) {
   if (event.start !== '' && event.end !== '') {
+    event.originalStart = event.start;
+    event.originalEnd = event.end;
+
     const startDate = new Date(event.start);
     const endDate = new Date(event.end);
 

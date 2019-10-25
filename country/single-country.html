@@ -1,7 +1,7 @@
 ---
 layout: year-nav
 pagination:
-  data: battles.countries
+  data: countries
   size: 1
   addAllPagesToCollections: true
 permalink: /country/{{ pagination.items[0].code }}/index.html
@@ -10,14 +10,15 @@ changeFreq: weekly
 priority: 0.9
 ---
 
-{% assign data = pagination.items[0] %}
-{% assign events = countries[data.code] %}
+{% assign country = pagination.items[0] %}
+{% assign data = countryToBattlesPerYear[country.code] %}
+{% assign events = countryToEvents[country.code] %}
 
 <script type="application/ld+json">
   {{battles.originalQueryResults}}
 </script>
 
-<h3 class="page-title">{{data.name}} <span class="flag-icon flag-icon-{{data.code}}"></span> </h3>
+<h3 class="page-title">{{country.name}} <span class="flag-icon flag-icon-{{country.code}}"></span> </h3>
 
 {% include winner-country-table with data %}
 

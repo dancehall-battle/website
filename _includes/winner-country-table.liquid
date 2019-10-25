@@ -1,4 +1,6 @@
-<h4 class="page-title">Winners</h4>
+<h4 class="page-title">Wins</h4>
+
+{% if data %}
 
 <div id="events" class="table-responsive">
     <table class="table">
@@ -69,3 +71,11 @@
         </tbody>
     </table>
 </div>
+
+{% else %}
+
+<p>
+This country has no wins yet.
+</p>
+
+{% endif %}
