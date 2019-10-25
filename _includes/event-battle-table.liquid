@@ -1,5 +1,7 @@
 <h4 class="page-title">Battles</h4>
 
+{% if battles %}
+
 <div id="event-battles" class="table-responsive">
     <table class="table">
         <thead>
@@ -39,3 +41,11 @@
         </tbody>
     </table>
 </div>
+
+{% else %}
+
+<p>
+No information about the battles is available yet.
+</p>
+
+{% endif %}
