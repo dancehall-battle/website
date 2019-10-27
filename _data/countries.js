@@ -1,7 +1,7 @@
 const {Client} = require('graphql-ld/index');
 const queryEngine = require('./engine');
-const recursiveJSONKeyTransform = require('recursive-json-key-transform');
-const {sortOnStartDate, useCache, parseDates} = require('./utils');
+const {useCache} = require('./utils');
+const getCountryName = require('country-list').getName;
 
 // Define a JSON-LD context
 const context = {
@@ -33,54 +33,46 @@ const originalContext = JSON.parse(JSON.stringify(context['@context']));
 const client = new Client({context, queryEngine});
 
 async function main() {
+  let countries = [];
 
-// Define a query
-  const query = `
+  // Get all events that have at least one battle and have a location.
+  let query = `
   query { 
-    type # useful for the embedded JSON-LD 
-    id @single
-    name @single
     location @single
-    hasBattle 
-    start @single
-    end @single
+    hasBattle @single
   }`;
 
-  // Execute the query
-  let events = await executeQuery(query);
-  const countries = {};
+  const events = await executeQuery(query);
 
   events.forEach(event => {
-    event.originalQueryResults = {
-      '@context': originalContext,
-      '@graph': recursiveJSONKeyTransform(key => {
-        if (key === 'id' || key === 'type') {
-          key = '@' + key;
-        }
-
-        return key;
-      })(JSON.parse(JSON.stringify(event)))
-    };
-
-    if (!countries[event.location]) {
-      countries[event.location] = [];
+    if (event.location !== '' && countries.indexOf(event.location) === -1) {
+      countries.push(event.location);
     }
-
-    countries[event.location].push(event);
   });
 
-  //console.log(countries);
+  // Get all winners that have at least one win and have a location
+  query = `
+  query { 
+    country @single
+    wins 
+  }`;
 
-  for (const code in countries) {
-    const events = countries[code];
-    countries[code] = sortOnStartDate(events);
+  const winners = await executeQuery(query);
 
-    events.forEach(event => {
-      parseDates(event);
-    });
-  }
+  winners.forEach(winner => {
+    if (winner.country !== '' && countries.indexOf(winner.country) === -1) {
+      countries.push(winner.country);
+    }
+  });
 
-  return countries;
+  countries.sort();
+
+  return countries.map(country => {
+   return {
+     code: country,
+     name: getCountryName(country)
+    }
+  });
 }
 
 async function executeQuery(query) {

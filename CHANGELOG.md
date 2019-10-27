@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [3.0.2] - 2019-10-27
+
+### Added
+- FAQ: difference event and battle (see [issue 37](https://github.com/dancehall-battle/website/issues/37))
+
+### Fixed
+- Country with events but without winners not shown on country index page (see [issue 48](https://github.com/dancehall-battle/website/issues/48))
+
 ## [3.0.1] - 2019-10-19
 
 ### Added
@@ -118,6 +126,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[3.0.2]: https://github.com/dancehall-battle/website/compare/v3.0.1...v3.0.2
 [3.0.1]: https://github.com/dancehall-battle/website/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/dancehall-battle/website/compare/v2.3.0...v3.0.0
 [2.3.0]: https://github.com/dancehall-battle/website/compare/v2.2.2...v2.3.0
