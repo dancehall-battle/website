@@ -51,6 +51,17 @@ async function main() {
     start @single
     end @single
     instagram @single
+    hasBattle {
+      id @single
+      name @single
+      level @single
+      gender @single
+      age @single
+      start @single 
+      end @single
+      participants @single
+      inviteOnly @single
+    }
   }`;
 
     // Execute the query
@@ -75,6 +86,8 @@ async function main() {
         name: getCountryName(event.location)
       };
     });
+
+    // TODO parse battles (name, dates...)
 
     async function executeQuery(query) {
       const {data} = await client.query({query});
