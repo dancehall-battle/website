@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Fixed
+- Show battles on event page (see [issue 55](https://github.com/dancehall-battle/website/issues/55))
+
 ## [3.0.2] - 2019-10-27
 
 ### Added
