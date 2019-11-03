@@ -48,8 +48,13 @@ priority: 0.9
     <td class="more-information">
       {% if event.instagram.size > 0 %}
         {% for ig in event.instagram %}
-          <a href="https://instagram.com/{{ig}}">@{{ig}}</a>
+          <a class="normal" href="https://instagram.com/{{ig}}">@{{ig}}</a>
         {% endfor %}
+      {% endif %}
+      {% if event.instagramShort.size > 0 %}
+      {% for ig in event.instagramShort %}
+      <a class="truncated" href="https://instagram.com/{{ig}}">@{{ig}}</a>
+      {% endfor %}
       {% endif %}
     </td>
     </tr>

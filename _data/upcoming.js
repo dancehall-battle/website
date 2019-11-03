@@ -63,6 +63,14 @@ async function main() {
     } else {
       event.instagram = [event.instagram];
     }
+
+    event.instagramShort = event.instagram.map(ig => {
+      if (ig.length > 11) {
+        ig = ig.substr(0, 9) + '...';
+      }
+
+      return ig;
+    });
   });
 
   result = result.sort((a, b) => {

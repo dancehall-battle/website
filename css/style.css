@@ -41,6 +41,11 @@ a:hover {
     width: 160px;
 }
 
+#upcoming-events a.truncated {
+    visibility: hidden;
+    display: none;
+}
+
 #event-battles .permanent-date {
     width: 100px;
 }
@@ -281,5 +286,15 @@ footer {
 
     #title {
         padding-bottom: 10px;
+    }
+
+    #upcoming-events a.truncated {
+        visibility: visible;
+        display: block;
+    }
+
+    #upcoming-events a.normal {
+        visibility: hidden;
+        display: none;
     }
 }
