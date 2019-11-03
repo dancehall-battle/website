@@ -56,9 +56,10 @@ async function main() {
 
   result = result.filter(event => today <= new Date(event.end));
 
-  result.forEach(event => {
+  result.forEach(async event => {
     if (event.instagram === '') {
-      event.instagram = getOrganizerInstagram(event.id);
+      event.instagram = await getOrganizerInstagram(event.id);
+      console.log(event.instagram);
     } else {
       event.instagram = [event.instagram];
     }
@@ -105,6 +106,7 @@ async function getOrganizerInstagram(eventID) {
 
   const client = new Client({ context, queryEngine });
   const {data} = await client.query({ query });
+  console.log(data);
 
   if (data.length > 0) {
     return data[0].organizer.map(organizer => organizer.instagram);
