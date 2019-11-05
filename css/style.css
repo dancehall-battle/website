@@ -41,7 +41,7 @@ a:hover {
     width: 160px;
 }
 
-#upcoming-events a.truncated {
+#upcoming-events button.more-instagrams {
     visibility: hidden;
     display: none;
 }
@@ -288,7 +288,7 @@ footer {
         padding-bottom: 10px;
     }
 
-    #upcoming-events a.truncated {
+    #upcoming-events button.more-instagrams {
         visibility: visible;
         display: block;
     }

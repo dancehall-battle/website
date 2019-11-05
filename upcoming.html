@@ -50,11 +50,7 @@ priority: 0.9
         {% for ig in event.instagram %}
           <a class="normal" href="https://instagram.com/{{ig}}">@{{ig}}</a>
         {% endfor %}
-      {% endif %}
-      {% if event.instagramShort.size > 0 %}
-      {% for ig in event.instagramShort %}
-      <a class="truncated" href="https://instagram.com/{{ig}}">@{{ig}}</a>
-      {% endfor %}
+      <button class="truncated more-instagrams" data-instagrams='{{event.instagram}}'>More</button>
       {% endif %}
     </td>
     </tr>
@@ -70,4 +66,17 @@ priority: 0.9
     {% endfor %}
     </tbody>
   </table>
+
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="modal-list">
+
+      </div>
+    </div>
+
+  </div>
 </div>
