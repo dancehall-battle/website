@@ -21,6 +21,10 @@
     width: 80%; /* Could be more or less, depending on screen size */
 }
 
+.modal-list {
+    padding-top: 20px;
+}
+
 /* The Close Button */
 .close {
     color: #aaa;

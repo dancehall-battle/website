@@ -50,7 +50,7 @@ priority: 0.9
         {% for ig in event.instagram %}
           <a class="normal" href="https://instagram.com/{{ig}}">@{{ig}}</a>
         {% endfor %}
-      <button class="truncated more-instagrams" data-instagrams='{{event.instagram}}'>More</button>
+      <button class="more-instagrams" data-instagrams='{{event.instagram}}'>More</button>
       {% endif %}
     </td>
     </tr>
@@ -72,9 +72,9 @@ priority: 0.9
 
     <!-- Modal content -->
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close text-right">&times;</span>
+      <h5>Instagram</h5>
       <div class="modal-list">
-
       </div>
     </div>
 

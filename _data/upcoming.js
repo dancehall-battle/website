@@ -56,22 +56,15 @@ async function main() {
 
   result = result.filter(event => today <= new Date(event.end));
 
-  result.forEach(async event => {
+  for (let i = 0; i < result.length; i ++) {
+    const event = result[i];
+
     if (event.instagram === '') {
       event.instagram = await getOrganizerInstagram(event.id);
-      console.log(event.instagram);
     } else {
       event.instagram = [event.instagram];
     }
-
-    event.instagramShort = event.instagram.map(ig => {
-      if (ig.length > 11) {
-        ig = ig.substr(0, 9) + '...';
-      }
-
-      return ig;
-    });
-  });
+  }
 
   result = result.sort((a, b) => {
     const aDate = new Date(a.start);

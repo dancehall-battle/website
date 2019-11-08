@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
       list.innerHTML = '';
 
       igs.forEach(ig => {
-        list.innerHTML += `<p>${ig}</p>`;
+        list.innerHTML += `<p><a href="https://instagram.com/${ig}">@${ig}</a></p>`;
       });
 
       modal.style.display = "block";

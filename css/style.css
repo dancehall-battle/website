@@ -44,6 +44,11 @@ a:hover {
 #upcoming-events button.more-instagrams {
     visibility: hidden;
     display: none;
+    color: #862b20
+}
+#upcoming-events button.more-instagrams:hover {
+    color: #862b20;
+    cursor: pointer;
 }
 
 #event-battles .permanent-date {
