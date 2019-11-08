@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- Instagram account of organisers to upcoming events (see [issue 39](https://github.com/dancehall-battle/website/issues/39))
+
 ## [3.0.3] - 2019-10-30
 
 ### Fixed
