@@ -2,7 +2,7 @@ const {Client} = require('graphql-ld/index');
 const queryEngine = require('./engine');
 const getCountryName = require('country-list').getName;
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
-const {useCache, parseDates} = require('./utils');
+const {useCache, parseDates, createNameForBattle} = require('./utils');
 
 let events;
 
@@ -51,6 +51,23 @@ async function main() {
     start @single
     end @single
     instagram @single
+    hasBattle {
+      id @single
+      name @single
+      level @single
+      gender @single
+      age @single
+      start @single 
+      end @single
+      participants @single
+      inviteOnly @single
+      hasWinner {
+        type # useful for the embedded JSON-LD 
+        id @single
+        name @single
+        country @single
+      }
+    }
   }`;
 
     // Execute the query
@@ -74,7 +91,14 @@ async function main() {
         code: event.location,
         name: getCountryName(event.location)
       };
+
+      event.hasBattle.forEach(battle => {
+        battle.name = createNameForBattle(battle);
+        parseDates(battle);
+      });
     });
+
+    // TODO parse battles (name, dates...)
 
     async function executeQuery(query) {
       const {data} = await client.query({query});
