@@ -46,8 +46,11 @@ priority: 0.9
       {{event.formattedDate}}
     </td>
     <td class="more-information">
-      {% if event.instagram != "" %}
-        <a href="https://instagram.com/{{event.instagram}}">Instagram</a>
+      {% if event.instagram.size > 0 %}
+        {% for ig in event.instagram %}
+          <a class="normal" href="https://instagram.com/{{ig}}">@{{ig}}</a>
+        {% endfor %}
+      <button class="more-instagrams" data-instagrams='{{event.instagram}}'>More</button>
       {% endif %}
     </td>
     </tr>
@@ -63,4 +66,17 @@ priority: 0.9
     {% endfor %}
     </tbody>
   </table>
+
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close text-right">&times;</span>
+      <h5>Instagram</h5>
+      <div class="modal-list">
+      </div>
+    </div>
+
+  </div>
 </div>

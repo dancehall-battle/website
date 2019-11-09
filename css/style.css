@@ -41,6 +41,16 @@ a:hover {
     width: 160px;
 }
 
+#upcoming-events button.more-instagrams {
+    visibility: hidden;
+    display: none;
+    color: #862b20
+}
+#upcoming-events button.more-instagrams:hover {
+    color: #862b20;
+    cursor: pointer;
+}
+
 #event-battles .permanent-date {
     width: 100px;
 }
@@ -281,5 +291,15 @@ footer {
 
     #title {
         padding-bottom: 10px;
+    }
+
+    #upcoming-events button.more-instagrams {
+        visibility: visible;
+        display: block;
+    }
+
+    #upcoming-events a.normal {
+        visibility: hidden;
+        display: none;
     }
 }

@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [3.1.0] - 2019-11-09
+
+### Added
+- Instagram account of organisers to upcoming events (see [issue 39](https://github.com/dancehall-battle/website/issues/39))
+- Twitter:site (see [issue 62](https://github.com/dancehall-battle/website/issues/62))
+
+### Fixed
+- Group battles of the same event with the same date in lists (see [issue 59](https://github.com/dancehall-battle/website/issues/59))
+
 ## [3.0.3] - 2019-10-30
 
 ### Fixed
@@ -131,6 +140,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[3.1.0]: https://github.com/dancehall-battle/website/compare/v3.0.3...v3.1.0
 [3.0.3]: https://github.com/dancehall-battle/website/compare/v3.0.1...v3.0.3
 [3.0.2]: https://github.com/dancehall-battle/website/compare/v3.0.2...v3.0.2
 [3.0.1]: https://github.com/dancehall-battle/website/compare/v3.0.0...v3.0.1

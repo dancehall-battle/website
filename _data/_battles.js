@@ -9,6 +9,7 @@ let result;
 module.exports = useCache(main, 'battles.json');
 
 async function main() {
+  console.log(`${__filename} started.`);
 
   if (!result) {
 // Define a JSON-LD context
@@ -97,7 +98,13 @@ async function main() {
       } else if (aDate > bDate) {
         return -1;
       } else {
-        return 0;
+        if (a.atEvent.id < b.atEvent.id) {
+          return -1;
+        } else if (a.atEvent.id > b.atEvent.id) {
+          return 1;
+        } else {
+          return 0;
+        }
       }
     });
 
@@ -179,6 +186,8 @@ async function main() {
       });
     }
   }
+
+  console.log(`${__filename} done.`);
 
   return result;
 }
