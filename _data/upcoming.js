@@ -107,7 +107,6 @@ async function getOrganizerInstagram(eventID) {
 
   const client = new Client({ context, queryEngine });
   const {data} = await client.query({ query });
-  console.log(data);
 
   if (data.length > 0) {
     return data[0].organizer.map(organizer => organizer.instagram);

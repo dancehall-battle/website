@@ -98,7 +98,13 @@ async function main() {
       } else if (aDate > bDate) {
         return -1;
       } else {
-        return 0;
+        if (a.atEvent.id < b.atEvent.id) {
+          return -1;
+        } else if (a.atEvent.id > b.atEvent.id) {
+          return 1;
+        } else {
+          return 0;
+        }
       }
     });
 
