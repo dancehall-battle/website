@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- Show dancers on country page (see [issue 58](https://github.com/dancehall-battle/website/issues/58))
+
+### Fixed
+- Do not configure modal when not present on page
+
 ## [3.1.0] - 2019-11-09
 
 ### Added

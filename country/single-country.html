@@ -13,6 +13,7 @@ priority: 0.9
 {% assign country = pagination.items[0] %}
 {% assign data = countryToBattlesPerYear[country.code] %}
 {% assign events = countryToEvents[country.code] %}
+{% assign dancers = countryToDancers[country.code] %}
 
 <script type="application/ld+json">
   {{battles.originalQueryResults}}
@@ -23,3 +24,5 @@ priority: 0.9
 {% include winner-country-table with data %}
 
 {% include country-event-table with events %}
+
+{% include country-dancer-table with dancers %}

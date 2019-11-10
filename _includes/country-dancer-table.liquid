@@ -1,0 +1,46 @@
+<h4 class="page-title">Dancers</h4>
+
+{% if dancers %}
+
+{% for dancer in dancers %}
+<script type="application/ld+json">
+  {{dancer.originalQueryResults}}
+</script>
+{% endfor %}
+
+<div id="country-dancers" class="table-responsive">
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="">Name</th>
+            <th class="">Wins</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% assign i = 0 %}
+
+        {% for dancer in dancers %}
+        {% assign m = i | modulo: 2 %}
+        <tr class="
+            {% if m == "1" %}
+        grey-bckgrnd
+        {% endif %}
+        "
+        >
+        {% assign i = i | plus: 1 %}
+        <td class=""><a href="{{dancer.id}}">{{dancer.name}}</a> <span class="kg-url hidden" data-url="{{dancer.id}}">🔗</span></td>
+        <td class="">{{dancer.wins.length}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% else %}
+
+<p>
+No dancer of this country has a win yet.
+</p>
+
+{% endif %}
