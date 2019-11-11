@@ -1,0 +1,58 @@
+---
+layout: year-nav
+lastModIsToday: true
+changeFreq: daily
+priority: 0.9
+---
+
+<!-- TODO -->
+<!--<script type="application/ld+json">-->
+<!--  {{upcoming.originalQueryResults}}-->
+<!--</script>-->
+
+<h3 class="page-title">Rankings</h3>
+
+<div id="upcoming-events" class="table-responsive">
+  <table class="table">
+    <thead>
+    <tr>
+      <th class="position">Position</th>
+      <th class="dancer">Dancer</th>
+      <th class="points">Points</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    {% for rank in ranking.countryHomeAway.ranks %}
+
+    {% assign spots = ranking.countryHomeAway.map[rank] %}
+
+    {% for spot in spots %}
+      <tr>
+        <td>{{rank}}</td>
+        <td><a href="{{spot.dancer.id}}">{{spot.dancer.name}}</a> <span class="kg-url hidden" data-url="{{spot.dancer.id}}">🔗</span>
+          {% if spot.dancer.country  != ''%}
+          <span class="flag-icon flag-icon-{{spot.dancer.country}}"></span>
+          {% endif %}</td>
+        <td>{{spot.points}}</td>
+      </tr>
+    {% endfor %}
+
+    {% endfor %}
+
+    </tbody>
+  </table>
+
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close text-right">&times;</span>
+      <h5>Instagram</h5>
+      <div class="modal-list">
+      </div>
+    </div>
+
+  </div>
+</div>
