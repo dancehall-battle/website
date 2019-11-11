@@ -3,6 +3,7 @@ const queryEngine = require('./engine');
 const {format} = require('date-fns');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {createNameForBattle, useCache} = require('./utils');
+const getCountryName = require('country-list').getName;
 
 // Define a JSON-LD context
 const context = {
@@ -10,10 +11,9 @@ const context = {
     "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
     "schema": "http://schema.org/",
     "items": "schema:itemListElement",
-    "dancer": "schema:item",
+    "country": "schema:item",
     "position": "schema:position",
     "name": "schema:name",
-    "country": "https://dancebattle.org/ontology/representsCountry",
     "points": "https://dancehallbattle.org/ontology/points",
     "RANKING": "https://dancehallbattle.org/ontology/Ranking"
   }
@@ -21,57 +21,112 @@ const context = {
 
 const originalContext = JSON.parse(JSON.stringify(context['@context']));
 
-// Create a GraphQL-LD client based on a client-side Comunica engine
 const client = new Client({context, queryEngine});
 
 async function main() {
+  console.log(`${__filename} started.`);
 
-// Define a query
-  const query = `
-  query { 
-    id @single
-    type(_:RANKING)
-    type
-    items {
-      dancer @single {
-        id @single
-        name @single
-        country @single
-      }
-      position @single
-      points @single
-    }
-  }`;
+  // console.dir(ranking, {depth: null});
+  const countryHomeAwayMap = await getCountryRankingByID(await getCountryHomeAwayID());
+  const countryHomeMap = await getCountryRankingByID(await getCountryHomeID());
+  const countryAwayMap = await getCountryRankingByID(await getCountryAwayID());
 
-  // Execute the query
-  let rankings = (await client.query({query})).data;
-  console.log(rankings);
-  const countryHomeAwayRanking = getCountryHomeAway(rankings);
-  const countryHomeAwayMap = restructure(countryHomeAwayRanking);
-  const ranks = Object.keys(countryHomeAwayMap);
-
-  console.log(countryHomeAwayMap);
-  console.log(ranks.join(' '));
+  console.log(`${__filename} done.`);
 
   return {
     countryHomeAway: {
       map: countryHomeAwayMap,
       ranks: Object.keys(countryHomeAwayMap)
+    },
+    countryHome: {
+      map: countryHomeMap,
+      ranks: Object.keys(countryHomeMap)
+    },
+    countryAway: {
+      map: countryAwayMap,
+      ranks: Object.keys(countryAwayMap)
     }
   };
 }
 
-function getCountryHomeAway(rankings) {
+async function getCountryRankingByID(id) {
+  context['@context'].ID = id;
+
+  const client = new Client({context, queryEngine});
+
+  const query = `
+  query { 
+    id (_:ID)
+    items {
+      country @single
+      position @single
+      points @single
+    }
+  }`;
+
+  let ranking = (await client.query({query})).data[0];
+  //console.dir(ranking, {depth: null});
+
+  ranking.items.forEach(rank => {
+    rank.country = {
+      code: rank.country,
+      name: getCountryName(rank.country)
+    }
+  });
+
+  // console.dir(ranking, {depth: null});
+  return restructure(ranking);
+}
+
+async function getCountryHomeAwayID() {
+  const rankings = await getRankings();
   let i = 0;
 
   while (i < rankings.length &&
-  rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') === -1 &&
-  rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/HomeRanking') !== -1 &&
-  rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/AwayRanking') !== -1) {
+  (rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') === -1 ||
+  rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/HomeRanking') !== -1 ||
+  rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/AwayRanking') !== -1)) {
     i ++;
   }
 
-  return rankings[i];
+  return rankings[i].id;
+}
+
+async function getCountryHomeID() {
+  const rankings = await getRankings();
+  let i = 0;
+
+  while (i < rankings.length &&
+  (rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') === -1 ||
+    rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/HomeRanking') === -1)) {
+    i ++;
+  }
+
+  return rankings[i].id;
+}
+
+async function getCountryAwayID() {
+  const rankings = await getRankings();
+  let i = 0;
+
+  while (i < rankings.length &&
+  (rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') === -1 ||
+    rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/AwayRanking') === -1)) {
+    i ++;
+  }
+
+  return rankings[i].id;
+}
+
+async function getRankings() {
+  const query = `
+  query { 
+    id @single
+    type(_:RANKING)
+    type
+  }`;
+
+  return (await client.query({query})).data;
 }
 
 function restructure(ranking) {

@@ -15,7 +15,7 @@ rm -rf _site
 # Create needed folders
 mkdir _cache
 
-envVars="ELEVENTY_SERVE=true"
+envVars="ELEVENTY_SERVE=true SKIP=upcoming.json,battles.json,countries.json,dancer-list.json,dancers.json,events.json,country-to-battles-per-year.json,country-to-events.json"
 
 if [ "$1" == "-v" ]; then
     envVars="$envVars DEBUG=Eleventy*"

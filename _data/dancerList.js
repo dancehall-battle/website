@@ -3,9 +3,9 @@ const queryEngine = require('./engine');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {useCache} = require('./utils');
 
-module.exports = useCache(main, 'dancer-list.json');
-
 async function main() {
+  console.log(`${__filename} started.`);
+
   // Define a JSON-LD context
   const context = {
     "@context": {
@@ -80,15 +80,19 @@ async function main() {
 
   //console.log(perLetter);
 
+  console.log(`${__filename} done.`);
+
   return {originalQueryResults, perLetter, letters};
-
-  async function executeQuery(query) {
-    const {data} = await client.query({query});
-
-    return data;
-  }
-
-  function getPostfix(dancer) {
-    dancer.postfix = dancer.id.replace('https://dancehallbattle.org/dancer/', '');
-  }
 }
+
+async function executeQuery(query) {
+  const {data} = await client.query({query});
+
+  return data;
+}
+
+function getPostfix(dancer) {
+  dancer.postfix = dancer.id.replace('https://dancehallbattle.org/dancer/', '');
+}
+
+module.exports = useCache(main, 'dancer-list.json');

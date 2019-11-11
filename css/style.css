@@ -158,6 +158,10 @@ footer {
     width: 200px;
 }
 
+td.cell.middle {
+    vertical-align : middle;
+}
+
 /* FAQ page */
 .question {
     padding-top: 20px;

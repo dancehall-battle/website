@@ -35,6 +35,7 @@ const originalContext = JSON.parse(JSON.stringify(context['@context']));
 const client = new Client({context, queryEngine});
 
 async function main() {
+  console.log(`${__filename} started.`);
 
 // Define a query
   const query = `
@@ -108,6 +109,8 @@ async function main() {
       })
     }
   });
+
+  console.log(`${__filename} done.`);
 
   return dancers;
 }
