@@ -27,7 +27,7 @@ grey-bckgrnd
     <td class="cell middle" rowspan="{{forloop.length}}">{{rank}}</td>
     {% endif %}
     <td><a href="/country/{{spot.country.code}}">{{spot.country.name}}</a>
-      {% if spot.dancer.country  != ''%}
+      {% if spot.country.code  != '' %}
       <a<span class="flag-icon flag-icon-{{spot.country.code}}"></span>
       {% endif %}</td>
 {% if forloop.first == true %}
