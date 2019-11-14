@@ -3,6 +3,7 @@ const queryEngine = require('./engine');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {useCache} = require('./utils');
 const getCountryName = require('country-list').getName;
+const {format} = require('date-fns');
 
 // Define a JSON-LD context
 const context = {
@@ -14,6 +15,7 @@ const context = {
     "dancer": "schema:item",
     "position": "schema:position",
     "name": "schema:name",
+    "created": "schema:dateCreated",
     "represents": "https://dancebattle.org/ontology/representsCountry",
     "points": "https://dancehallbattle.org/ontology/points",
     "RANKING": "https://dancehallbattle.org/ontology/Ranking"
@@ -28,40 +30,46 @@ async function main() {
   console.log(`${__filename} started.`);
 
   // console.dir(ranking, {depth: null});
-  const countryHomeAwayMap = await getCountryRankingByID(await getCountryHomeAwayID());
-  const countryHomeMap = await getCountryRankingByID(await getCountryHomeID());
-  const countryAwayMap = await getCountryRankingByID(await getCountryAwayID());
+  const countryHomeAway = await getCountryRankingByID(await getCountryHomeAwayID());
+  const countryHome = await getCountryRankingByID(await getCountryHomeID());
+  const countryAway = await getCountryRankingByID(await getCountryAwayID());
 
-  const dancerCombinedMap = await getDancerRankingByID(await getDancerCombinedID());
-  const dancer1vs1Map = await getDancerRankingByID(await getDancer1vs1ID());
-  const dancer2vs2Map = await getDancerRankingByID(await getDancer2vs2ID());
+  const dancerCombined = await getDancerRankingByID(await getDancerCombinedID());
+  const dancer1vs1 = await getDancerRankingByID(await getDancer1vs1ID());
+  const dancer2vs2 = await getDancerRankingByID(await getDancer2vs2ID());
 
   console.log(`${__filename} done.`);
 
   return {
     countryHomeAway: {
-      map: countryHomeAwayMap,
-      ranks: Object.keys(countryHomeAwayMap)
+      map: countryHomeAway.map,
+      created: countryHomeAway.created,
+      ranks: Object.keys(countryHomeAway.map)
     },
     countryHome: {
-      map: countryHomeMap,
-      ranks: Object.keys(countryHomeMap)
+      map: countryHome.map,
+      created: countryHome.created,
+      ranks: Object.keys(countryHome.map)
     },
     countryAway: {
-      map: countryAwayMap,
-      ranks: Object.keys(countryAwayMap)
+      map: countryAway.map,
+      created: countryAway.created,
+      ranks: Object.keys(countryAway.map)
     },
     dancerCombined: {
-      map: dancerCombinedMap,
-      ranks: Object.keys(dancerCombinedMap)
+      map: dancerCombined.map,
+      created: dancerCombined.created,
+      ranks: Object.keys(dancerCombined.map)
     },
     dancer1vs1: {
-      map: dancer1vs1Map,
-      ranks: Object.keys(dancer1vs1Map)
+      map: dancer1vs1.map,
+      created: dancer1vs1.created,
+      ranks: Object.keys(dancer1vs1.map)
     },
     dancer2vs2: {
-      map: dancer2vs2Map,
-      ranks: Object.keys(dancer2vs2Map)
+      map: dancer2vs2.map,
+      created: dancer2vs2.created,
+      ranks: Object.keys(dancer2vs2.map)
     }
   };
 }
@@ -74,6 +82,7 @@ async function getCountryRankingByID(id) {
   const query = `
   query { 
     id (_:ID)
+    created @single
     items {
       country @single
       position @single
@@ -92,7 +101,7 @@ async function getCountryRankingByID(id) {
   });
 
   // console.dir(ranking, {depth: null});
-  return restructure(ranking);
+  return {map: restructure(ranking), created: format(new Date(ranking.created), 'yyyy-MM-dd')};
 }
 
 async function getDancerRankingByID(id) {
@@ -103,6 +112,7 @@ async function getDancerRankingByID(id) {
   const query = `
   query { 
     id (_:ID)
+    created @single
     items {
       dancer @single {
         id @single
@@ -118,87 +128,71 @@ async function getDancerRankingByID(id) {
   console.dir(ranking, {depth: null});
 
   // console.dir(ranking, {depth: null});
-  return restructure(ranking);
+  return {map: restructure(ranking), created: format(new Date(ranking.created), 'yyyy-MM-dd')};
 }
 
 async function getCountryHomeAwayID() {
-  const rankings = await getRankings();
-  let i = 0;
-
-  while (i < rankings.length &&
-  (rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') === -1 ||
-  rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/HomeRanking') !== -1 ||
-  rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/AwayRanking') !== -1)) {
-    i ++;
-  }
-
-  return rankings[i].id;
+  return await getRankingID(ranking => {
+    return (ranking['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') !== -1 &&
+      ranking['type'].indexOf('https://dancehallbattle.org/ontology/HomeRanking') === -1 &&
+      ranking['type'].indexOf('https://dancehallbattle.org/ontology/AwayRanking') === -1);
+  });
 }
 
 async function getCountryHomeID() {
-  const rankings = await getRankings();
-  let i = 0;
-
-  while (i < rankings.length &&
-  (rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') === -1 ||
-    rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/HomeRanking') === -1)) {
-    i ++;
-  }
-
-  return rankings[i].id;
+  return await getRankingID(ranking => {
+    return (ranking['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') !== -1 &&
+      ranking['type'].indexOf('https://dancehallbattle.org/ontology/HomeRanking') !== -1);
+  });
 }
 
 async function getCountryAwayID() {
-  const rankings = await getRankings();
-  let i = 0;
-
-  while (i < rankings.length &&
-  (rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') === -1 ||
-    rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/AwayRanking') === -1)) {
-    i ++;
-  }
-
-  return rankings[i].id;
+  return await getRankingID(ranking => {
+    return (ranking['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') !== -1 &&
+      ranking['type'].indexOf('https://dancehallbattle.org/ontology/AwayRanking') !== -1);
+  });
 }
 
 async function getDancerCombinedID() {
-  const rankings = await getRankings();
-  let i = 0;
-
-  while (i < rankings.length &&
-  (rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/DancerRanking') === -1 ||
-    rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/1vs1Ranking') !== -1 ||
-    rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/2vs2Ranking') !== -1)) {
-    i ++;
-  }
-
-  return rankings[i].id;
+  return await getRankingID(ranking => {
+    return (ranking['type'].indexOf('https://dancehallbattle.org/ontology/DancerRanking') !== -1 &&
+      ranking['type'].indexOf('https://dancehallbattle.org/ontology/1vs1Ranking') === -1 &&
+      ranking['type'].indexOf('https://dancehallbattle.org/ontology/2vs2Ranking') === -1);
+  });
 }
 
 async function getDancer1vs1ID() {
-  const rankings = await getRankings();
-  let i = 0;
-
-  while (i < rankings.length &&
-  (rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/DancerRanking') === -1 ||
-    rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/1vs1Ranking') === -1)) {
-    i ++;
-  }
-
-  return rankings[i].id;
+  return await getRankingID(ranking => {
+    return (ranking['type'].indexOf('https://dancehallbattle.org/ontology/DancerRanking') !== -1 &&
+      ranking['type'].indexOf('https://dancehallbattle.org/ontology/1vs1Ranking') !== -1);
+  });
 }
 
 async function getDancer2vs2ID() {
-  const rankings = await getRankings();
-  let i = 0;
+  return await getRankingID(ranking => {
+    return (ranking['type'].indexOf('https://dancehallbattle.org/ontology/DancerRanking') !== -1 &&
+      ranking['type'].indexOf('https://dancehallbattle.org/ontology/2vs2Ranking') !== -1);
+  });
+}
 
-  while (i < rankings.length &&
-  (rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/DancerRanking') === -1 ||
-    rankings[i]['type'].indexOf('https://dancehallbattle.org/ontology/2vs2Ranking') === -1)) {
-    i ++;
+async function getRankingID(filter) {
+  let rankings = await getRankings();
+
+  rankings = rankings.filter(filter);
+
+  if (rankings.length > 0) {
+    let latestRanking = rankings[0];
+
+    for (let i = 1; i < rankings.length; i ++) {
+      if (new Date(latestRanking.created) < new Date(rankings[i].created)) {
+        latestRanking = rankings[i];
+      }
+    }
+
+    return latestRanking.id;
+  } else {
+    return null;
   }
-
-  return rankings[i].id;
 }
 
 async function getRankings() {
@@ -207,6 +201,7 @@ async function getRankings() {
     id @single
     type(_:RANKING)
     type
+    created @single
   }`;
 
   return (await client.query({query})).data;
