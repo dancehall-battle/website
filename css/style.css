@@ -162,6 +162,15 @@ td.cell.middle {
     vertical-align : middle;
 }
 
+#last-updated {
+    padding-left: 15px;
+    padding-top: 20px;
+}
+
+.page-title.ranking {
+    padding-left: 10px;
+}
+
 /* FAQ page */
 .question {
     padding-top: 20px;
