@@ -2,7 +2,7 @@ const {Client} = require('graphql-ld/index');
 const queryEngine = require('./engine');
 const getCountryName = require('country-list').getName;
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
-const {useCache, parseDates, createNameForBattle} = require('./utils');
+const {useCache, parseDates, createNameForBattle, getOrganizerInstagram} = require('./utils');
 
 let events;
 
@@ -73,7 +73,7 @@ async function main() {
     // Execute the query
     events = await executeQuery(query);
 
-    events.forEach(event => {
+    events.forEach(async event => {
       event.originalQueryResults = {
         '@graph': recursiveJSONKeyTransform(key => {
           if (key === 'id' || key === 'type') {
@@ -96,6 +96,8 @@ async function main() {
         battle.name = createNameForBattle(battle);
         parseDates(battle);
       });
+
+      event.organizers = await getOrganizerInstagram(event.id);
     });
 
     // TODO parse battles (name, dates...)
