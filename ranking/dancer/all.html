@@ -5,12 +5,12 @@ changeFreq: daily
 priority: 0.9
 ---
 
-<!-- TODO -->
-<!--<script type="application/ld+json">-->
-<!--  {{upcoming.originalQueryResults}}-->
-<!--</script>-->
+{% assign ranking = ranking.dancerCombined %}
+
+<script type="application/ld+json">
+    {{ranking.jsonld}}
+</script>
 
 <h3 class="page-title ranking">Dancer ranking (1 vs 1 and 2 vs 2)</h3>
 
-{% assign ranking = ranking.dancerCombined %}
 {% include dancer-ranking-table with ranking %}

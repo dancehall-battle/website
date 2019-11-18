@@ -44,32 +44,38 @@ async function main() {
     countryHomeAway: {
       map: countryHomeAway.map,
       created: countryHomeAway.created,
-      ranks: Object.keys(countryHomeAway.map)
+      ranks: Object.keys(countryHomeAway.map),
+      jsonld: countryHomeAway.originalQueryResults
     },
     countryHome: {
       map: countryHome.map,
       created: countryHome.created,
-      ranks: Object.keys(countryHome.map)
+      ranks: Object.keys(countryHome.map),
+      jsonld: countryHome.originalQueryResults
     },
     countryAway: {
       map: countryAway.map,
       created: countryAway.created,
-      ranks: Object.keys(countryAway.map)
+      ranks: Object.keys(countryAway.map),
+      jsonld: countryAway.originalQueryResults
     },
     dancerCombined: {
       map: dancerCombined.map,
       created: dancerCombined.created,
-      ranks: Object.keys(dancerCombined.map)
+      ranks: Object.keys(dancerCombined.map),
+      jsonld: dancerCombined.originalQueryResults
     },
     dancer1vs1: {
       map: dancer1vs1.map,
       created: dancer1vs1.created,
-      ranks: Object.keys(dancer1vs1.map)
+      ranks: Object.keys(dancer1vs1.map),
+      jsonld: dancer1vs1.originalQueryResults
     },
     dancer2vs2: {
       map: dancer2vs2.map,
       created: dancer2vs2.created,
-      ranks: Object.keys(dancer2vs2.map)
+      ranks: Object.keys(dancer2vs2.map),
+      jsonld: dancer2vs2.originalQueryResults
     }
   };
 }
@@ -82,8 +88,10 @@ async function getCountryRankingByID(id) {
   const query = `
   query { 
     id (_:ID)
+    type # for JSON-LD
     created @single
     items {
+      id @single # for JSON-LD
       country @single
       position @single
       points @single
@@ -91,7 +99,20 @@ async function getCountryRankingByID(id) {
   }`;
 
   let ranking = (await client.query({query})).data[0];
+  ranking.id = id;
   //console.dir(ranking, {depth: null});
+
+  const originalQueryResults = {
+    '@context': JSON.parse(JSON.stringify(context['@context']))
+  };
+
+  originalQueryResults['@graph'] = recursiveJSONKeyTransform(key => {
+    if (key === 'id' || key === 'type') {
+      key = '@' + key;
+    }
+
+    return key;
+  })(JSON.parse(JSON.stringify(ranking)));
 
   ranking.items.forEach(rank => {
     rank.country = {
@@ -101,7 +122,7 @@ async function getCountryRankingByID(id) {
   });
 
   // console.dir(ranking, {depth: null});
-  return {map: restructure(ranking), created: format(new Date(ranking.created), 'yyyy-MM-dd')};
+  return {map: restructure(ranking), created: format(new Date(ranking.created), 'yyyy-MM-dd'), originalQueryResults};
 }
 
 async function getDancerRankingByID(id) {
@@ -112,6 +133,7 @@ async function getDancerRankingByID(id) {
   const query = `
   query { 
     id (_:ID)
+    type # for JSON-LD
     created @single
     items {
       dancer @single {
@@ -119,16 +141,29 @@ async function getDancerRankingByID(id) {
         name @single
         represents @single
       }
+      id @single # for JSON-LD
       position @single
       points @single
     }
   }`;
 
   let ranking = (await client.query({query})).data[0];
-  console.dir(ranking, {depth: null});
+  ranking.id = id;
+  //console.dir(ranking, {depth: null});
 
-  // console.dir(ranking, {depth: null});
-  return {map: restructure(ranking), created: format(new Date(ranking.created), 'yyyy-MM-dd')};
+  const originalQueryResults = {
+    '@context': JSON.parse(JSON.stringify(context['@context']))
+  };
+
+  originalQueryResults['@graph'] = recursiveJSONKeyTransform(key => {
+    if (key === 'id' || key === 'type') {
+      key = '@' + key;
+    }
+
+    return key;
+  })(JSON.parse(JSON.stringify(ranking)));
+
+  return {map: restructure(ranking), created: format(new Date(ranking.created), 'yyyy-MM-dd'), originalQueryResults};
 }
 
 async function getCountryHomeAwayID() {

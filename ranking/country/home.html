@@ -5,12 +5,12 @@ changeFreq: daily
 priority: 0.9
 ---
 
-<!-- TODO -->
-<!--<script type="application/ld+json">-->
-<!--  {{upcoming.originalQueryResults}}-->
-<!--</script>-->
+{% assign ranking = ranking.countryHome %}
+
+<script type="application/ld+json">
+    {{ranking.jsonld}}
+</script>
 
 <h3 class="page-title ranking">Country ranking (home)</h3>
 
-{% assign ranking = ranking.countryHome %}
 {% include country-ranking-table with ranking %}
