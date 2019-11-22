@@ -22,8 +22,6 @@ const context = {
   }
 };
 
-const originalContext = JSON.parse(JSON.stringify(context['@context']));
-
 const client = new Client({context, queryEngine});
 
 async function main() {
@@ -215,10 +213,14 @@ async function getRankingID(filter) {
 
   rankings = rankings.filter(filter);
 
+  console.log(rankings);
+
   if (rankings.length > 0) {
     let latestRanking = rankings[0];
 
     for (let i = 1; i < rankings.length; i ++) {
+      console.log(latestRanking.created);
+      console.log(rankings[i].created);
       if (new Date(latestRanking.created) < new Date(rankings[i].created)) {
         latestRanking = rankings[i];
       }
