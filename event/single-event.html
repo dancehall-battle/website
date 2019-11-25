@@ -26,8 +26,8 @@ permalink: /event/{{ pagination.items[0].slug }}/index.html
     {% endif %}
 
     {% if event.organizers.size != 0 %}
-    Organisers:
-      {% for organizer in organizers %}
+    Organizers:
+      {% for organizer in event.organizers %}
         <a href="https://instagram.com/{{organizer}}">@{{organizer}}</a>
       {% endfor %}
     {% endif %}

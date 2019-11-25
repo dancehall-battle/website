@@ -73,7 +73,8 @@ async function main() {
     // Execute the query
     events = await executeQuery(query);
 
-    events.forEach(async event => {
+    for (let i = 0; i < events.length; i ++) {
+      const event = events[i];
       event.originalQueryResults = {
         '@graph': recursiveJSONKeyTransform(key => {
           if (key === 'id' || key === 'type') {
@@ -98,7 +99,10 @@ async function main() {
       });
 
       event.organizers = await getOrganizerInstagram(event.id);
-    });
+
+      console.log(event.id);
+      console.log(event.organizers);
+    }
 
     // TODO parse battles (name, dates...)
 
