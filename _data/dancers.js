@@ -25,7 +25,8 @@ const context = {
     "participants": {"@id": "https://dancebattle.org/ontology/amountOfParticipants"},
     "Event": {"@id": "https://dancebattle.org/ontology/DanceEvent"},
     "Battle": {"@id": "https://dancebattle.org/ontology/DanceBattle"},
-    "Dancer": {"@id": "https://dancebattle.org/ontology/Dancer"}
+    "Dancer": {"@id": "https://dancebattle.org/ontology/Dancer"},
+    "instagram": {"@id": "https://dancebattle.org/ontology/instagram"}
   }
 };
 
@@ -43,6 +44,7 @@ async function main() {
     id @single
     name @single
     country @single
+    instagram @single
     wins {
       id @single
       type # useful for the embedded JSON-LD 
