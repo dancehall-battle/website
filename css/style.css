@@ -34,7 +34,7 @@ a:hover {
 }
 
 .date {
-    width: 80px;
+    min-width: 80px;
 }
 
 #upcoming-events .date {

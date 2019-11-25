@@ -41,18 +41,9 @@ priority: 0.9
     </thead>
     <tbody>
 
-    {% for year in dancer.years reversed %}
-
-    {% if year != "2019" %}
-    <tr id="{{year}}" class="year-row">
-      <td colspan="4" class="text-center year">{{year}}
-      </td>
-    </tr>
-    {% endif %}
-
     {% assign i = 0 %}
 
-    {% for battle in dancer.yearBattleMap[year] %}
+    {% for battle in dancer.wins %}
     {% assign m = i | modulo: 2 %}
     <tr class="event-row
             {% if m == "1" %}
@@ -72,7 +63,6 @@ priority: 0.9
     ">
     <td colspan="2">{{battle.name}} - {{battle.date}}</td>
     </tr>
-    {% endfor %}
     {% endfor %}
     </tbody>
   </table>
