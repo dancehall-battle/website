@@ -99,9 +99,6 @@ async function main() {
       });
 
       event.organizers = await getOrganizerInstagram(event.id);
-
-      console.log(event.id);
-      console.log(event.organizers);
     }
 
     // TODO parse battles (name, dates...)
