@@ -1,6 +1,8 @@
 const fs = require('fs-extra');
 const path = require('path');
 const {format, compareAsc} = require('date-fns');
+const {Client} = require('graphql-ld/index');
+const queryEngine = require('./engine');
 
 function createNameForBattle(battle) {
   let label = battle.name;
@@ -99,9 +101,37 @@ function sortOnStartDate(events) {
   });
 }
 
+async function getOrganizerInstagram(eventID) {
+  const query = `
+  query { 
+    id(_:EVENT)
+    organizer {
+      instagram @single
+    }
+  }`;
+
+  const context = {
+    "@context": {
+      "instagram": { "@id": "https://dancebattle.org/ontology/instagram" },
+      "organizer": { "@id": "http://schema.org/organizer" },
+      "EVENT": eventID,
+    }
+  };
+
+  const client = new Client({ context, queryEngine });
+  const {data} = await client.query({ query });
+
+  if (data.length > 0) {
+    return data[0].organizer.map(organizer => organizer.instagram);
+  } else {
+    return [];
+  }
+}
+
 module.exports = {
   createNameForBattle,
   useCache,
   parseDates,
+  getOrganizerInstagram,
   sortOnStartDate
 };
