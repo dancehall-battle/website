@@ -167,9 +167,12 @@ td.cell.middle {
     padding-top: 20px;
 }
 
-.page-title.ranking {
+/* Ranking page */
+
+.ranking {
     padding-left: 10px;
 }
+
 
 /* FAQ page */
 .question {

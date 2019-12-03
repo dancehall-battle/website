@@ -29,12 +29,19 @@ async function main() {
 
   // console.dir(ranking, {depth: null});
   const countryHomeAway = await getCountryRankingByID(await getCountryHomeAwayID());
+  sortCountriesMap(countryHomeAway.map);
+
   const countryHome = await getCountryRankingByID(await getCountryHomeID());
   const countryAway = await getCountryRankingByID(await getCountryAwayID());
 
   const dancerCombined = await getDancerRankingByID(await getDancerCombinedID());
+  sortDancersMap(dancerCombined.map);
+
   const dancer1vs1 = await getDancerRankingByID(await getDancer1vs1ID());
+  sortDancersMap(dancer1vs1.map);
+
   const dancer2vs2 = await getDancerRankingByID(await getDancer2vs2ID());
+  sortDancersMap(dancer2vs2.map);
 
   console.log(`${__filename} done.`);
 
@@ -258,5 +265,32 @@ function restructure(ranking) {
   return map;
 }
 
+function sortDancersMap(map) {
+  Object.keys(map).forEach(position => {
+    map[position].sort((a, b) => {
+      if (a.dancer.name < b.dancer.name) {
+        return -1;
+      } else if (a.dancer.name > b.dancer.name) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  });
+}
+
+function sortCountriesMap(map) {
+  Object.keys(map).forEach(position => {
+    map[position].sort((a, b) => {
+      if (a.country.name < b.country.name) {
+        return -1;
+      } else if (a.country.name > b.country.name) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
+  });
+}
 
 module.exports = useCache(main, 'rankings.json');
