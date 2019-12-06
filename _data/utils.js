@@ -29,7 +29,7 @@ function capitalize(s) {
 }
 
 async function useCache(main, cacheFilename) {
-  const skip = process.env.SKIP.toLowerCase().indexOf(cacheFilename.toLowerCase()) !== -1;
+  const skip = process.env.SKIP !== undefined && process.env.SKIP.toLowerCase().indexOf(cacheFilename.toLowerCase()) !== -1;
 
   if (skip) {
     console.log(`Skipping ${cacheFilename}`);
