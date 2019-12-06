@@ -1,7 +1,7 @@
 const {Client} = require('graphql-ld/index');
-const queryEngine = require('./engine');
+const queryEngine = require('../_data-core/engine');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
-const {useCache} = require('./utils');
+const {useCache} = require('../_data-core/utils');
 const getCountryName = require('country-list').getName;
 const {format} = require('date-fns');
 
