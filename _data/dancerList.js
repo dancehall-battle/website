@@ -34,7 +34,7 @@ async function main() {
   }`;
 
   // Execute the query
-  let dancers = await executeQuery(query);
+  let dancers = (await client.query({query})).data;
 
   const originalQueryResults = {
     '@context': originalContext,
@@ -83,12 +83,6 @@ async function main() {
   console.log(`${__filename} done.`);
 
   return {originalQueryResults, perLetter, letters};
-}
-
-async function executeQuery(query) {
-  const {data} = await client.query({query});
-
-  return data;
 }
 
 function getPostfix(dancer) {
