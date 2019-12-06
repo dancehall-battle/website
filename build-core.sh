@@ -7,6 +7,6 @@ cd core-config
 cp ../.eleventy.js .eleventy.js
 cp .eleventyignore ../.eleventyignore
 ../node_modules/@11ty/eleventy/cmd.js
-rm -rf eleventy.js
+rm -rf .eleventy.js
 rm -rf ../_data
 rm -rf ../.eleventyignore
