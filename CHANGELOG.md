@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Show Instagram of organisers on event page (see [issue 68](https://github.com/dancehall-battle/website/issues/68))
 - Show Instagram on dancer page (see [issue 69](https://github.com/dancehall-battle/website/issues/69))
+- Script to check for dead links on the live website (see [issue 75](https://github.com/dancehall-battle/website/issues/75))
 
 ### Fixed
 - Show full date of battles on dancer page (see [issue 66](https://github.com/dancehall-battle/website/issues/66))
