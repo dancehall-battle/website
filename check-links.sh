@@ -1,0 +1,1 @@
+npx linkinator https://dancehallbattle.org -r -s https://dancehallbattle.org/battle/

@@ -25,7 +25,8 @@ const context = {
     "participants": {"@id": "https://dancebattle.org/ontology/amountOfParticipants"},
     "Event": {"@id": "https://dancebattle.org/ontology/DanceEvent"},
     "Battle": {"@id": "https://dancebattle.org/ontology/DanceBattle"},
-    "Dancer": {"@id": "https://dancebattle.org/ontology/Dancer"}
+    "Dancer": {"@id": "https://dancebattle.org/ontology/Dancer"},
+    "instagram": {"@id": "https://dancebattle.org/ontology/instagram"}
   }
 };
 
@@ -43,6 +44,7 @@ async function main() {
     id @single
     name @single
     country @single
+    instagram @single
     wins {
       id @single
       type # useful for the embedded JSON-LD 
@@ -64,7 +66,7 @@ async function main() {
   }`;
 
   // Execute the query
-  let dancers = await executeQuery(query);
+  let dancers = (await client.query({query})).data;
 
   dancers.forEach(dancer => {
     dancer.originalQueryResults = {
@@ -87,52 +89,25 @@ async function main() {
     getPostfix(dancer);
 
     dancer.wins.forEach(battle => {
-      parseDates(battle, dancer);
+      battle.date = format(new Date(battle.start), 'MMM d, yyyy', {awareOfUnicodeTokens: true});
       battle.name = createNameForBattle(battle);
     });
 
-    dancer.years = Object.keys(dancer.yearBattleMap);
+    dancer.wins.sort((a, b) => {
+      const aDate = new Date(a.start);
+      const bDate = new Date(b.start);
 
-    for (let year of dancer.years) {
-      dancer.yearBattleMap[year].sort((a, b) => {
-        const aDate = new Date(a.start);
-        const bDate = new Date(b.start);
-
-        if (aDate < bDate) {
-          return 1;
-        } else if (aDate > bDate) {
-          return -1;
-        } else {
-          return 0;
-        }
-      })
-    }
+      if (aDate < bDate) {
+        return 1;
+      } else if (aDate > bDate) {
+        return -1;
+      } else {
+        return 0;
+      }
+    });
   });
 
   return dancers;
-}
-
-async function executeQuery(query) {
-  const {data} = await client.query({query});
-
-  return data;
-}
-
-function parseDates(battle, dancer) {
-  const date = new Date(battle.start);
-
-  battle.date = format(date, 'MMM d', {awareOfUnicodeTokens: true});
-  battle.year = (date.getFullYear());
-
-  if (!dancer.yearBattleMap) {
-    dancer.yearBattleMap = {};
-  }
-
-  if (!dancer.yearBattleMap[battle.year]) {
-    dancer.yearBattleMap[battle.year] = [];
-  }
-
-  dancer.yearBattleMap[battle.year].push(battle);
 }
 
 function getPostfix(dancer) {
