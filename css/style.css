@@ -34,7 +34,7 @@ a:hover {
 }
 
 .date {
-    width: 80px;
+    min-width: 80px;
 }
 
 #upcoming-events .date {
@@ -158,6 +158,10 @@ footer {
     width: 200px;
 }
 
+.dancer-instagram {
+    margin-bottom: 40px;
+}
+
 td.cell.middle {
     vertical-align : middle;
 }
@@ -172,7 +176,6 @@ td.cell.middle {
 .ranking {
     padding-left: 10px;
 }
-
 
 /* FAQ page */
 .question {
