@@ -1,4 +1,8 @@
+const {useCache} = require('./utils');
+
 async function main() {
+  console.log(`${__filename} started.`);
+
   const perYear = (await require('./_battles')).perYear;
   const years = Object.keys(perYear);
   const countryToBattlesPerYear = {};
@@ -43,7 +47,9 @@ async function main() {
     };
   });
 
+  console.log(`${__filename} done.`);
+
   return result;
 }
 
-module.exports = main;
+module.exports = useCache(main, 'country-to-battles-per-year.json');

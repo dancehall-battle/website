@@ -1,8 +1,8 @@
 const {Client} = require('graphql-ld/index');
-const queryEngine = require('./engine');
+const queryEngine = require('../_data-core/engine');
 const {format} = require('date-fns');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
-const {createNameForBattle, useCache} = require('./utils');
+const {createNameForBattle, useCache} = require('../_data-core/utils');
 
 // Define a JSON-LD context
 const context = {
@@ -36,6 +36,7 @@ const originalContext = JSON.parse(JSON.stringify(context['@context']));
 const client = new Client({context, queryEngine});
 
 async function main() {
+  console.log(`${__filename} started.`);
 
 // Define a query
   const query = `
@@ -106,6 +107,8 @@ async function main() {
       }
     });
   });
+
+  console.log(`${__filename} done.`);
 
   return dancers;
 }

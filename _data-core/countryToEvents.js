@@ -1,4 +1,8 @@
+const {useCache} = require('./utils');
+
 async function main() {
+  console.log(`${__filename} started.`);
+
   const events = await require('./_events');
   const countryToEvents = {};
 
@@ -31,7 +35,9 @@ async function main() {
     });
   });
 
+  console.log(`${__filename} done.`);
+
   return countryToEvents;
 }
 
-module.exports = main;
+module.exports = useCache(main, 'country-to-events.json');

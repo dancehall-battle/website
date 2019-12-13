@@ -1,0 +1,26 @@
+---
+layout: year-nav
+lastModIsToday: true
+changeFreq: daily
+priority: 0.9
+---
+
+{% assign ranking = ranking.dancer1vs1 %}
+
+<script type="application/ld+json">
+    {{ranking.jsonld}}
+</script>
+
+<h3 class="page-title ranking">Dancer ranking (1 vs 1)</h3>
+
+<p class="ranking">
+    This ranking takes into account all battles over the past year that meet the following requirements:
+    1 vs 1,
+    pro or open level,
+    15+ or no age restriction, and
+    no female-only battles.
+    The points are calculated per dancer.
+    The ranking is updated daily.
+</p>
+
+{% include dancer-ranking-table with ranking %}

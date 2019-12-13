@@ -33,9 +33,11 @@ const originalContext = JSON.parse(JSON.stringify(context['@context']));
 const client = new Client({context, queryEngine});
 
 async function main() {
+  console.log(`${__filename} started.`);
+
   let countries = [];
 
-  // Get all events that have at least one battle and have a location.
+  // Get all.html events that have at least one battle and have a location.
   let query = `
   query { 
     location @single
@@ -50,7 +52,7 @@ async function main() {
     }
   });
 
-  // Get all winners that have at least one win and have a location
+  // Get all.html winners that have at least one win and have a location
   query = `
   query { 
     country @single
@@ -66,6 +68,8 @@ async function main() {
   });
 
   countries.sort();
+
+  console.log(`${__filename} done.`);
 
   return countries.map(country => {
    return {

@@ -9,6 +9,8 @@ let events;
 module.exports = useCache(main, 'events.json');
 
 async function main() {
+  console.log(`${__filename} started.`);
+
   if (!events) {
   // Define a JSON-LD context
     const context = {
@@ -109,6 +111,8 @@ async function main() {
       return data;
     }
   }
+
+  console.log(`${__filename} done.`);
 
   return events;
 }

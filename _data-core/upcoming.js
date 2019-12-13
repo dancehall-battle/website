@@ -6,6 +6,8 @@ const {useCache, parseDates, getOrganizerInstagram} = require('./utils');
 let client;
 
 async function main() {
+  console.log(`${__filename} started.`);
+
   // Define a JSON-LD context
   const context = {
     "@context": {
@@ -84,6 +86,7 @@ async function main() {
   });
 
   //console.log(result);
+  console.log(`${__filename} done.`);
 
   return {data: result, originalQueryResults};
 }
