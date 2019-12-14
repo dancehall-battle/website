@@ -5,8 +5,10 @@ const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {createNameForBattle, useCache} = require('./utils');
 
 let result;
-
-module.exports = useCache(main, 'battles.json');
+const yearBattleMap = {};
+const winnerCountryBattleMap = {};
+const recentBattles = [];
+const eventIDsOfRecentBattles = [];
 
 async function main() {
   console.log(`${__filename} started.`);
@@ -44,11 +46,6 @@ async function main() {
 // Create a GraphQL-LD client based on a client-side Comunica engine
     const client = new Client({context, queryEngine});
 
-    const yearBattleMap = {};
-    const winnerCountryBattleMap = {};
-    const recentBattles = [];
-    const eventIDsOfRecentBattles = [];
-
     // Define a query
     const query = `
   query { 
@@ -77,7 +74,7 @@ async function main() {
   }`;
 
     // Execute the query
-    result = await executeQuery(query);
+    result = (await client.query({query})).data;
     originalQueryResults['@graph'] = recursiveJSONKeyTransform(key => {
       if (key === 'id' || key === 'type') {
         key = '@' + key;
@@ -131,63 +128,60 @@ async function main() {
     recent.years = Object.keys(recent.perYear);
 
     result = {perYear: yearBattleMap, recent, originalQueryResults};
-
-    async function executeQuery(query) {
-      const {data} = await client.query({query});
-
-      return data;
-    }
-
-    function parseDates(battle) {
-      const date = new Date(battle.start);
-
-      battle.date = format(date, 'MMM d', {awareOfUnicodeTokens: true});
-      battle.year = (date.getFullYear());
-
-      if (!yearBattleMap[battle.year]) {
-        yearBattleMap[battle.year] = [];
-      }
-
-      yearBattleMap[battle.year].push(battle);
-    }
-
-    function parseCountry(battle) {
-      // This is an array.
-      const winnerCountries = battle.hasWinner.map(winner => winner.country);
-      const duplicateCountries = [];
-
-      winnerCountries.forEach(country => {
-        if (country !== '' && duplicateCountries.indexOf(country) === -1) {
-          // To make sure that 2 vs 2 winners from the same country don't add that battle twice to that one country.
-          duplicateCountries.push(country);
-
-          if (!winnerCountryBattleMap[country]) {
-            winnerCountryBattleMap[country] = {};
-          }
-
-          if (!winnerCountryBattleMap[country][battle.year]) {
-            winnerCountryBattleMap[country][battle.year] = [];
-          }
-
-          winnerCountryBattleMap[country][battle.year].push(battle);
-        }
-      });
-    }
-
-    function addToRecentBattles(battles) {
-      battles.forEach(battle => {
-        if (eventIDsOfRecentBattles.indexOf(battle.atEvent.id) !== -1 || eventIDsOfRecentBattles.length <= 20) {
-          if (eventIDsOfRecentBattles.indexOf(battle.atEvent.id) === -1) {
-            eventIDsOfRecentBattles.push(battle.atEvent.id);
-          }
-
-          recentBattles.push(battle);
-        }
-      });
-    }
   }
 
   console.log(`${__filename} done.`);
 
   return result;
 }
+
+function parseDates(battle) {
+  const date = new Date(battle.start);
+
+  battle.date = format(date, 'MMM d', {awareOfUnicodeTokens: true});
+  battle.fullDate = format(date, 'MMM d, yyyy', {awareOfUnicodeTokens: true});
+  battle.year = (date.getFullYear());
+
+  if (!yearBattleMap[battle.year]) {
+    yearBattleMap[battle.year] = [];
+  }
+
+  yearBattleMap[battle.year].push(battle);
+}
+
+function parseCountry(battle) {
+  // This is an array.
+  const winnerCountries = battle.hasWinner.map(winner => winner.country);
+  const duplicateCountries = [];
+
+  winnerCountries.forEach(country => {
+    if (country !== '' && duplicateCountries.indexOf(country) === -1) {
+      // To make sure that 2 vs 2 winners from the same country don't add that battle twice to that one country.
+      duplicateCountries.push(country);
+
+      if (!winnerCountryBattleMap[country]) {
+        winnerCountryBattleMap[country] = {};
+      }
+
+      if (!winnerCountryBattleMap[country][battle.year]) {
+        winnerCountryBattleMap[country][battle.year] = [];
+      }
+
+      winnerCountryBattleMap[country][battle.year].push(battle);
+    }
+  });
+}
+
+function addToRecentBattles(battles) {
+  battles.forEach(battle => {
+    if (eventIDsOfRecentBattles.indexOf(battle.atEvent.id) !== -1 || eventIDsOfRecentBattles.length <= 20) {
+      if (eventIDsOfRecentBattles.indexOf(battle.atEvent.id) === -1) {
+        eventIDsOfRecentBattles.push(battle.atEvent.id);
+      }
+
+      recentBattles.push(battle);
+    }
+  });
+}
+
+module.exports = useCache(main, 'battles.json');
