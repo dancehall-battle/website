@@ -1,9 +1,13 @@
 const {QueryEngineComunica} = require('graphql-ld-comunica/index');
-const comunicaConfig = {
-  sources: [
-    { type: "hypermedia", value: "http://localhost:3000/output" },
-    { type: "hypermedia", value: "https://data.dev.dancehallbattle.org/rankings" },
-  ],
-};
+const tpfServers = require('../tpf-servers.json');
+
+const comunicaConfig = {};
+
+if (process.env.MODE && process.env.MODE === 'dev') {
+  comunicaConfig.sources = tpfServers.dev;
+  console.log('Using development TPF servers.');
+} else {
+  comunicaConfig.sources = tpfServers.live;
+}
 
 module.exports = new QueryEngineComunica(comunicaConfig);
