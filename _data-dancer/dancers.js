@@ -8,7 +8,7 @@ const fs = require('fs-extra');
 async function main() {
   console.log(`${__filename} started.`);
 
-  const context = await fs.readJson('../context.json');
+  const context = await fs.readJson('./context.json');
   const originalContext = JSON.parse(JSON.stringify(context['@context']));
 
 // Create a GraphQL-LD client based on a client-side Comunica engine

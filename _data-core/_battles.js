@@ -13,7 +13,7 @@ async function main() {
   console.log(`${__filename} started.`);
 
   if (!result) {
-    const context = await fs.readJson('../context.json');
+    const context = await fs.readJson('./context.json');
     const originalQueryResults = {
       '@context': JSON.parse(JSON.stringify(context['@context']))
     };
