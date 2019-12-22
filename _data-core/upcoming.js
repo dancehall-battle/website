@@ -3,13 +3,14 @@ const queryEngine = require('./engine');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {useCache, parseDates, getOrganizerInstagram} = require('./utils');
 const fs = require('fs-extra');
+const path = require('path');
 
 let client;
 
 async function main() {
   console.log(`${__filename} started.`);
 
-  const context = await fs.readJson('./context.json');
+  const context = await fs.readJson(path.join(__dirname, '../context.json'));
 
   const originalQueryResults = {
     '@context': JSON.parse(JSON.stringify(context['@context']))
