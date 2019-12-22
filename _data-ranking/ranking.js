@@ -10,15 +10,16 @@ const context = {
   "@context": {
     "type": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type",
     "schema": "http://schema.org/",
+    "dhb": "https://dancehallbattle.org/ontology/",
     "items": "schema:itemListElement",
     "country": "schema:item",
     "dancer": "schema:item",
     "position": "schema:position",
     "name": "schema:name",
     "created": "schema:dateCreated",
-    "represents": "https://dancebattle.org/ontology/representsCountry",
-    "points": "https://dancehallbattle.org/ontology/points",
-    "RANKING": "https://dancehallbattle.org/ontology/Ranking"
+    "represents": "dhb:representsCountry",
+    "points": "dhb:points",
+    "RANKING": "dhb:Ranking"
   }
 };
 

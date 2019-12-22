@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Build in different stages to reduce memory usage
 - Select TPF servers (dev or live) via environment variables
 
+### Fixed
+- Dancehall battle ontology namespace (see [issue 67](https://github.com/dancehall-battle/website/issues/67))
+
 ## [3.2.0] - 2019-12-08
 
 ### Added

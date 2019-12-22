@@ -2,20 +2,12 @@ const {Client} = require('graphql-ld/index');
 const queryEngine = require('../_data-core/engine');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {useCache} = require('../_data-core/utils');
+const fs = require('fs-extra');
 
 async function main() {
   console.log(`${__filename} started.`);
 
-  // Define a JSON-LD context
-  const context = {
-    "@context": {
-      "type": {"@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"},
-      "name": {"@id": "http://schema.org/name"},
-      "wins": {"@reverse": "https://dancebattle.org/ontology/hasWinner"},
-      "country": {"@id": "https://dancebattle.org/ontology/representsCountry"}
-    }
-  };
-
+  const context = await fs.readJson('./context.json');
   const originalContext = JSON.parse(JSON.stringify(context['@context']));
 
   // Create a GraphQL-LD client based on a client-side Comunica engine

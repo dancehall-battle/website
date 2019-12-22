@@ -24,7 +24,7 @@ cp -R _data-ranking/* _data
 cp .eleventyignore.serve .eleventyignore
 
 envVars="ELEVENTY_SERVE=true SKIP=upcoming.json,battles.json,countries.json,dancer-list.json,dancers.json,events.json,country-to-battles-per-year.json,country-to-events.json MODE=dev"
-#envVars="ELEVENTY_SERVE=true"
+envVars="ELEVENTY_SERVE=true"
 
 if [ "$1" == "-v" ]; then
     envVars="$envVars DEBUG=Eleventy*"
