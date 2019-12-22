@@ -4,11 +4,12 @@ const {format} = require('date-fns');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {createNameForBattle, useCache} = require('../_data-core/utils');
 const fs = require('fs-extra');
+const path = require('path');
 
 async function main() {
   console.log(`${__filename} started.`);
 
-  const context = await fs.readJson('./context.json');
+  const context = await fs.readJson(path.join(__dirname, '../context.json'));
   const originalContext = JSON.parse(JSON.stringify(context['@context']));
 
 // Create a GraphQL-LD client based on a client-side Comunica engine

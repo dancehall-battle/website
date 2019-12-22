@@ -4,6 +4,7 @@ const getCountryName = require('country-list').getName;
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {useCache, parseDates, createNameForBattle, getOrganizerInstagram} = require('./utils');
 const fs = require('fs-extra');
+const path = require('path');
 
 let events;
 
@@ -13,7 +14,7 @@ async function main() {
   console.log(`${__filename} started.`);
 
   if (!events) {
-    const context = await fs.readJson('./context.json');
+    const context = await fs.readJson(path.join(__dirname, '../context.json'));
     const originalContext = JSON.parse(JSON.stringify(context['@context']));
 
 // Create a GraphQL-LD client based on a client-side Comunica engine

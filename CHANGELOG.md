@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 
 ### Added
-- Ranking pages
+- Ranking pages (see [issue 51](https://github.com/dancehall-battle/website/issues/51))
 - Build in different stages to reduce memory usage
 - Select TPF servers (dev or live) via environment variables
 
