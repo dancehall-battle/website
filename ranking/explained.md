@@ -91,9 +91,43 @@ The points currently used can be found in the following table:
   </tr>
 </table>
 
-The formula to calculate the total points $$points_d$$ for a dancer _d_ given a set of battles _B_ 
-won by _d_ is
+<div>
+The formula to calculate the total points \(points_d\) 
+for a dancer \(d\) 
+given a set of battles \(B\)
+won by \(d\) is
 
 $$points_d = \sum_{i=0}^{|B|} pointsOfBattle(B_i)$$
 
-$$pointsOfBattle(b) = diff(b_{date}, today)$$
+where
+
+$$pointsOfBattle(b) = lookUp(diff(b_{date}, today))$$
+</div>
+
+Let us use these formulas with an example.
+Assume that today is 2019-12-15 and
+a certain dancers won the following three battles:
+    
+<div>
+<ul>
+  <li>Battle A, \(battle_a\), which took place on 2019-06-24.</li>
+  <li>Battle B, \(battle_b\), which took place on 2019-11-12.</li>
+  <li>Battle C, \(battle_c\), which took place on 2019-12-01.</li>
+</ul>
+</div>
+
+<div>
+The total points for this dancer are the sum of \(pointsOfBattle(battle_a)\),
+\(pointsOfBattle(battle_b)\), and
+\(pointsOfBattle(battle_c)\).
+The points for Battle A calculated as follows:
+
+$$
+\begin{align}
+pointsOfBattle(battle_a) &= diff({battle}_{a,date}, today) \\
+&= diff(\text{2019-06-24}, \text{2019-12-15}) \\
+&= lookUp(4) \\
+&= 12
+\end{align}
+$$
+</div>
