@@ -177,6 +177,29 @@ td.cell.middle {
     padding-left: 10px;
 }
 
+#points {
+    border-collapse: collapse;
+    text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 30px;
+}
+#points td {
+    border: 1px solid black;
+}
+#points tr:first-child td {
+    border-top: 0;
+}
+#points tr td:first-child {
+    border-left: 0;
+}
+#points tr:last-child td {
+    border-bottom: 0;
+}
+#points tr td:last-child {
+    border-right: 0;
+}
+
 /* FAQ page */
 .question {
     padding-top: 20px;

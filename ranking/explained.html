@@ -1,0 +1,196 @@
+---
+layout: blogpost
+title: How rankings are calculated
+date: 2020-01-01
+---
+
+<h1>How rankings are calculated</h1>
+
+<div>
+  <p>
+    The model for the calculation of the Dancehall Battle Ranking (DBR)
+    was developed over multiple months in the last part of 2019
+    during which time different algorithms were tested and discussed.
+    The main goal was to create an algorithm
+    that allows to rank different dancers and countries
+    across different events at different times at different locations.
+  </p>
+
+  <p>
+    In what follows we will explain six different types of rankings.
+    Three for dancers and three for countries:
+  </p>
+
+  <ul>
+    <li>Dancer</li>
+    <li>Dancer (1 vs 1)</li>
+    <li>Dancer (2 vs 2)</li>
+    <li>Country</li>
+    <li>Country (home)</li>
+    <li>Country (away)</li>
+  </ul>
+</div>
+
+<div>
+  <h2>Dancer rankings</h2>
+
+  <p>
+    The dancer rankings awards points to every dancer that participated in a battle in the last 12 months.
+    Their points are calculated based on the number of battles they have won,
+    together with how long ago the battle took place.
+  </p>
+
+  <div>
+    <h3>Difference between rankings</h3>
+
+    <p>
+      There are three rankings for individual dancers:
+      dancer, dancer (1 vs 1), and dancer (2 vs 2).
+      The dancer ranking takes into account both 1 vs 1 and 2 vs 2 battles.
+      The dancer (1 vs 1) ranking takes only into account 1 vs 1 battles.
+      The dancer (2 vs 2) ranking takes only into account 2 vs 2 battles.
+    </p>
+  </div>
+
+  <div>
+    <h3>Calculate rankings</h3>
+
+    <p>
+      A dancer get points for every win in the past 12 months.
+      Wins that happened more than 12 months ago are not taking into account.
+      The points earned are lowered the longer the win has been.
+      For example, a dancer gets less points for a win from 6 months ago then
+      for a win from 2 months ago.
+      The points currently used can be found in the following table:
+    </p>
+
+    <table id="points">
+      <tr>
+        <th># months ago</th>
+        <th >Points</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>18</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>17</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>16</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>13</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>12</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>11</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>8</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>3</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td>2</td>
+      </tr>
+      <tr>
+        <td>11</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>\(\geq\) 12</td>
+        <td>0</td>
+      </tr>
+    </table>
+
+    <p>
+      The formula to calculate the total points \(points_d\)
+      for a dancer \(d\)
+      given a set of battles \(B\)
+      won by \(d\) is
+
+      $$points_d = \sum_{i=0}^{|B|} \text{pointsOfBattle}(B_i)$$
+
+      where
+
+      $$\text{pointsOfBattle}(b) = lookUp(\text{diff}(b_{date}, today))$$
+      $$\text{lookUp}(months) =  \text{look up the points in the above table based on the months}$$
+      $$\text{diff}(date1, date2) =  \text{calculate the difference in months between 2 dates}$$
+    </p>
+
+    <p>
+      Let us use these formulas with an example.
+      Assume that today is 2019-12-15 and
+      a certain dancers won the following three 1 vs 1 battles:
+    </p>
+
+    <div>
+    <ul>
+      <li>Battle A, \(battle_a\), which took place on 2019-06-24.</li>
+      <li>Battle B, \(battle_b\), which took place on 2019-11-12.</li>
+      <li>Battle C, \(battle_c\), which took place on 2019-12-01.</li>
+    </ul>
+    </div>
+
+    <div>
+      The total points for this dancer are the sum of \(\text{pointsOfBattle}(battle_a)\),
+      \(\text{pointsOfBattle}(battle_b)\), and
+      \(\text{pointsOfBattle}(battle_c)\).
+      The points for Battle A calculated as follows:
+
+      $$ \begin{align} \text{pointsOfBattle}(battle_a) & = \text{diff}({battle}_{a,date}, today) \\
+      & = \text{diff}(\text{2019-06-24}, \text{2019-12-15}) \\
+      & = \text{lookUp}(4) \\
+      & = 12 \end{align} $$
+
+      Thus, winning Battle A results into 12 points for dancer \(d\).
+      The same can be done for Battle B and Battle C:
+
+      $$ \begin{align} \text{pointsOfBattle}(battle_b) & = diff({battle}_{b,date}, today) \\
+      & = \text{diff}(\text{2019-11-12}, \text{2019-12-15}) \\
+      & = \text{lookUp}(1) \\
+      & = 17 \end{align} $$
+
+      $$ \begin{align} \text{pointsOfBattle}(battle_c) & = diff({battle}_{c,date}, today) \\
+      & = \text{diff}(\text{2019-12-01}, \text{2019-12-15}) \\
+      & = \text{lookUp}(0) \\
+      & = 18 \end{align} $$
+
+      <p>
+        This results in 17 points for winning Battle B and 18 points for winning Battle C.
+        The total amount of points for dancer \(d\) is the sum of 12, 17, and 18,
+        resulting in 47 points.
+      </p>
+    </div>
+
+    <div>
+      <p>
+        The aforementioned battles are 1 vs 1 battles.
+        In case it are 2 vs 2 battles, then the points are divided in half:
+        half of the points for each of the two dancers that won the battle.
+        In our example, the points are then 6, 8.5, and 9, resulting in 23.5 points total
+        for one dancer.
+      </p>
+    </div>
+  </div>
+</div>
