@@ -29,6 +29,24 @@ date: 2020-01-01
     <li>Country (home)</li>
     <li>Country (away)</li>
   </ul>
+
+  <p>
+    The following variables are used for the different formulas discussed later:
+  </p>
+  <p>
+    \(C\) is the set of all countries. <br />
+    \(D\) is the set of all dancers. <br />
+    \(B\) is the set of all battles. <br />
+    \(c\) is a single country. <br />
+    \(d\) is a single dancer. <br />
+    \(b\) is a single battle. <br />
+    \(D_c\) is the set of all dancers from country \(c\). <br />
+    \(D_{c,i}\) is the dancer of country \(c\) at index \(i\).
+    The first index is 1.<br />
+    \(B_d\) is the set of all battles won by dancer \(d\). <br />
+    \(B_{d,j}\) is the battle of dancer \(d\) at index \(j\).
+    The first index is 1.
+  </p>
 </div>
 
 <div>
@@ -129,7 +147,7 @@ date: 2020-01-01
       given a set of battles \(B\)
       won by \(d\) is
 
-      $$points_d = \sum_{i=0}^{|B|} \text{pointsOfBattle}(B_i)$$
+      $$points_d = \sum_{i=0}^{|B_d|} \text{pointsOfBattle}(B_{d,i})$$
 
       where
 
@@ -191,6 +209,123 @@ date: 2020-01-01
         In our example, the points are then 6, 8.5, and 9, resulting in 23.5 points total
         for one dancer.
       </p>
+    </div>
+  </div>
+</div>
+
+<div>
+  <h2>Country rankings</h2>
+
+  <p>
+    The country rankings awards points to every country (represented by one of its dancers)
+    that participated in a battle in the last 12 months.
+    Their points are calculated based on the number of battles they have won,
+    together with how long ago the battle took place.
+  </p>
+
+  <div>
+    <h3>Difference between rankings</h3>
+
+    <p>
+      There are three rankings for individual dancers:
+      country, country (home), and country (away).
+      The country ranking takes into account both home and away battles.
+      The country (home) ranking takes only into account home battles.
+      The dancer (away) ranking takes only into account away battles.
+    </p>
+  </div>
+
+  <div>
+    <h3>Calculate rankings</h3>
+
+    <p>
+      All three rankings are based on the dancer rankings:
+      for each country its total points depends on the points acquired by the individual dancers of that country.
+    </p>
+
+    <div>
+      <h4>Country ranking</h4>
+
+      <p>
+        The formula to calculate the total points \(points_c\)
+        for a country \(c\) is
+
+        $$points_c = \sum_{i=1}^{|D_c|} \sum_{j=1}^{|B_{D_{c,i}}|} \text{pointsOfBattle}(B_{D_{c,i},j})$$
+      </p>
+
+      <table id="points">
+        <tr>
+          <th>Battle</th>
+          <th>Battle's country</th>
+          <th># months ago</th>
+          <th>Winner</th>
+          <th>Winner's country</th>
+        </tr>
+        <tr>
+          <td>Battle A</td>
+          <td>Italy</td>
+          <td>2</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>17</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>16</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>13</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>12</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>11</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>8</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>7</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>6</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>3</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>2</td>
+        </tr>
+        <tr>
+          <td>11</td>
+          <td>1</td>
+        </tr>
+        <tr>
+          <td>\(\geq\) 12</td>
+          <td>0</td>
+        </tr>
+      </table>
+    </div>
+
+    <div>
+      <h4>Country (home) ranking</h4>
+
+    </div>
+
+    <div>
+      <h4>Country (away) ranking</h4>
+
     </div>
   </div>
 </div>
