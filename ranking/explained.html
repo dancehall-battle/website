@@ -4,6 +4,7 @@ title: How rankings are calculated
 date: 2020-01-01
 ---
 
+<div id="explain-ranking">
 <h1>How rankings are calculated</h1>
 
 <div>
@@ -44,13 +45,16 @@ date: 2020-01-01
     \(D_{c,i}\) is the dancer of country \(c\) at index \(i\).
     The first index is 1.<br />
     \(B_d\) is the set of all battles won by dancer \(d\). <br />
-    \(B_{d,j}\) is the battle of dancer \(d\) at index \(j\).
+    \(B_{d,i}\) is the battle of dancer \(d\) at index \(i\).
     The first index is 1. <br />
     \(H_d\) is the set of all battles won by dancer \(d\) in their own country. <br />
-    \(H_{d,j}\) is the battle of dancer \(d\) at index \(j\).
+    \(H_{d,i}\) is the battle of dancer \(d\) at index \(i\).
     The first index is 1. <br />
     \(A_d\) is the set of all battles won by dancer \(d\) in a country that is not their own. <br />
-    \(A_{d,j}\) is the battle of dancer \(d\) at index \(j\).
+    \(A_{d,i}\) is the battle of dancer \(d\) at index \(i\).
+    The first index is 1.<br />
+    \(E_c\) is the set of all battles in country \(c\). <br />
+    \(E_{c,i}\) is the battle of country \(c\) at index \(i\).
     The first index is 1.
   </p>
 </div>
@@ -88,7 +92,7 @@ date: 2020-01-01
       The points currently used can be found in the following table:
     </p>
 
-    <table id="points">
+    <table>
       <tr>
         <th># months ago</th>
         <th >Points</th>
@@ -254,7 +258,7 @@ date: 2020-01-01
 
       <p>
         The formula to calculate the total points \(points_c\)
-        for a country \(c\) is
+        for country \(c\) is
 
         $$points_c = \sum_{i=1}^{|D_c|} \sum_{j=1}^{|B_{D_{c,i}}|} \text{pointsOfBattle}(B_{D_{c,i},j})$$
       </p>
@@ -264,13 +268,20 @@ date: 2020-01-01
         We want to calculate the points of France (\(points_{france}\)) taking into account the following battles:
       </p>
 
-      <table id="points">
+      <table>
         <tr>
           <th>Battle</th>
           <th>Battle's country</th>
           <th># months ago</th>
           <th>Winner</th>
           <th>Winner's country</th>
+        </tr>
+        <tr>
+          <td>Battle A</td>
+          <td>Ukraine</td>
+          <td>2</td>
+          <td>Maria</td>
+          <td>Italy</td>
         </tr>
         <tr>
           <td>Battle C</td>
@@ -324,7 +335,7 @@ date: 2020-01-01
 
       <p>
         The formula to calculate the total points \(points_c\)
-        for a country \(c\) is
+        for country \(c\) is
 
         $$points_c = \sum_{i=1}^{|D_c|} \sum_{j=1}^{|H_{D_{c,i}}|} \text{pointsOfBattle}(H_{D_{c,i},j})$$
       </p>
@@ -360,6 +371,69 @@ date: 2020-01-01
     <div>
       <h4>Country (away) ranking</h4>
 
+      <p>
+        The country (away) ranking is different from the country ranking because
+        it only takes into account wins away for dancers.
+        In other words, only wins where the country of the battle and the country of the winner are different
+        are taken into account.
+      </p>
+
+      <p>
+        The formula to calculate the total points \(points_c\)
+        for country \(c\) is
+
+        $$
+        points_c = \text{round} \left( \frac{\sum\limits_{i=1}^{|D_c|} \sum\limits_{j=1}^{|A_{D_{c,i}}|} \text{pointsOfBattle}(A_{D_{c,i},j})}
+        {\sum\limits_{k=1}^{|B|} \text{pointsOfBattle}(B_k) - \sum\limits_{l=1}^{|E_c|} \text{pointsOfBattle}(E_{c,l})}
+        \cdot 100000 \right)
+        $$
+      </p>
+
+      <p>
+        Let us use this formulas with an example.
+        We want to calculate the points of France (\(points_{france}\)) taking into account aforementioned battles.
+      </p>
+
+      <p>
+        \(D_{france}\) contains the dancers from France: Helen and Joseph.
+        \(A_{helen}\) contains the battles in other countries won by Helen: <spa>none</spa>.
+        \(A_{joseph}\) contains the battles in other countries won by Joseph: Battle D.
+      </p>
+
+      <p>
+        $$
+        \begin{align}
+        points_{france} &= \text{round} \left( \frac{\sum\limits_{i=1}^{|D_c|} \sum\limits_{j=1}^{|A_{D_{c,i}}|} \text{pointsOfBattle}(A_{D_{c,i},j})}
+        {\sum\limits_{k=1}^{|B|} \text{pointsOfBattle}(B_k) - \sum\limits_{l=1}^{|E_c|} \text{pointsOfBattle}(E_{c,l})}
+        \cdot 100000 \right) \\
+        &= \text{round} \left( \frac{\sum\limits_{j=1}^{|A_{helen}|} \text{pointsOfBattle}(A_{helen,j}) + \sum\limits_{j=1}^{|A_{joseph}|} \text{pointsOfBattle}(A_{joseph,j})}
+        {\sum\limits_{k=1}^{|B|} \text{pointsOfBattle}(B_k) - \sum\limits_{l=1}^{|E_c|} \text{pointsOfBattle}(E_{c,l})}
+        \cdot 100000 \right) \\
+        &= \text{round} \left( \frac{\text{pointsOfBattle}(battle_d)}
+        {\sum\limits_{k=1}^{|B|} \text{pointsOfBattle}(B_k) - \sum\limits_{l=1}^{|E_c|} \text{pointsOfBattle}(E_{c,l})}
+        \cdot 100000 \right) \\
+        &= \text{round} \left( \frac{7}
+        {\sum\limits_{k=1}^{|B|} \text{pointsOfBattle}(B_k) - \sum\limits_{l=1}^{|E_c|} \text{pointsOfBattle}(E_{c,l})}
+        \cdot 100000 \right) \\
+        &= \text{round} \left( \frac{7}
+        {34 - 11}
+        \cdot 100000 \right) \\
+        &= \text{round} \left( \frac{7}
+        {23}
+        \cdot 100000 \right) \\
+        &= 30,435
+        \end{align}
+        $$
+      </p>
+
+      <p>
+        The total points for France is 30,435,
+        based on the wins by Joseph (and Helen).
+        The fraction and the multiplication by 100,000 make it not meaningful
+        to compare these points with points of other rankings.
+        Furthermore, the multiplication is used to avoid points that only differ in the decimals.
+      </p>
     </div>
   </div>
+</div>
 </div>

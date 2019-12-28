@@ -177,26 +177,26 @@ td.cell.middle {
     padding-left: 10px;
 }
 
-#points {
+#explain-ranking table {
     border-collapse: collapse;
     text-align: center;
     margin-left:auto;
     margin-right:auto;
     margin-bottom: 30px;
 }
-#points td {
+#explain-ranking table td {
     border: 1px solid black;
 }
-#points tr:first-child td {
+#explain-ranking table tr:first-child td {
     border-top: 0;
 }
-#points tr td:first-child {
+#explain-ranking table tr td:first-child {
     border-left: 0;
 }
-#points tr:last-child td {
+#explain-ranking table tr:last-child td {
     border-bottom: 0;
 }
-#points tr td:last-child {
+#explain-ranking table tr td:last-child {
     border-right: 0;
 }
 
