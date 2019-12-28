@@ -190,12 +190,12 @@ date: 2020-01-01
       Thus, winning Battle A results into 12 points for dancer \(d\).
       The same can be done for Battle B and Battle C:
 
-      $$ \begin{align} \text{pointsOfBattle}(battle_b) & = diff({battle}_{b,date}, today) \\
+      $$ \begin{align} \text{pointsOfBattle}(battle_b) & = \text{diff}({battle}_{b,date}, today) \\
       & = \text{diff}(\text{2019-11-12}, \text{2019-12-15}) \\
       & = \text{lookUp}(1) \\
       & = 17 \end{align} $$
 
-      $$ \begin{align} \text{pointsOfBattle}(battle_c) & = diff({battle}_{c,date}, today) \\
+      $$ \begin{align} \text{pointsOfBattle}(battle_c) & = \text{diff}({battle}_{c,date}, today) \\
       & = \text{diff}(\text{2019-12-01}, \text{2019-12-15}) \\
       & = \text{lookUp}(0) \\
       & = 18 \end{align} $$
