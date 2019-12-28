@@ -184,19 +184,23 @@ td.cell.middle {
     margin-right:auto;
     margin-bottom: 30px;
 }
-#explain-ranking table td {
+#explain-ranking table th {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+#explain-ranking table td, #explain-ranking table th {
     border: 1px solid black;
 }
-#explain-ranking table tr:first-child td {
+#explain-ranking table tr:first-child td, #explain-ranking table tr:first-child th {
     border-top: 0;
 }
-#explain-ranking table tr td:first-child {
+#explain-ranking table tr td:first-child, #explain-ranking table tr th:first-child {
     border-left: 0;
 }
-#explain-ranking table tr:last-child td {
+#explain-ranking table tr:last-child td, #explain-ranking table tr:last-child th {
     border-bottom: 0;
 }
-#explain-ranking table tr td:last-child {
+#explain-ranking table tr td:last-child, #explain-ranking table tr th:last-child {
     border-right: 0;
 }
 

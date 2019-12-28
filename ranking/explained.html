@@ -9,10 +9,10 @@ date: 2020-01-01
 
 <div>
   <p>
-    The model for the calculation of the Dancehall Battle Ranking (DBR)
+    The model for the calculation of the Dancehall Battle Rankings
     was developed over multiple months in the last part of 2019
-    during which time different algorithms were tested and discussed.
-    The main goal was to create an algorithm
+    during which time different formulas were tested and discussed.
+    The main goal was to create formulas
     that allows to rank different dancers and countries
     across different events at different times at different locations.
   </p>
@@ -41,6 +41,7 @@ date: 2020-01-01
     \(c\) is a single country. <br />
     \(d\) is a single dancer. <br />
     \(b\) is a single battle. <br />
+    \(b_{date}\) is the date that battle \(b\) took place. <br />
     \(D_c\) is the set of all dancers from country \(c\). <br />
     \(D_{c,i}\) is the dancer of country \(c\) at index \(i\).
     The first index is 1.<br />
@@ -63,7 +64,7 @@ date: 2020-01-01
   <h2>Dancer rankings</h2>
 
   <p>
-    The dancer rankings awards points to every dancer that participated in a battle in the last 12 months.
+    The dancer rankings award points to every dancer that participated in a battle in the last 12 months.
     Their points are calculated based on the number of battles they have won,
     together with how long ago the battle took place.
   </p>
@@ -73,7 +74,7 @@ date: 2020-01-01
 
     <p>
       There are three rankings for individual dancers:
-      dancer, dancer (1 vs 1), and dancer (2 vs 2).
+      "dancer", "dancer (1 vs 1)", and "dancer (2 vs 2)".
       The dancer ranking takes into account both 1 vs 1 and 2 vs 2 battles.
       The dancer (1 vs 1) ranking takes only into account 1 vs 1 battles.
       The dancer (2 vs 2) ranking takes only into account 2 vs 2 battles.
@@ -86,7 +87,8 @@ date: 2020-01-01
     <p>
       A dancer get points for every win in the past 12 months.
       Wins that happened more than 12 months ago are not taking into account.
-      The points earned are lowered the longer the win has been.
+      The more months that have passed since the battle took place,
+      the lower the amount of points that is earned.
       For example, a dancer gets less points for a win from 6 months ago then
       for a win from 2 months ago.
       The points currently used can be found in the following table:
@@ -161,53 +163,62 @@ date: 2020-01-01
 
       where
 
-      $$\text{pointsOfBattle}(b) = lookUp(\text{diff}(b_{date}, today))$$
-      $$\text{lookUp}(months) =  \text{look up the points in the above table based on the months}$$
-      $$\text{diff}(date1, date2) =  \text{calculate the difference in months between 2 dates}$$
+      $$
+      \begin{align}
+      \text{pointsOfBattle}(b) &= lookUp(\text{diff}(b_{date}, today)) \\
+      \text{lookUp}(months) &=  \text{look up the points in the above table based on the months} \\
+      \text{diff}(date1, date2) &=  \text{calculate the difference in months between 2 dates}
+      \end{align}
+      $$
     </p>
 
     <p>
       Let us use these formulas with an example.
       Assume that today is 2019-12-15 and
-      a certain dancers won the following three 1 vs 1 battles:
+      we want to calculate the points of a dancer called Boris \(points_{boris}\)won the following three 1 vs 1 battles:
     </p>
 
-    <div>
-    <ul>
-      <li>Battle A, \(battle_a\), which took place on 2019-06-24.</li>
-      <li>Battle B, \(battle_b\), which took place on 2019-11-12.</li>
-      <li>Battle C, \(battle_c\), which took place on 2019-12-01.</li>
-    </ul>
-    </div>
+    <table>
+      <tr>
+        <th>Battle</th>
+        <th>Variable name</th>
+        <th>Date</th>
+      </tr>
+      <tr>
+        <td>Battle A</td>
+        <td>\(battle_a\)</td>
+        <td>2019-06-24</td>
+      </tr>
+      <tr>
+        <td>Battle B</td>
+        <td>\(battle_b\)</td>
+        <td>2019-11-12</td>
+      </tr>
+      <tr>
+        <td>Battle C</td>
+        <td>\(battle_c\)</td>
+        <td>2019-12-01</td>
+      </tr>
+    </table>
 
     <div>
-      The total points for this dancer are the sum of \(\text{pointsOfBattle}(battle_a)\),
-      \(\text{pointsOfBattle}(battle_b)\), and
-      \(\text{pointsOfBattle}(battle_c)\).
-      The points for Battle A calculated as follows:
-
-      $$ \begin{align} \text{pointsOfBattle}(battle_a) & = \text{diff}({battle}_{a,date}, today) \\
-      & = \text{diff}(\text{2019-06-24}, \text{2019-12-15}) \\
-      & = \text{lookUp}(4) \\
-      & = 12 \end{align} $$
-
-      Thus, winning Battle A results into 12 points for dancer \(d\).
-      The same can be done for Battle B and Battle C:
-
-      $$ \begin{align} \text{pointsOfBattle}(battle_b) & = \text{diff}({battle}_{b,date}, today) \\
-      & = \text{diff}(\text{2019-11-12}, \text{2019-12-15}) \\
-      & = \text{lookUp}(1) \\
-      & = 17 \end{align} $$
-
-      $$ \begin{align} \text{pointsOfBattle}(battle_c) & = \text{diff}({battle}_{c,date}, today) \\
-      & = \text{diff}(\text{2019-12-01}, \text{2019-12-15}) \\
-      & = \text{lookUp}(0) \\
-      & = 18 \end{align} $$
+      $$
+      \begin{align}
+      points_{boris} &= \sum_{i=1}^{|B_{boris}|} \text{pointsOfBattle}(B_{boris,i}) \\
+      &= \text{pointsOfBattle}(battle_a) + \text{pointsOfBattle}(battle_b) \\
+      &~~~~ + \text{pointsOfBattle}(battle_c)\\
+      &= \text{diff}({battle}_{a,date}, today) + \text{diff}({battle}_{b,date}, today) \\
+      &~~~~ + \text{diff}({battle}_{c,date}, today) \\
+      &= \text{diff}(\text{2019-06-24}, \text{2019-12-15}) + \text{diff}(\text{2019-11-12}, \text{2019-12-15}) \\
+      &~~~~ + \text{diff}(\text{2019-12-01}, \text{2019-12-15}) \\
+      &= \text{lookUp}(4) + \text{lookUp}(1) + \text{lookUp}(0) \\
+      &= 12 + 17 + 18 \\
+      &= 47
+      \end{align}
+      $$
 
       <p>
-        This results in 17 points for winning Battle B and 18 points for winning Battle C.
-        The total amount of points for dancer \(d\) is the sum of 12, 17, and 18,
-        resulting in 47 points.
+        The result is 47 points for Boris.
       </p>
     </div>
 
@@ -227,7 +238,7 @@ date: 2020-01-01
   <h2>Country rankings</h2>
 
   <p>
-    The country rankings awards points to every country (represented by one of its dancers)
+    The country rankings award points to every country (represented by one of its dancers)
     that participated in a battle in the last 12 months.
     Their points are calculated based on the number of battles they have won,
     together with how long ago the battle took place.
@@ -237,11 +248,11 @@ date: 2020-01-01
     <h3>Difference between rankings</h3>
 
     <p>
-      There are three rankings for individual dancers:
-      country, country (home), and country (away).
+      There are three rankings for countries:
+      "country", "country (home)", and "country (away)".
       The country ranking takes into account both home and away battles.
       The country (home) ranking takes only into account home battles.
-      The dancer (away) ranking takes only into account away battles.
+      The country (away) ranking takes only into account away battles.
     </p>
   </div>
 
@@ -264,45 +275,49 @@ date: 2020-01-01
       </p>
 
       <p>
-        Let us use this formulas with an example.
-        We want to calculate the points of France (\(points_{france}\)) taking into account the following battles:
+        Let us use this formula with an example.
+        We want to calculate the points of France \(points_{france}\) taking into account the following battles:
       </p>
 
       <table>
         <tr>
           <th>Battle</th>
+          <th>Variable name</th>
           <th>Battle's country</th>
           <th># months ago</th>
           <th>Winner</th>
           <th>Winner's country</th>
         </tr>
         <tr>
-          <td>Battle A</td>
-          <td>Ukraine</td>
-          <td>2</td>
-          <td>Maria</td>
-          <td>Italy</td>
-        </tr>
-        <tr>
-          <td>Battle C</td>
+          <td>Battle D</td>
+          <td>\(battle_d\)</td>
           <td>France</td>
           <td>5</td>
           <td>Helen</td>
           <td>France</td>
         </tr>
         <tr>
-          <td>Battle D</td>
+          <td>Battle E</td>
+          <td>\(battle_e\)</td>
           <td>Spain</td>
           <td>7</td>
           <td>Joseph</td>
           <td>France</td>
         </tr>
+        <tr>
+          <td>Battle F</td>
+          <td>\(battle_f\)</td>
+          <td>Ukraine</td>
+          <td>2</td>
+          <td>Maria</td>
+          <td>Italy</td>
+        </tr>
       </table>
 
       <p>
         \(D_{france}\) contains the dancers from France: Helen and Joseph.
-        \(B_{helen}\) contains the battles won by Helen: Battle C.
-        \(B_{joseph}\) contains the battles won by Joseph: Battle D.
+        \(B_{helen}\) contains the battles won by Helen: Battle D.
+        \(B_{joseph}\) contains the battles won by Joseph: Battle E.
       </p>
 
       <p>
@@ -310,7 +325,7 @@ date: 2020-01-01
         \begin{align}
         points_{france} &= \sum_{i=1}^{|D_{france}|} \sum_{j=1}^{|B_{D_{france,i}}|} \text{pointsOfBattle}(B_{D_{france,i},j}) \\
         &= \sum_{j=1}^{|B_{helen}|} \text{pointsOfBattle}(B_{helen,j}) + \sum_{j=1}^{|B_{joseph}|} \text{pointsOfBattle}(B_{joseph,j}) \\
-        &= \text{pointsOfBattle}(battle_c) + \text{pointsOfBattle}(battle_d) \\
+        &= \text{pointsOfBattle}(battle_d) + \text{pointsOfBattle}(battle_e) \\
         &= 11 + 7 \\
         &= 18
         \end{align}
@@ -328,7 +343,7 @@ date: 2020-01-01
 
       <p>
         The country (home) ranking is different from the country ranking because
-        it only takes into account wins at home for dancers.
+        it only takes into account home wins for dancers.
         In other words, only wins where the country of the battle and the country of the winner are the same
         are taken into account.
       </p>
@@ -341,14 +356,15 @@ date: 2020-01-01
       </p>
 
       <p>
-        Let us use this formulas with an example.
-        We want to calculate the points of France (\(points_{france}\)) taking into account aforementioned battles.
+        Let us use this formula with an example.
+        We want to calculate the points of France \(points_{france}\) taking into account aforementioned battles.
       </p>
 
       <p>
         \(D_{france}\) contains the dancers from France: Helen and Joseph.
-        \(H_{helen}\) contains the battles in France won by Helen: Battle C.
-        \(H_{joseph}\) contains the battles in France won by Joseph: <span>none</span>.
+        \(H_{helen}\) contains the battles in France won by Helen: Battle D.
+        \(H_{joseph}\) contains the battles in France won by Joseph: it is empty,
+        because Joseph did not win any battles in France.
       </p>
 
       <p>
@@ -356,7 +372,7 @@ date: 2020-01-01
         \begin{align}
         points_{france} &= \sum_{i=1}^{|D_{france}|} \sum_{j=1}^{|H_{D_{france,i}}|} \text{pointsOfBattle}(H_{D_{france,i},j}) \\
         &= \sum_{j=1}^{|H_{helen}|} \text{pointsOfBattle}(H_{helen,j}) + \sum_{j=1}^{|H_{joseph}|} \text{pointsOfBattle}(H_{joseph,j}) \\
-        &= \text{pointsOfBattle}(battle_c) \\
+        &= \text{pointsOfBattle}(battle_d) \\
         &= 11
         \end{align}
         $$
@@ -373,7 +389,7 @@ date: 2020-01-01
 
       <p>
         The country (away) ranking is different from the country ranking because
-        it only takes into account wins away for dancers.
+        it only takes into account away wins for dancers.
         In other words, only wins where the country of the battle and the country of the winner are different
         are taken into account.
       </p>
@@ -390,14 +406,15 @@ date: 2020-01-01
       </p>
 
       <p>
-        Let us use this formulas with an example.
-        We want to calculate the points of France (\(points_{france}\)) taking into account aforementioned battles.
+        Let us use this formula with an example.
+        We want to calculate the points of France \(points_{france}\) taking into account the aforementioned battles.
       </p>
 
       <p>
         \(D_{france}\) contains the dancers from France: Helen and Joseph.
-        \(A_{helen}\) contains the battles in other countries won by Helen: <spa>none</spa>.
-        \(A_{joseph}\) contains the battles in other countries won by Joseph: Battle D.
+        \(A_{helen}\) contains the battles in other countries won by Helen: it is empty,
+        because Helen did not win any battles outside France.
+        \(A_{joseph}\) contains the battles in other countries won by Joseph: Battle E.
       </p>
 
       <p>
@@ -409,7 +426,7 @@ date: 2020-01-01
         &= \text{round} \left( \frac{\sum\limits_{j=1}^{|A_{helen}|} \text{pointsOfBattle}(A_{helen,j}) + \sum\limits_{j=1}^{|A_{joseph}|} \text{pointsOfBattle}(A_{joseph,j})}
         {\sum\limits_{k=1}^{|B|} \text{pointsOfBattle}(B_k) - \sum\limits_{l=1}^{|E_c|} \text{pointsOfBattle}(E_{c,l})}
         \cdot 100000 \right) \\
-        &= \text{round} \left( \frac{\text{pointsOfBattle}(battle_d)}
+        &= \text{round} \left( \frac{\text{pointsOfBattle}(battle_e)}
         {\sum\limits_{k=1}^{|B|} \text{pointsOfBattle}(B_k) - \sum\limits_{l=1}^{|E_c|} \text{pointsOfBattle}(E_{c,l})}
         \cdot 100000 \right) \\
         &= \text{round} \left( \frac{7}
