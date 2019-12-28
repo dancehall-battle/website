@@ -45,6 +45,12 @@ date: 2020-01-01
     The first index is 1.<br />
     \(B_d\) is the set of all battles won by dancer \(d\). <br />
     \(B_{d,j}\) is the battle of dancer \(d\) at index \(j\).
+    The first index is 1. <br />
+    \(H_d\) is the set of all battles won by dancer \(d\) in their own country. <br />
+    \(H_{d,j}\) is the battle of dancer \(d\) at index \(j\).
+    The first index is 1. <br />
+    \(A_d\) is the set of all battles won by dancer \(d\) in a country that is not their own. <br />
+    \(A_{d,j}\) is the battle of dancer \(d\) at index \(j\).
     The first index is 1.
   </p>
 </div>
@@ -253,6 +259,11 @@ date: 2020-01-01
         $$points_c = \sum_{i=1}^{|D_c|} \sum_{j=1}^{|B_{D_{c,i}}|} \text{pointsOfBattle}(B_{D_{c,i},j})$$
       </p>
 
+      <p>
+        Let us use this formulas with an example.
+        We want to calculate the points of France (\(points_{france}\)) taking into account the following battles:
+      </p>
+
       <table id="points">
         <tr>
           <th>Battle</th>
@@ -262,65 +273,88 @@ date: 2020-01-01
           <th>Winner's country</th>
         </tr>
         <tr>
-          <td>Battle A</td>
-          <td>Italy</td>
-          <td>2</td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>17</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>16</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>13</td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>12</td>
-        </tr>
-        <tr>
+          <td>Battle C</td>
+          <td>France</td>
           <td>5</td>
-          <td>11</td>
+          <td>Helen</td>
+          <td>France</td>
         </tr>
         <tr>
-          <td>6</td>
-          <td>8</td>
-        </tr>
-        <tr>
+          <td>Battle D</td>
+          <td>Spain</td>
           <td>7</td>
-          <td>7</td>
-        </tr>
-        <tr>
-          <td>8</td>
-          <td>6</td>
-        </tr>
-        <tr>
-          <td>9</td>
-          <td>3</td>
-        </tr>
-        <tr>
-          <td>10</td>
-          <td>2</td>
-        </tr>
-        <tr>
-          <td>11</td>
-          <td>1</td>
-        </tr>
-        <tr>
-          <td>\(\geq\) 12</td>
-          <td>0</td>
+          <td>Joseph</td>
+          <td>France</td>
         </tr>
       </table>
+
+      <p>
+        \(D_{france}\) contains the dancers from France: Helen and Joseph.
+        \(B_{helen}\) contains the battles won by Helen: Battle C.
+        \(B_{joseph}\) contains the battles won by Joseph: Battle D.
+      </p>
+
+      <p>
+        $$
+        \begin{align}
+        points_{france} &= \sum_{i=1}^{|D_{france}|} \sum_{j=1}^{|B_{D_{france,i}}|} \text{pointsOfBattle}(B_{D_{france,i},j}) \\
+        &= \sum_{j=1}^{|B_{helen}|} \text{pointsOfBattle}(B_{helen,j}) + \sum_{j=1}^{|B_{joseph}|} \text{pointsOfBattle}(B_{joseph,j}) \\
+        &= \text{pointsOfBattle}(battle_c) + \text{pointsOfBattle}(battle_d) \\
+        &= 11 + 7 \\
+        &= 18
+        \end{align}
+        $$
+      </p>
+
+      <p>
+        The total points for France is 18,
+        based on the wins by Helen and Joseph.
+      </p>
     </div>
 
     <div>
       <h4>Country (home) ranking</h4>
 
+      <p>
+        The country (home) ranking is different from the country ranking because
+        it only takes into account wins at home for dancers.
+        In other words, only wins where the country of the battle and the country of the winner are the same
+        are taken into account.
+      </p>
+
+      <p>
+        The formula to calculate the total points \(points_c\)
+        for a country \(c\) is
+
+        $$points_c = \sum_{i=1}^{|D_c|} \sum_{j=1}^{|H_{D_{c,i}}|} \text{pointsOfBattle}(H_{D_{c,i},j})$$
+      </p>
+
+      <p>
+        Let us use this formulas with an example.
+        We want to calculate the points of France (\(points_{france}\)) taking into account aforementioned battles.
+      </p>
+
+      <p>
+        \(D_{france}\) contains the dancers from France: Helen and Joseph.
+        \(H_{helen}\) contains the battles in France won by Helen: Battle C.
+        \(H_{joseph}\) contains the battles in France won by Joseph: <span>none</span>.
+      </p>
+
+      <p>
+        $$
+        \begin{align}
+        points_{france} &= \sum_{i=1}^{|D_{france}|} \sum_{j=1}^{|H_{D_{france,i}}|} \text{pointsOfBattle}(H_{D_{france,i},j}) \\
+        &= \sum_{j=1}^{|H_{helen}|} \text{pointsOfBattle}(H_{helen,j}) + \sum_{j=1}^{|H_{joseph}|} \text{pointsOfBattle}(H_{joseph,j}) \\
+        &= \text{pointsOfBattle}(battle_c) \\
+        &= 11
+        \end{align}
+        $$
+      </p>
+
+      <p>
+        The total points for France is 11,
+        based on the wins by Helen (and Joseph).
+      </p>
     </div>
 
     <div>
