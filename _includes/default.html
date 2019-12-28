@@ -25,8 +25,22 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon/16.png">
 
   <!-- Math notation -->
+  {% if loadMathJax == true %}
+  <script type="text/x-mathjax-config">
+    MathJax.Ajax.config.path["a11y"] = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/extensions/a11y";
+    MathJax.Hub.Config({
+      extensions: ["[a11y]/accessibility-menu.js"],
+      menuSettings: {
+        autocollapse: true
+      },
+      "auto-collapse": {
+        disabled: false;
+      }
+    });
+  </script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  {% endif %}
 </head>
 <body>
 

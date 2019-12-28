@@ -2,6 +2,7 @@
 layout: blogpost
 title: How rankings are calculated
 date: 2020-01-01
+loadMathJax: true
 ---
 
 <div id="explain-ranking">
@@ -94,7 +95,8 @@ date: 2020-01-01
       The points currently used can be found in the following table:
     </p>
 
-    <table>
+    <div>
+      <table>
       <tr>
         <th># months ago</th>
         <th >Points</th>
@@ -152,6 +154,7 @@ date: 2020-01-01
         <td>0</td>
       </tr>
     </table>
+    </div>
 
     <p>
       The formula to calculate the total points \(points_d\)
@@ -178,7 +181,8 @@ date: 2020-01-01
       we want to calculate the points of a dancer called Boris \(points_{boris}\)won the following three 1 vs 1 battles:
     </p>
 
-    <table>
+    <div class="table-responsive">
+      <table class="table">
       <tr>
         <th>Battle</th>
         <th>Variable name</th>
@@ -200,6 +204,7 @@ date: 2020-01-01
         <td>2019-12-01</td>
       </tr>
     </table>
+    </div>
 
     <div>
       $$
@@ -279,7 +284,8 @@ date: 2020-01-01
         We want to calculate the points of France \(points_{france}\) taking into account the following battles:
       </p>
 
-      <table>
+      <div class="table-responsive">
+      <table class="table">
         <tr>
           <th>Battle</th>
           <th>Variable name</th>
@@ -313,6 +319,7 @@ date: 2020-01-01
           <td>Italy</td>
         </tr>
       </table>
+      </div>
 
       <p>
         \(D_{france}\) contains the dancers from France: Helen and Joseph.
