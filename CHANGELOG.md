@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Ranking pages (see [issue 51](https://github.com/dancehall-battle/website/issues/51))
 - Build in different stages to reduce memory usage
 - Select TPF servers (dev or live) via environment variables
+- Explain how rankings are calculated (see [issue 83](https://github.com/dancehall-battle/website/issues/83))
 
 ### Fixed
 - Dancehall battle ontology namespace (see [issue 67](https://github.com/dancehall-battle/website/issues/67))
