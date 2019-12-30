@@ -1,23 +1,16 @@
 const {Client} = require('graphql-ld/index');
 const queryEngine = require('./engine');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
-const {useCache, parseDates} = require('./utils');
+const {useCache, parseDates, getOrganizerInstagram} = require('./utils');
+const fs = require('fs-extra');
+const path = require('path');
 
 let client;
 
 async function main() {
-  // Define a JSON-LD context
-  const context = {
-    "@context": {
-      "type":  { "@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" },
-      "name":  { "@id": "http://schema.org/name" },
-      "start":  { "@id": "http://schema.org/startDate" },
-      "end":    { "@id": "http://schema.org/endDate" },
-      "location":    { "@id": "http://schema.org/location" },
-      "instagram": { "@id": "https://dancebattle.org/ontology/instagram" },
-      "Event": { "@id": "https://dancebattle.org/ontology/DanceEvent" },
-    }
-  };
+  console.log(`${__filename} started.`);
+
+  const context = await fs.readJson(path.join(__dirname, '../context.json'));
 
   const originalQueryResults = {
     '@context': JSON.parse(JSON.stringify(context['@context']))
@@ -84,35 +77,9 @@ async function main() {
   });
 
   //console.log(result);
+  console.log(`${__filename} done.`);
 
   return {data: result, originalQueryResults};
-}
-
-async function getOrganizerInstagram(eventID) {
-  const query = `
-  query { 
-    id(_:EVENT)
-    organizer {
-      instagram @single
-    }
-  }`;
-
-  const context = {
-    "@context": {
-      "instagram": { "@id": "https://dancebattle.org/ontology/instagram" },
-      "organizer": { "@id": "http://schema.org/organizer" },
-      "EVENT": eventID,
-    }
-  };
-
-  const client = new Client({ context, queryEngine });
-  const {data} = await client.query({ query });
-
-  if (data.length > 0) {
-    return data[0].organizer.map(organizer => organizer.instagram);
-  } else {
-    return [];
-  }
 }
 
 async function executeQuery(query){

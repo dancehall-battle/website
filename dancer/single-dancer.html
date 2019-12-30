@@ -16,14 +16,21 @@ priority: 0.9
   {{dancer.originalQueryResults}}
 </script>
 
-<h3 class="page-title">Wins by {{dancer.name}}
+<h3 class="page-title">{{dancer.name}}
 
   {% if dancer.country != ''%}
   <span class="flag-icon flag-icon-{{dancer.country}}"></span>
   {% endif %}
 </h3>
 
+<p class="dancer-instagram">
+  {% if dancer.instagram != "" %}
+  Instagram: <a class="instagram" href="https://instagram.com/{{dancer.instagram}}">@{{dancer.instagram}}</a>
+  {% endif %}
+</p>
+
 <div id="events" class="table-responsive">
+  <h4>Wins</h4>
   <table class="table">
     <thead>
     <tr>
@@ -34,18 +41,9 @@ priority: 0.9
     </thead>
     <tbody>
 
-    {% for year in dancer.years reversed %}
-
-    {% if year != "2019" %}
-    <tr id="{{year}}" class="year-row">
-      <td colspan="4" class="text-center year">{{year}}
-      </td>
-    </tr>
-    {% endif %}
-
     {% assign i = 0 %}
 
-    {% for battle in dancer.yearBattleMap[year] %}
+    {% for battle in dancer.wins %}
     {% assign m = i | modulo: 2 %}
     <tr class="event-row
             {% if m == "1" %}
@@ -65,7 +63,6 @@ priority: 0.9
     ">
     <td colspan="2">{{battle.name}} - {{battle.date}}</td>
     </tr>
-    {% endfor %}
     {% endfor %}
     </tbody>
   </table>

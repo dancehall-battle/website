@@ -2,40 +2,19 @@ const {Client} = require('graphql-ld/index');
 const queryEngine = require('./engine');
 const getCountryName = require('country-list').getName;
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
-const {useCache, parseDates, createNameForBattle} = require('./utils');
+const {useCache, parseDates, createNameForBattle, getOrganizerInstagram} = require('./utils');
+const fs = require('fs-extra');
+const path = require('path');
 
 let events;
 
 module.exports = useCache(main, 'events.json');
 
 async function main() {
-  if (!events) {
-  // Define a JSON-LD context
-    const context = {
-      "@context": {
-        "type": {"@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"},
-        "label": {"@id": "http://www.w3.org/2000/01/rdf-schema#label"},
-        "name": {"@id": "http://schema.org/name"},
-        "start": {"@id": "http://schema.org/startDate"},
-        "end": {"@id": "http://schema.org/endDate"},
-        "location": {"@id": "http://schema.org/location"},
-        "hasWinner": {"@id": "https://dancebattle.org/ontology/hasWinner"},
-        "wins": {"@reverse": "https://dancebattle.org/ontology/hasWinner"},
-        "level": {"@id": "https://dancebattle.org/ontology/level"},
-        "age": {"@id": "https://dancebattle.org/ontology/age"},
-        "gender": {"@id": "https://dancebattle.org/ontology/gender"},
-        "hasBattle": {"@id": "https://dancebattle.org/ontology/hasBattle"},
-        "atEvent": {"@reverse": "https://dancebattle.org/ontology/hasBattle"},
-        "country": {"@id": "https://dancebattle.org/ontology/representsCountry"},
-        "inviteOnly": {"@id": "https://dancebattle.org/ontology/inviteOnly"},
-        "participants": {"@id": "https://dancebattle.org/ontology/amountOfParticipants"},
-        "Event": {"@id": "https://dancebattle.org/ontology/DanceEvent"},
-        "Battle": {"@id": "https://dancebattle.org/ontology/DanceBattle"},
-        "Dancer": {"@id": "https://dancebattle.org/ontology/Dancer"},
-        "instagram": {"@id": "https://dancebattle.org/ontology/instagram"},
-      }
-    };
+  console.log(`${__filename} started.`);
 
+  if (!events) {
+    const context = await fs.readJson(path.join(__dirname, '../context.json'));
     const originalContext = JSON.parse(JSON.stringify(context['@context']));
 
 // Create a GraphQL-LD client based on a client-side Comunica engine
@@ -73,7 +52,8 @@ async function main() {
     // Execute the query
     events = await executeQuery(query);
 
-    events.forEach(event => {
+    for (let i = 0; i < events.length; i ++) {
+      const event = events[i];
       event.originalQueryResults = {
         '@graph': recursiveJSONKeyTransform(key => {
           if (key === 'id' || key === 'type') {
@@ -96,7 +76,9 @@ async function main() {
         battle.name = createNameForBattle(battle);
         parseDates(battle);
       });
-    });
+
+      event.organizers = await getOrganizerInstagram(event.id);
+    }
 
     // TODO parse battles (name, dates...)
 
@@ -106,6 +88,8 @@ async function main() {
       return data;
     }
   }
+
+  console.log(`${__filename} done.`);
 
   return events;
 }

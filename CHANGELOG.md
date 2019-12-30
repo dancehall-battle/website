@@ -13,6 +13,27 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Do not configure modal when not present on page
 
+## [4.0.0] - 2019-12-30
+
+### Added
+- Ranking pages (see [issue 51](https://github.com/dancehall-battle/website/issues/51))
+- Build in different stages to reduce memory usage
+- Select TPF servers (dev or live) via environment variables
+- Explain how rankings are calculated (see [issue 83](https://github.com/dancehall-battle/website/issues/83))
+
+### Fixed
+- Dancehall battle ontology namespace (see [issue 67](https://github.com/dancehall-battle/website/issues/67))
+
+## [3.2.0] - 2019-12-08
+
+### Added
+- Show Instagram of organisers on event page (see [issue 68](https://github.com/dancehall-battle/website/issues/68))
+- Show Instagram on dancer page (see [issue 69](https://github.com/dancehall-battle/website/issues/69))
+- Script to check for dead links on the live website (see [issue 75](https://github.com/dancehall-battle/website/issues/75))
+
+### Fixed
+- Show full date of battles on dancer page (see [issue 66](https://github.com/dancehall-battle/website/issues/66))
+
 ## [3.1.0] - 2019-11-09
 
 ### Added
@@ -146,6 +167,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[4.0.0]: https://github.com/dancehall-battle/website/compare/v3.2.0...v4.0.0
+[3.2.0]: https://github.com/dancehall-battle/website/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/dancehall-battle/website/compare/v3.0.3...v3.1.0
 [3.0.3]: https://github.com/dancehall-battle/website/compare/v3.0.1...v3.0.3
 [3.0.2]: https://github.com/dancehall-battle/website/compare/v3.0.2...v3.0.2

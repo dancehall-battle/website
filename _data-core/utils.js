@@ -1,6 +1,8 @@
 const fs = require('fs-extra');
 const path = require('path');
 const {format, compareAsc} = require('date-fns');
+const {Client} = require('graphql-ld/index');
+const queryEngine = require('./engine');
 
 function createNameForBattle(battle) {
   let label = battle.name;
@@ -29,30 +31,40 @@ function capitalize(s) {
 }
 
 async function useCache(main, cacheFilename) {
-  const isServing = process.env.ELEVENTY_SERVE === 'true';
-  const cacheFilePath = path.resolve(__dirname, '../_cache/' + cacheFilename);
-  let dataInCache = null;
+  const skip = process.env.SKIP !== undefined && process.env.SKIP.toLowerCase().indexOf(cacheFilename.toLowerCase()) !== -1;
 
-  if (isServing && await fs.pathExists(cacheFilePath)) {
-    // Read file from cache.
-    dataInCache = await fs.readJSON(cacheFilePath);
-    console.log('Using from cache: ' + cacheFilename);
-  }
+  if (skip) {
+    console.log(`Skipping ${cacheFilename}`);
+    return {};
+  } else {
+    const isServing = process.env.ELEVENTY_SERVE === 'true';
 
-  if (!dataInCache) {
-    const result = await main();
+    const cacheFilePath = path.resolve(__dirname, '../_cache/' + cacheFilename);
+    let dataInCache = null;
 
-    if (isServing) {
-      // Write data to cache.
-      fs.writeJSON(cacheFilePath, result, err => {
-        if (err) {console.error(err)}
-      });
+    if (isServing && await fs.pathExists(cacheFilePath)) {
+      // Read file from cache.
+      dataInCache = await fs.readJSON(cacheFilePath);
+      console.log('Using from cache: ' + cacheFilename);
     }
 
-    dataInCache = result;
-  }
+    if (!dataInCache) {
+      const result = await main();
 
-  return dataInCache;
+      if (isServing) {
+        // Write data to cache.
+        fs.writeJSON(cacheFilePath, result, err => {
+          if (err) {
+            console.error(err)
+          }
+        });
+      }
+
+      dataInCache = result;
+    }
+
+    return dataInCache;
+  }
 }
 
 function parseDates(event) {
@@ -99,9 +111,37 @@ function sortOnStartDate(events) {
   });
 }
 
+async function getOrganizerInstagram(eventID) {
+  const query = `
+  query { 
+    id(_:EVENT)
+    organizer {
+      instagram @single
+    }
+  }`;
+
+  const context = {
+    "@context": {
+      "instagram": { "@id": "https://dancehallbattle.org/ontology/instagram" },
+      "organizer": { "@id": "http://schema.org/organizer" },
+      "EVENT": eventID,
+    }
+  };
+
+  const client = new Client({ context, queryEngine });
+  const {data} = await client.query({ query });
+
+  if (data.length > 0) {
+    return data[0].organizer.map(organizer => organizer.instagram);
+  } else {
+    return [];
+  }
+}
+
 module.exports = {
   createNameForBattle,
   useCache,
   parseDates,
+  getOrganizerInstagram,
   sortOnStartDate
 };

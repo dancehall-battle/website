@@ -1,0 +1,47 @@
+<div id="ranking" class="table-responsive">
+<table class="table">
+<thead>
+<tr>
+  <th class="position">Position</th>
+  <th class="dancer">Country</th>
+  <th class="points">Points</th>
+</tr>
+</thead>
+<tbody>
+
+{% assign i = 0 %}
+
+{% for rank in ranking.ranks %}
+
+{% assign m = i | modulo: 2 %}
+
+{% assign spots = ranking.map[rank] %}
+
+{% for spot in spots %}
+  <tr class="{% if m == "1" %}
+grey-bckgrnd
+{% endif %}
+"
+>
+    {% if forloop.first == true %}
+    <td class="cell middle" rowspan="{{forloop.length}}">{{rank}}</td>
+    {% endif %}
+    <td><a href="/country/{{spot.country.code}}">{{spot.country.name}}</a>
+      {% if spot.country.code  != '' %}
+      <a<span class="flag-icon flag-icon-{{spot.country.code}}"></span>
+      {% endif %}</td>
+{% if forloop.first == true %}
+<td class="cell middle" rowspan="{{forloop.length}}">{{spot.points}}</td>
+{% endif %}
+  </tr>
+{% endfor %}
+
+{% assign i = i | plus: 1 %}
+
+{% endfor %}
+
+</tbody>
+</table>
+</div>
+
+<p id="last-updated">Last updated: {{ranking.created}}</p>
