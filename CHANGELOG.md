@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [4.0.0] - 2019-12-30
+
 ### Added
 - Ranking pages (see [issue 51](https://github.com/dancehall-battle/website/issues/51))
 - Build in different stages to reduce memory usage
@@ -159,6 +161,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[4.0.0]: https://github.com/dancehall-battle/website/compare/v3.2.0...v4.0.0
 [3.2.0]: https://github.com/dancehall-battle/website/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/dancehall-battle/website/compare/v3.0.3...v3.1.0
 [3.0.3]: https://github.com/dancehall-battle/website/compare/v3.0.1...v3.0.3
