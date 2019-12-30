@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Fixed
+- Show full dates of wins on country page (see [issue 79](https://github.com/dancehall-battle/website/issues/79))
+
 ## [4.0.0] - 2019-12-30
 
 ### Added

@@ -11,7 +11,7 @@ priority: 0.9
 ---
 
 {% assign country = pagination.items[0] %}
-{% assign data = countryToBattlesPerYear[country.code] %}
+{% assign battles = countryToBattles[country.code] %}
 {% assign events = countryToEvents[country.code] %}
 
 <script type="application/ld+json">
@@ -20,6 +20,6 @@ priority: 0.9
 
 <h3 class="page-title">{{country.name}} <span class="flag-icon flag-icon-{{country.code}}"></span> </h3>
 
-{% include winner-country-table with data %}
+{% include winner-country-table with battles %}
 
 {% include country-event-table with events %}
