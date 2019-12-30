@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- Blog post: statistics of Q4 2019 (see [issue 94](https://github.com/dancehall-battle/website/issues/94))
+- Blog post: statistics of 2019 (see [issue 95](https://github.com/dancehall-battle/website/issues/95))
+
 ## [4.1.0] - 2019-12-30
 
 ### Fixed
