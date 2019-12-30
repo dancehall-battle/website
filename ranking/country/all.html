@@ -1,0 +1,25 @@
+---
+layout: year-nav
+lastModIsToday: true
+changeFreq: daily
+priority: 0.9
+---
+
+{% assign ranking = ranking.countryHomeAway %}
+
+<script type="application/ld+json">
+  {{ranking.jsonld}}
+</script>
+
+<h3 class="page-title ranking">Country ranking</h3>
+
+<p class="ranking">
+    This ranking takes into account all battles over the past year that meet the following requirements:
+    1 vs 1 or 2 vs 2,
+    pro or open level, and
+    15+ or no age restriction.
+    The points per country is the sum of the points acquired by the dancers representing each country.
+    The ranking is updated daily.
+</p>
+
+{% include country-ranking-table with ranking %}

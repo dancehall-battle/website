@@ -162,6 +162,48 @@ footer {
     margin-bottom: 40px;
 }
 
+td.cell.middle {
+    vertical-align : middle;
+}
+
+#last-updated {
+    padding-left: 15px;
+    padding-top: 20px;
+}
+
+/* Ranking page */
+
+.ranking {
+    padding-left: 10px;
+}
+
+#explain-ranking table {
+    border-collapse: collapse;
+    text-align: center;
+    margin-left:auto;
+    margin-right:auto;
+    margin-bottom: 30px;
+}
+#explain-ranking table th {
+    padding-right: 10px;
+    padding-left: 10px;
+}
+#explain-ranking table td, #explain-ranking table th {
+    border: 1px solid black;
+}
+#explain-ranking table tr:first-child td, #explain-ranking table tr:first-child th {
+    border-top: 0;
+}
+#explain-ranking table tr td:first-child, #explain-ranking table tr th:first-child {
+    border-left: 0;
+}
+#explain-ranking table tr:last-child td, #explain-ranking table tr:last-child th {
+    border-bottom: 0;
+}
+#explain-ranking table tr td:last-child, #explain-ranking table tr th:last-child {
+    border-right: 0;
+}
+
 /* FAQ page */
 .question {
     padding-top: 20px;

@@ -1,21 +1,14 @@
 const {Client} = require('graphql-ld/index');
-const queryEngine = require('./engine');
+const queryEngine = require('../_data-core/engine');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
-const {useCache} = require('./utils');
-
-module.exports = useCache(main, 'dancer-list.json');
+const {useCache} = require('../_data-core/utils');
+const fs = require('fs-extra');
+const path = require('path');
 
 async function main() {
-  // Define a JSON-LD context
-  const context = {
-    "@context": {
-      "type": {"@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"},
-      "name": {"@id": "http://schema.org/name"},
-      "wins": {"@reverse": "https://dancebattle.org/ontology/hasWinner"},
-      "country": {"@id": "https://dancebattle.org/ontology/representsCountry"}
-    }
-  };
+  console.log(`${__filename} started.`);
 
+  const context = await fs.readJson(path.join(__dirname, '../context.json'));
   const originalContext = JSON.parse(JSON.stringify(context['@context']));
 
   // Create a GraphQL-LD client based on a client-side Comunica engine
@@ -34,7 +27,7 @@ async function main() {
   }`;
 
   // Execute the query
-  let dancers = await executeQuery(query);
+  let dancers = (await client.query({query})).data;
 
   const originalQueryResults = {
     '@context': originalContext,
@@ -80,15 +73,13 @@ async function main() {
 
   //console.log(perLetter);
 
+  console.log(`${__filename} done.`);
+
   return {originalQueryResults, perLetter, letters};
-
-  async function executeQuery(query) {
-    const {data} = await client.query({query});
-
-    return data;
-  }
-
-  function getPostfix(dancer) {
-    dancer.postfix = dancer.id.replace('https://dancehallbattle.org/dancer/', '');
-  }
 }
+
+function getPostfix(dancer) {
+  dancer.postfix = dancer.id.replace('https://dancehallbattle.org/dancer/', '');
+}
+
+module.exports = useCache(main, 'dancer-list.json');

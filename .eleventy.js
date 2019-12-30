@@ -73,4 +73,11 @@ module.exports = function(eleventyConfig) {
 
     return content;
   });
+
+  return {
+    dir: {
+      input: "..",
+      output: "../_site"
+    }
+  };
 };
