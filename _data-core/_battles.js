@@ -3,6 +3,8 @@ const queryEngine = require('./engine');
 const {format} = require('date-fns');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {createNameForBattle, useCache} = require('./utils');
+const fs = require('fs-extra');
+const path = require('path');
 
 let result;
 const yearBattleMap = {};
@@ -14,36 +16,11 @@ async function main() {
   console.log(`${__filename} started.`);
 
   if (!result) {
-// Define a JSON-LD context
-    const context = {
-      "@context": {
-        "type": {"@id": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"},
-        "label": {"@id": "http://www.w3.org/2000/01/rdf-schema#label"},
-        "name": {"@id": "http://schema.org/name"},
-        "start": {"@id": "http://schema.org/startDate"},
-        "end": {"@id": "http://schema.org/endDate"},
-        "location": {"@id": "http://schema.org/location"},
-        "hasWinner": {"@id": "https://dancebattle.org/ontology/hasWinner"},
-        "wins": {"@reverse": "https://dancebattle.org/ontology/hasWinner"},
-        "level": {"@id": "https://dancebattle.org/ontology/level"},
-        "age": {"@id": "https://dancebattle.org/ontology/age"},
-        "gender": {"@id": "https://dancebattle.org/ontology/gender"},
-        "hasBattle": {"@id": "https://dancebattle.org/ontology/hasBattle"},
-        "atEvent": {"@reverse": "https://dancebattle.org/ontology/hasBattle"},
-        "country": {"@id": "https://dancebattle.org/ontology/representsCountry"},
-        "inviteOnly": {"@id": "https://dancebattle.org/ontology/inviteOnly"},
-        "participants": {"@id": "https://dancebattle.org/ontology/amountOfParticipants"},
-        "Event": {"@id": "https://dancebattle.org/ontology/DanceEvent"},
-        "Battle": {"@id": "https://dancebattle.org/ontology/DanceBattle"},
-        "Dancer": {"@id": "https://dancebattle.org/ontology/Dancer"}
-      }
-    };
-
+    const context = await fs.readJson(path.join(__dirname, '../context.json'));
     const originalQueryResults = {
       '@context': JSON.parse(JSON.stringify(context['@context']))
     };
 
-// Create a GraphQL-LD client based on a client-side Comunica engine
     const client = new Client({context, queryEngine});
 
     // Define a query

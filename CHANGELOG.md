@@ -7,9 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [4.0.0] - 2019-12-30
+
 ### Added
-- Ranking pages
+- Ranking pages (see [issue 51](https://github.com/dancehall-battle/website/issues/51))
 - Build in different stages to reduce memory usage
+- Select TPF servers (dev or live) via environment variables
+- Explain how rankings are calculated (see [issue 83](https://github.com/dancehall-battle/website/issues/83))
+
+### Fixed
+- Dancehall battle ontology namespace (see [issue 67](https://github.com/dancehall-battle/website/issues/67))
 
 ### Fixed
 - Show full dates of wins on country page (see [issue 79](https://github.com/dancehall-battle/website/issues/79))
@@ -157,6 +164,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[4.0.0]: https://github.com/dancehall-battle/website/compare/v3.2.0...v4.0.0
 [3.2.0]: https://github.com/dancehall-battle/website/compare/v3.1.0...v3.2.0
 [3.1.0]: https://github.com/dancehall-battle/website/compare/v3.0.3...v3.1.0
 [3.0.3]: https://github.com/dancehall-battle/website/compare/v3.0.1...v3.0.3
