@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [4.2.0] - 2019-12-31
+
+### Added
+- Blog post: statistics of Q4 2019 (see [issue 94](https://github.com/dancehall-battle/website/issues/94))
+- Blog post: statistics of 2019 (see [issue 95](https://github.com/dancehall-battle/website/issues/95))
+
 ## [4.1.0] - 2019-12-30
 
 ### Fixed
@@ -166,6 +172,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[4.2.0]: https://github.com/dancehall-battle/website/compare/v4.1.0...v4.2.0
 [4.1.0]: https://github.com/dancehall-battle/website/compare/v4.0.0...v4.1.0
 [4.0.0]: https://github.com/dancehall-battle/website/compare/v3.2.0...v4.0.0
 [3.2.0]: https://github.com/dancehall-battle/website/compare/v3.1.0...v3.2.0
