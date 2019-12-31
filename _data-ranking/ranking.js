@@ -105,6 +105,11 @@ async function getCountryRankingByID(id) {
   }`;
 
   let ranking = (await client.query({query})).data[0];
+
+  if (!ranking) {
+    console.error(`No ranking was found for id "${id}"`);
+  }
+
   ranking.id = id;
   //console.dir(ranking, {depth: null});
 
