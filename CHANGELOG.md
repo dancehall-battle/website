@@ -10,6 +10,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Page for 2020 wins (see [issue 99](https://github.com/dancehall-battle/website/issues/99))
 
+### Fixed
+- Fix year separator on recent wins page (see [issue 98](https://github.com/dancehall-battle/website/issues/98))
+
 ## [4.2.0] - 2019-12-31
 
 ### Added
