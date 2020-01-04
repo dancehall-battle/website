@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- Page for 2020 wins (see [issue 99](https://github.com/dancehall-battle/website/issues/99))
+
 ## [4.2.0] - 2019-12-31
 
 ### Added
