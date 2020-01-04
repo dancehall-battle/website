@@ -1,6 +1,6 @@
 {
   "name": "@dancehall-battle/website",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "Website with the winners of Dancehall battles",
   "main": "index.js",
   "scripts": {
