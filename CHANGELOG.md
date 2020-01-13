@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- Use [utils-js](https://github.com/dancehall-battle/utils-js) (see [issue 103](https://github.com/dancehall-battle/website/issues/103))
+
 ## [4.2.2] - 2020-01-11
 
 ### Fixed

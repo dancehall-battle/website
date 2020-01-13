@@ -19,7 +19,8 @@
     "graphql-ld-comunica": "^1.0.0",
     "jsonld": "^1.6.2",
     "q": "^1.5.1",
-    "recursive-json-key-transform": "^0.2.0"
+    "recursive-json-key-transform": "^0.2.0",
+    "utils": "https://github.com/dancehall-battle/utils-js"
   },
   "devDependencies": {
     "http-server": "^0.11.1"

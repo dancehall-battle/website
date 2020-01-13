@@ -4,6 +4,8 @@ const recursiveJSONKeyTransform = require('recursive-json-key-transform');
 const {useCache} = require('../_data-core/utils');
 const getCountryName = require('country-list').getName;
 const {format} = require('date-fns');
+const {rankings} = require('utils');
+const {getCountryHomeAwayID, getDancerCombinedID, getDancer2vs2ID, getDancer1vs1ID, getCountryAwayID, getCountryHomeID} = rankings;
 
 // Define a JSON-LD context
 const context = {
@@ -22,8 +24,6 @@ const context = {
     "RANKING": "dhb:Ranking"
   }
 };
-
-const client = new Client({context, queryEngine});
 
 async function main() {
   console.log(`${__filename} started.`);
@@ -170,82 +170,6 @@ async function getDancerRankingByID(id) {
   })(JSON.parse(JSON.stringify(ranking)));
 
   return {map: restructure(ranking), created: format(new Date(ranking.created), 'yyyy-MM-dd'), originalQueryResults};
-}
-
-async function getCountryHomeAwayID() {
-  return await getRankingID(ranking => {
-    return (ranking['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') !== -1 &&
-      ranking['type'].indexOf('https://dancehallbattle.org/ontology/HomeRanking') === -1 &&
-      ranking['type'].indexOf('https://dancehallbattle.org/ontology/AwayRanking') === -1);
-  });
-}
-
-async function getCountryHomeID() {
-  return await getRankingID(ranking => {
-    return (ranking['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') !== -1 &&
-      ranking['type'].indexOf('https://dancehallbattle.org/ontology/HomeRanking') !== -1);
-  });
-}
-
-async function getCountryAwayID() {
-  return await getRankingID(ranking => {
-    return (ranking['type'].indexOf('https://dancehallbattle.org/ontology/CountryRanking') !== -1 &&
-      ranking['type'].indexOf('https://dancehallbattle.org/ontology/AwayRanking') !== -1);
-  });
-}
-
-async function getDancerCombinedID() {
-  return await getRankingID(ranking => {
-    return (ranking['type'].indexOf('https://dancehallbattle.org/ontology/DancerRanking') !== -1 &&
-      ranking['type'].indexOf('https://dancehallbattle.org/ontology/1vs1Ranking') === -1 &&
-      ranking['type'].indexOf('https://dancehallbattle.org/ontology/2vs2Ranking') === -1);
-  });
-}
-
-async function getDancer1vs1ID() {
-  return await getRankingID(ranking => {
-    return (ranking['type'].indexOf('https://dancehallbattle.org/ontology/DancerRanking') !== -1 &&
-      ranking['type'].indexOf('https://dancehallbattle.org/ontology/1vs1Ranking') !== -1);
-  });
-}
-
-async function getDancer2vs2ID() {
-  return await getRankingID(ranking => {
-    return (ranking['type'].indexOf('https://dancehallbattle.org/ontology/DancerRanking') !== -1 &&
-      ranking['type'].indexOf('https://dancehallbattle.org/ontology/2vs2Ranking') !== -1);
-  });
-}
-
-async function getRankingID(filter) {
-  let rankings = await getRankings();
-
-  rankings = rankings.filter(filter);
-
-  if (rankings.length > 0) {
-    let latestRanking = rankings[0];
-
-    for (let i = 1; i < rankings.length; i ++) {
-      if (new Date(latestRanking.created) < new Date(rankings[i].created)) {
-        latestRanking = rankings[i];
-      }
-    }
-
-    return latestRanking.id;
-  } else {
-    return null;
-  }
-}
-
-async function getRankings() {
-  const query = `
-  query { 
-    id @single
-    type(_:RANKING)
-    type
-    created @single
-  }`;
-
-  return (await client.query({query})).data;
 }
 
 function restructure(ranking) {
