@@ -4,3 +4,4 @@ _site
 .DS_Store
 _cache
 .eleventyignore
+_data

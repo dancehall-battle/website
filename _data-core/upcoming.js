@@ -1,7 +1,7 @@
 const {Client} = require('graphql-ld/index');
 const queryEngine = require('./engine');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
-const {useCache, parseDates, getOrganizerInstagram} = require('./utils');
+const {useCache, parseDates, getOrganizerInstagram, useLocalhostInIdsDuringServe} = require('./utils');
 const fs = require('fs-extra');
 const path = require('path');
 
@@ -33,6 +33,8 @@ async function main() {
 
   // Execute the query
   let result = await executeQuery(query);
+  useLocalhostInIdsDuringServe(result);
+
   originalQueryResults['@graph'] = recursiveJSONKeyTransform(key => {
     if (key === 'id' || key === 'type') {
       key = '@' + key;
