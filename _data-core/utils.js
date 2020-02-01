@@ -143,7 +143,17 @@ function useLocalhostInIdsDuringServe(data) {
 
   if (isServing) {
     data.forEach(d => {
-      d.id = d.id.replace('https://dancehallbattle.org/', 'http://localhost:' + process.env.ELEVENTY_PORT + '/');
+      const keys = Object.keys(d);
+
+      keys.forEach(key => {
+        if (key === 'id') {
+          d[key] = d[key].replace('https://dancehallbattle.org/', 'http://localhost:' + process.env.ELEVENTY_PORT + '/');
+        } else if (Array.isArray(d[key])) {
+          useLocalhostInIdsDuringServe(d[key]);
+        } else if (typeof d[key] === 'object') {
+          useLocalhostInIdsDuringServe([d[key]]);
+        }
+      });
     });
   }
 }
