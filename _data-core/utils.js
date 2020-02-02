@@ -31,7 +31,7 @@ function capitalize(s) {
 }
 
 async function useCache(main, cacheFilename) {
-  const skip = process.env.SKIP !== undefined && process.env.SKIP.toLowerCase().indexOf(cacheFilename.toLowerCase()) !== -1;
+  const skip = process.env.SKIP !== undefined && process.env.SKIP.toLowerCase().split(',').indexOf(cacheFilename.toLowerCase()) !== -1;
 
   if (skip) {
     console.log(`Skipping ${cacheFilename}`);
@@ -138,10 +138,31 @@ async function getOrganizerInstagram(eventID) {
   }
 }
 
+function useLocalhostInIdsDuringServe(data) {
+  const isServing = process.env.ELEVENTY_SERVE;
+
+  if (isServing) {
+    data.forEach(d => {
+      const keys = Object.keys(d);
+
+      keys.forEach(key => {
+        if (key === 'id') {
+          d[key] = d[key].replace('https://dancehallbattle.org/', 'http://localhost:' + process.env.ELEVENTY_PORT + '/');
+        } else if (Array.isArray(d[key])) {
+          useLocalhostInIdsDuringServe(d[key]);
+        } else if (typeof d[key] === 'object') {
+          useLocalhostInIdsDuringServe([d[key]]);
+        }
+      });
+    });
+  }
+}
+
 module.exports = {
   createNameForBattle,
   useCache,
   parseDates,
   getOrganizerInstagram,
-  sortOnStartDate
+  sortOnStartDate,
+  useLocalhostInIdsDuringServe
 };

@@ -2,7 +2,7 @@ const {Client} = require('graphql-ld/index');
 const queryEngine = require('./engine');
 const getCountryName = require('country-list').getName;
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
-const {useCache, parseDates, createNameForBattle, getOrganizerInstagram} = require('./utils');
+const {useCache, parseDates, createNameForBattle, getOrganizerInstagram, useLocalhostInIdsDuringServe} = require('./utils');
 const fs = require('fs-extra');
 const path = require('path');
 
@@ -51,6 +51,7 @@ async function main() {
 
     // Execute the query
     events = await executeQuery(query);
+    useLocalhostInIdsDuringServe(events);
 
     for (let i = 0; i < events.length; i ++) {
       const event = events[i];
@@ -65,7 +66,8 @@ async function main() {
         '@context': originalContext
       };
 
-      event.slug = event.id.replace('https://dancehallbattle.org/event/', '');
+      const indexOfLastSlash = event.id.lastIndexOf('/');
+      event.slug = event.id.substr(indexOfLastSlash + 1);
       parseDates(event);
       event.location = {
         code: event.location,

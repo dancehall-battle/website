@@ -2,7 +2,7 @@ const {Client} = require('graphql-ld/index');
 const queryEngine = require('./engine');
 const {format} = require('date-fns');
 const recursiveJSONKeyTransform = require('recursive-json-key-transform');
-const {createNameForBattle, useCache} = require('./utils');
+const {createNameForBattle, useCache, useLocalhostInIdsDuringServe} = require('./utils');
 const fs = require('fs-extra');
 const path = require('path');
 
@@ -62,6 +62,8 @@ async function main() {
 
     //console.log(result);
     //console.dir(result, { depth: null });
+
+    useLocalhostInIdsDuringServe(result);
 
     result = result.sort((a, b) => {
       const aDate = new Date(a.start);
