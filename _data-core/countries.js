@@ -31,7 +31,7 @@ async function main() {
     }
   });
 
-  // Get all.html winners that have at least one win and have a location
+  // Get all winners that have at least one win and have a location
   query = `
   query { 
     country @single
