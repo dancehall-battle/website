@@ -66,7 +66,8 @@ async function main() {
         '@context': originalContext
       };
 
-      event.slug = event.id.replace('https://dancehallbattle.org/event/', '');
+      const indexOfLastSlash = event.id.lastIndexOf('/');
+      event.slug = event.id.substr(indexOfLastSlash + 1);
       parseDates(event);
       event.location = {
         code: event.location,

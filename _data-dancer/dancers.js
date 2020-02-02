@@ -91,7 +91,8 @@ async function main() {
 }
 
 function getPostfix(dancer) {
-  dancer.postfix = dancer.id.replace('https://dancehallbattle.org/dancer/', '');
+  const indexOfLastSlash = dancer.id.lastIndexOf('/');
+  dancer.postfix = dancer.id.substr(indexOfLastSlash + 1);
 }
 
 module.exports = useCache(main, 'dancers.json');

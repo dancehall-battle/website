@@ -64,7 +64,7 @@ async function main() {
     //console.dir(result, { depth: null });
 
     useLocalhostInIdsDuringServe(result);
-    console.log(result);
+
     result = result.sort((a, b) => {
       const aDate = new Date(a.start);
       const bDate = new Date(b.start);
