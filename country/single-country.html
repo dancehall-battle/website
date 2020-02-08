@@ -13,9 +13,10 @@ priority: 0.9
 {% assign country = pagination.items[0] %}
 {% assign battles = countryToBattles[country.code] %}
 {% assign events = countryToEvents[country.code] %}
+{% assign jsonld = countryToJSONLD[country.code] %}
 
 <script type="application/ld+json">
-  {{battles.originalQueryResults}}
+  {{jsonld}}
 </script>
 
 <h3 class="page-title">{{country.name}} <span class="flag-icon flag-icon-{{country.code}}"></span> </h3>
