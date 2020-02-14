@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Use [utils-js](https://github.com/dancehall-battle/utils-js) (see [issue 103](https://github.com/dancehall-battle/website/issues/103))
+- JSON-LD to country pages (see [issue 108](https://github.com/dancehall-battle/website/issues/108))
 
 ### Fixed
 - Replace dancehallbattle.org urls in data with localhost when serving locally (see [issue 88](https://github.com/dancehall-battle/website/issues/88))

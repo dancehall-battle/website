@@ -55,16 +55,15 @@ async function main() {
 
     for (let i = 0; i < events.length; i ++) {
       const event = events[i];
-      event.originalQueryResults = {
-        '@graph': recursiveJSONKeyTransform(key => {
-          if (key === 'id' || key === 'type') {
-            key = '@' + key;
-          }
 
-          return key;
-        })(JSON.parse(JSON.stringify(event))),
-        '@context': originalContext
-      };
+      event.originalQueryResults = recursiveJSONKeyTransform(key => {
+        if (key === 'id' || key === 'type') {
+          key = '@' + key;
+        }
+
+        return key;
+      })(JSON.parse(JSON.stringify(event)));
+      event.originalQueryResults['@context'] = originalContext;
 
       const indexOfLastSlash = event.id.lastIndexOf('/');
       event.slug = event.id.substr(indexOfLastSlash + 1);

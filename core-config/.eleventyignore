@@ -8,6 +8,7 @@ ranking
 dancer
 _data-core
 _data-ranking
+_data-dancer
 core-config
 ranking-config
 dancer-config

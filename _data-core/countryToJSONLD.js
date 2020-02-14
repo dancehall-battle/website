@@ -44,7 +44,7 @@ async function main() {
     }
   });
 
-  console.dir(countryToJSONLD, {depth: null});
+  //console.dir(countryToJSONLD, {depth: null});
   console.log(`${__filename} done.`);
 
   return countryToJSONLD;
