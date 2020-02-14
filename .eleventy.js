@@ -35,12 +35,17 @@ module.exports = function(eleventyConfig) {
 
             for (let i = 0; i < jsonLDs.length; i  ++) {
               let $jsonLD = $(jsonLDs[i]);
+              const jsonLD = $jsonLD.html().trim();
 
-              try {
-                $jsonLD = JSON.parse($jsonLD.html());
-                nquads += '\n' + await jsonld.toRDF($jsonLD, {format: 'application/n-quads'});
-              } catch (e) {
-                console.error(`Invalid JSON-LD at ${outputPath}`);
+              if (jsonLD !== '') {
+                try {
+                  $jsonLD = JSON.parse($jsonLD.html());
+                  nquads += '\n' + await jsonld.toRDF($jsonLD, {format: 'application/n-quads'});
+                } catch (e) {
+                  console.error(`Invalid JSON-LD at ${outputPath}`);
+                }
+              } else {
+                console.warn(`Empty JSON-LD at ${outputPath}`);
               }
             }
 
