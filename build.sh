@@ -3,4 +3,4 @@
 mode=$1
 
 rm -rf _site
-node ./node_modules/@11ty/eleventy/cmd.js
+MODE=$mode node ./node_modules/@11ty/eleventy/cmd.js
