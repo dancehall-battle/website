@@ -5859,6 +5859,14 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
+"utils@https://github.com/dancehall-battle/utils-js":
+  version "0.0.1"
+  resolved "https://github.com/dancehall-battle/utils-js#a1ed35d7782f41c8f09e1ea91c3ae9b382e7496b"
+  dependencies:
+    fs-extra "^8.1.0"
+    graphql-ld "^1.0.1"
+    graphql-ld-comunica "^1.0.0"
+
 uuid@^3.3.2:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.3.tgz#4568f0216e78760ee1dbf3a4d2cf53e224112866"

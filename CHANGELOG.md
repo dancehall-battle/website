@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [5.0.0] - 2020-03-16
+
+### Added
+- Use [utils-js](https://github.com/dancehall-battle/utils-js) (see [issue 103](https://github.com/dancehall-battle/website/issues/103))
+- JSON-LD to country pages (see [issue 108](https://github.com/dancehall-battle/website/issues/108))
+- Put data preparation in different library (see [issue 111](https://github.com/dancehall-battle/website/issues/111))
+
+### Fixed
+- Replace dancehallbattle.org urls in data with localhost when serving locally (see [issue 88](https://github.com/dancehall-battle/website/issues/88))
+
 ## [4.2.2] - 2020-01-11
 
 ### Fixed
@@ -185,6 +195,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[5.0.0]: https://github.com/dancehall-battle/website/compare/v4.2.2...v5.0.0
 [4.2.2]: https://github.com/dancehall-battle/website/compare/v4.2.1...v4.2.2
 [4.2.1]: https://github.com/dancehall-battle/website/compare/v4.2.0...v4.2.1
 [4.2.0]: https://github.com/dancehall-battle/website/compare/v4.1.0...v4.2.0
