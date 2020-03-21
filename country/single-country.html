@@ -22,5 +22,5 @@ priority: 0.9
 <h3 class="page-title">{{country.name}} <span class="flag-icon flag-icon-{{country.code}}"></span> </h3>
 
 {% include winner-country-table with battles %}
-
+{% include upcoming-events-table, events: countryToUpcoming[country.code] %}
 {% include country-event-table with events %}
