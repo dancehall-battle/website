@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [5.1.0] - 2020-03-24
+
 ### Added
 - Add upcoming events to country page (see [issue 70](https://github.com/dancehall-battle/website/issues/70))
 - Titles of pages (see [issue 115](https://github.com/dancehall-battle/website/issues/115))
@@ -199,6 +201,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[5.1.0]: https://github.com/dancehall-battle/website/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/dancehall-battle/website/compare/v4.2.2...v5.0.0
 [4.2.2]: https://github.com/dancehall-battle/website/compare/v4.2.1...v4.2.2
 [4.2.1]: https://github.com/dancehall-battle/website/compare/v4.2.0...v4.2.1
