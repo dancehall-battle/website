@@ -1,18 +1,27 @@
+{% if title %}
+    {% assign temp = " | Dancehall Battle" %}
+    {% assign title = title | append: temp %}
+{% else %}
+    {% assign title = "Dancehall Battle" %}
+{% endif %}
+
+{% assign description = "List of Dancehall battles, their winners, and rankings." %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{{site.description}}" />
+  <meta name="description" content="{{description}}" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:site" content="@BattleDancehall" />
-  <meta name="twitter:title" content="{{site.title}}" />
-  <meta name="twitter:description" content="{{site.description}}" />
-  <meta name="twitter:image" content="{{site.baseURL}}/img/logo-square.jpg" />
+  <meta name="twitter:title" content="{{title}}" />
+  <meta name="twitter:description" content="{{description}}" />
+  <meta name="twitter:image" content="/img/logo-square.jpg" />
 
   <meta name="google-site-verification" content="vvG5nP-D2J550tyGqPUzs9bYIihiTorPs9S8MsYzzMI" />
 
-  <title>{{site.title}}</title>
+  <title>{{title}}</title>
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
         integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
