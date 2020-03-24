@@ -9,7 +9,6 @@ module.exports = function(eleventyConfig) {
     "xml",
     "jpg",
     "png",
-    "js",
     "liquid",
     "json",
     "ico", // for favicon
@@ -17,6 +16,7 @@ module.exports = function(eleventyConfig) {
     "svg" // for the flags
   ];
   eleventyConfig.passthroughFileCopy = true;
+  eleventyConfig.addPassthroughCopy('js');
 
   // Generate JSON-LD and NQuads files when JSON-LD present in HTML file.
   eleventyConfig.addTransform("generateJSONLD", function(content, outputPath) {
