@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 - Add upcoming events to country page (see [issue 70](https://github.com/dancehall-battle/website/issues/70))
+- Titles of pages (see [issue 115](https://github.com/dancehall-battle/website/issues/115))
 
 ## [5.0.0] - 2020-03-16
 
