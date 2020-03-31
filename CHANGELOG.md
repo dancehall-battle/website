@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Fixed
+- Title of dancer pages (see [issue 124](https://github.com/dancehall-battle/website/issues/124))
+
 ## [5.2.0] - 2020-03-31
 
 ### Added 
