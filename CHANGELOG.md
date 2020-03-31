@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [5.2.1] - 2020-03-31
+
 ### Fixed
 - Title of dancer pages (see [issue 124](https://github.com/dancehall-battle/website/issues/124))
 
@@ -209,6 +211,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[5.2.1]: https://github.com/dancehall-battle/website/compare/v5.2.0...v5.2.1
 [5.2.0]: https://github.com/dancehall-battle/website/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/dancehall-battle/website/compare/v5.0.0...v5.1.0
 [5.0.0]: https://github.com/dancehall-battle/website/compare/v4.2.2...v5.0.0
