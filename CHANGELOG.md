@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Added
+- Add current rank to dancer page (see [issue 117](https://github.com/dancehall-battle/website/issues/117))
+
 ## [5.2.1] - 2020-03-31
 
 ### Fixed
