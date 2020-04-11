@@ -1,0 +1,24 @@
+{% if ranks.dancerCombined or ranks.dancer1vs1 or ranks.dancer2vs2 %}
+<table class="table">
+    <thead>
+    <tr>
+        <th class="event">Battles</th>
+        <th class="rank">Rank</th>
+        <th class="points">Points</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% if ranks.dancerCombined %}
+            <tr><td><a href="/ranking/dancer/all/">1 vs 1 and 2 vs 2</a></td><td>{{ ranks.dancerCombined.position }}</td><td>{{ ranks.dancerCombined.points }}</td></tr>
+        {% endif %}
+        {% if ranks.dancer1vs1 %}
+            <tr><td><a href="/ranking/dancer/1vs1/">1 vs 1</a></td><td>{{ ranks.dancer1vs1.position }}</td><td>{{ ranks.dancer1vs1.points }}</td></tr>
+        {% endif %}
+        {% if ranks.dancer2vs2 %}
+            <tr><td><a href="/ranking/dancer/2vs2/">2 vs 2</a></td><td>{{ ranks.dancer2vs2.position }}</td><td>{{ ranks.dancer2vs2.points }}</td></tr>
+        {% endif %}
+    </tbody>
+</table>
+{% else %}
+    <p class="pl-3">This dancer is not in any of our rankings.</p>
+{% endif %}

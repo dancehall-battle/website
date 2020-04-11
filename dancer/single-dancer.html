@@ -17,7 +17,8 @@ title: Dancer
   {{dancer.originalQueryResults}}
 </script>
 
-<h3 class="page-title">{{dancer.name}}
+<h3 class="page-title">
+  {{dancer.name}}
 
   {% if dancer.country != ''%}
   <span class="flag-icon flag-icon-{{dancer.country}}"></span>
@@ -29,6 +30,12 @@ title: Dancer
   Instagram: <a class="instagram" href="https://instagram.com/{{dancer.instagram}}">@{{dancer.instagram}}</a>
   {% endif %}
 </p>
+
+<div id="ranks" class="table-responsive">
+  <h4>Ranks</h4>
+
+  {% include dancer-ranks-table, ranks: dancer.ranks %}
+</div>
 
 <div id="events" class="table-responsive">
   <h4>Wins</h4>
