@@ -1,0 +1,66 @@
+---
+layout: year-nav
+title: Search
+---
+
+<h3 class="page-title">Search</h3>
+
+<form>
+    <input type="text" id="search">
+</form>
+
+<div id="results">
+
+</div>
+
+<script>
+    let currentSearchCallId = null;
+
+    document.getElementById("search").addEventListener('input', function() {
+      const value = this.value;
+
+      if (currentSearchCallId) {
+        clearTimeout(currentSearchCallId);
+      }
+
+      if (value !== '') {
+        currentSearchCallId = setTimeout(() => {
+          currentSearchCallId = null;
+          console.log(`Searching for "${value}".`);
+
+          const xhttp = new XMLHttpRequest();
+          xhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+              if (this.status === 200) {
+                const results = JSON.parse(this.responseText);
+
+                setResults(results);
+              } else {
+                console.error(`Unable to perform search with value "${value}".`);
+              }
+            }
+          };
+
+          xhttp.open("GET", `https://betweenourworlds.org/search?q=${value}`, true);
+          xhttp.send();
+        }, 500);
+      } else {
+        setResults(null);
+      }
+    });
+
+    function setResults(iris) {
+      if (iris && iris.length > 0) {
+        let innerHTML = '<ul>\n';
+        iris.forEach(iri => {
+          innerHTML += `<li><a href="${iri}">${iri}</a></li>\n`
+        });
+
+        innerHTML += '</ul>';
+
+        document.querySelector('#results').innerHTML = innerHTML;
+      } else {
+        document.querySelector('#results').innerHTML = '<p>No results found.</p>';
+      }
+    }
+</script>
