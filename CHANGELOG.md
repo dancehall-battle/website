@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+## [5.2.2] - 2021-02-06
+
 ### Added
 - Add current rank to dancer page (see [issue 117](https://github.com/dancehall-battle/website/issues/117))
 
@@ -217,6 +219,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Battle's name on smaller screen
 
+[5.2.2]: https://github.com/dancehall-battle/website/compare/v5.2.1...v5.2.2
 [5.2.1]: https://github.com/dancehall-battle/website/compare/v5.2.0...v5.2.1
 [5.2.0]: https://github.com/dancehall-battle/website/compare/v5.1.0...v5.2.0
 [5.1.0]: https://github.com/dancehall-battle/website/compare/v5.0.0...v5.1.0
