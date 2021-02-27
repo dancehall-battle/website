@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Unreleased
 
+### Fixed
+- Fix battle dropdown menu (see [issue 137](https://github.com/dancehall-battle/website/issues/137))
+
 ## [5.2.2] - 2021-02-06
 
 ### Added
