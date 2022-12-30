@@ -13,12 +13,8 @@
     "cheerio": "^1.0.0-rc.3",
     "country-list": "^2.1.1",
     "date-fns": "^2.0.0-alpha.27",
-    "follow-redirects": "^1.7.0",
     "fs-extra": "^8.1.0",
-    "graphql-ld": "^1.0.0",
-    "graphql-ld-comunica": "^1.0.0",
     "jsonld": "^1.6.2",
-    "q": "^1.5.1",
     "recursive-json-key-transform": "^0.2.0",
     "utils": "https://github.com/dancehall-battle/utils-js"
   },
