@@ -1,17 +1,37 @@
 {% if battle.participants == '1' %}
-    <td><a href="{{battle.hasWinner[0].id}}">{{battle.hasWinner[0].name}}</a> <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span>
-      {% if battle.hasWinner[0].country != '' %}
-      <span class="flag-icon flag-icon-{{battle.hasWinner[0].country}}"></span>
-      {% endif %}
+    <td><a href="{{ battle.hasWinner[0].id }}">{{ battle.hasWinner[0].name }}</a> <span class="kg-url hidden"
+                                                                                        data-url="{{ battle.hasWinner[0].id }}">🔗</span>
+        {% if battle.hasWinner[0].country != '' %}
+            <span class="flag-icon flag-icon-{{ battle.hasWinner[0].country }}"></span>
+        {% endif %}
+    </td>
+{% elsif battle.participants == '2' %}
+    <td><a href="{{ battle.hasWinner[0].id }}">{{ battle.hasWinner[0].name }}</a> <span class="kg-url hidden"
+                                                                                        data-url="{{ battle.hasWinner[0].id }}">🔗</span>
+        {% if battle.hasWinner[0].country != '' %}
+            <span class="flag-icon flag-icon-{{ battle.hasWinner[0].country }}"></span>
+        {% endif %}
+        and <a href="{{ battle.hasWinner[1].id }}">{{ battle.hasWinner[1].name }}</a> <span class="kg-url hidden"
+                                                                                            data-url="{{ battle.hasWinner[1].id }}">🔗</span>
+        {% if battle.hasWinner[1].country != '' %}
+            <span class="flag-icon flag-icon-{{ battle.hasWinner[1].country }}"></span>
+        {% endif %}
     </td>
 {% else %}
-    <td><a href="{{battle.hasWinner[0].id}}">{{battle.hasWinner[0].name}}</a> <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span>
-      {% if battle.hasWinner[0].country  != ''%}
-      <span class="flag-icon flag-icon-{{battle.hasWinner[0].country}}"></span>
-      {% endif %}
-      and <a href="{{battle.hasWinner[1].id}}">{{battle.hasWinner[1].name}}</a> <span class="kg-url hidden" data-url="{{battle.hasWinner[1].id}}">🔗</span>
-      {% if battle.hasWinner[1].country != ''%}
-      <span class="flag-icon flag-icon-{{battle.hasWinner[1].country}}"></span>
-      {% endif %}
+    <td><a href="{{ battle.hasWinner[0].id }}">{{ battle.hasWinner[0].name }}</a> <span class="kg-url hidden"
+                                                                                        data-url="{{ battle.hasWinner[0].id }}">🔗</span>
+        {% if battle.hasWinner[0].country != '' %}
+            <span class="flag-icon flag-icon-{{ battle.hasWinner[0].country }}"></span>
+        {% endif %}
+        , <a href="{{ battle.hasWinner[1].id }}">{{ battle.hasWinner[1].name }}</a> <span class="kg-url hidden"
+                                                                                            data-url="{{ battle.hasWinner[1].id }}">🔗</span>
+        {% if battle.hasWinner[1].country != '' %}
+            <span class="flag-icon flag-icon-{{ battle.hasWinner[1].country }}"></span>
+        {% endif %}
+        , and <a href="{{ battle.hasWinner[2].id }}">{{ battle.hasWinner[2].name }}</a> <span class="kg-url hidden"
+                                                                                            data-url="{{ battle.hasWinner[1].id }}">🔗</span>
+        {% if battle.hasWinner[2].country != '' %}
+            <span class="flag-icon flag-icon-{{ battle.hasWinner[2].country }}"></span>
+        {% endif %}
     </td>
 {% endif %}
