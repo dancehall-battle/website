@@ -1,0 +1,33 @@
+{% if battle.participants == '1' %}
+    <td><a href="{{battle.hasWinner[0].id}}">{{battle.hasWinner[0].name}}</a> <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span>
+      {% if battle.hasWinner[0].country != '' %}
+      <span class="flag-icon flag-icon-{{battle.hasWinner[0].country}}"></span>
+      {% endif %}
+    </td>
+{% else %}
+    <td><a href="{{battle.hasWinner[0].id}}">{{battle.hasWinner[0].name}}</a> <span class="kg-url hidden" data-url="{{battle.hasWinner[0].id}}">🔗</span>
+      {% if battle.hasWinner[0].country  != ''%}
+      <span class="flag-icon flag-icon-{{battle.hasWinner[0].country}}"></span>
+      {% endif %}
+      and <a href="{{battle.hasWinner[1].id}}">{{battle.hasWinner[1].name}}</a> <span class="kg-url hidden" data-url="{{battle.hasWinner[1].id}}">🔗</span>
+      {% if battle.hasWinner[1].country != ''%}
+      <span class="flag-icon flag-icon-{{battle.hasWinner[1].country}}"></span>
+      {% endif %}
+    </td>
+{% endif %}
+
+
+<td>
+    <a href="{{judges[0].id}}">{{judges.name}}</a> <span class="kg-url hidden" data-url="{{judges[0].id}}">🔗</span>
+    {% if judges[0].country != '' %}
+        <span class="flag-icon flag-icon-{{judges[0].country}}"></span>
+    {% endif %}
+
+    {% for judge in judges offset:1 %}
+        ,
+        <a href="{{judges[0].id}}">{{judges.name}}</a> <span class="kg-url hidden" data-url="{{judges[0].id}}">🔗</span>
+        {% if judges[0].country != '' %}
+            <span class="flag-icon flag-icon-{{judges[0].country}}"></span>
+        {% endif %}
+    {% endfor %}
+</td>

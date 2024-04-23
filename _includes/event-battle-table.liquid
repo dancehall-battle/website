@@ -9,6 +9,7 @@
             <th class="category">Category</th>
             <th class="permanent-date">Date</th>
             <th class="winner">Winner</th>
+            <th class="judges">Judges</th>
         </tr>
         </thead>
         <tbody>
@@ -28,6 +29,8 @@
         <td class="permanent-date">{{battle.formattedDate}}</td>
 
         {% include winner-cell with battle %}
+        {% assign juddges = battleToJudges[battle.id] %}
+        {% include judge-cell with juddges %}
 
         </tr>
         <tr class="details-sm
