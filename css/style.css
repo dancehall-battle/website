@@ -270,7 +270,7 @@ td.cell.middle {
         visibility: hidden;
     }
 
-    #event-battles .permanent-date {
+    #event-battles .permanent-date, #event-battles .judges {
         display: none;
         visibility: hidden;
     }

@@ -30,11 +30,13 @@
 
         {% include winner-cell with battle %}
         {% assign judges = battleToJudges[battle.id] %}
-        {% if judges.size > 0 %}
-            {% include judge-cell with judges %}
-        {% else %}
-            <td>Information not available.</td>
-        {% endif %}
+        <td class="judges">
+            {% if judges.size > 0 %}
+                {% include judge-cell with judges %}
+            {% else %}
+                Information not available.
+            {% endif %}
+        </td>
 
         </tr>
         <tr class="details-sm
@@ -42,7 +44,15 @@
             grey-bckgrnd
             {% endif %}
             ">
-            <td colspan="2">{{battle.formattedDate}}</td>
+            <td colspan="1">{{battle.formattedDate}}</td>
+            <td colspan="1">
+                Judges:
+                {% if judges.size > 0 %}
+                    {% include judge-cell with judges %}
+                {% else %}
+                    information not available.
+                {% endif %}
+            </td>
          </tr>
         {% endfor %}
         </tbody>

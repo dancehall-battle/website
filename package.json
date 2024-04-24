@@ -4,7 +4,9 @@
   "description": "Website with the winners of Dancehall battles",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "check-links:locally": "linkinator http://localhost:8080 --config linkinator.config.json",
+    "check-links:live": "linkinator https://dancehallbattle.org -r -s https://dancehallbattle.org/battle/"
   },
   "author": "Pieter Heyvaert",
   "license": "MIT",
@@ -17,6 +19,7 @@
     "jsonld": "^1.6.2"
   },
   "devDependencies": {
-    "http-server": "^0.11.1"
+    "http-server": "^0.11.1",
+    "linkinator": "^6.0.4"
   }
 }

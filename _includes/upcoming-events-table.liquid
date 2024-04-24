@@ -35,7 +35,9 @@
     <td class="more-information">
       {% if event.instagram.size > 0 %}
         {% for ig in event.instagram %}
-          <a class="normal" href="https://instagram.com/{{ig}}">@{{ig}}</a>
+          {% if ig != '(null)' %}
+            <a class="normal" href="https://instagram.com/{{ig}}">@{{ig}}</a>
+          {% endif %}
         {% endfor %}
       <button class="more-instagrams" data-instagrams='{{event.instagram}}'>More</button>
       {% endif %}

@@ -1,0 +1,12 @@
+{
+  "concurrency": 10,
+  "config": "string",
+  "recurse": true,
+  "skip": "instagram.com",
+  "format": "csv",
+  "verbosity": "error",
+  "timeout": 0,
+  "retry": false,
+  "urlRewriteSearch": "https://dancehallbattle.org/",
+  "urlRewriteReplace": "http://localhost:8080/"
+}
