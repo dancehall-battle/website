@@ -20,13 +20,13 @@ title: Dancer
 <h3 class="page-title">
   {{dancer.name}}
 
-  {% if dancer.country != ''%}
+  {% if dancer.country != '(null)'%}
   <span class="flag-icon flag-icon-{{dancer.country}}"></span>
   {% endif %}
 </h3>
 
 <p class="dancer-instagram">
-  {% if dancer.instagram != "" %}
+  {% if dancer.instagram != "(null)" %}
   Instagram: <a class="instagram" href="https://instagram.com/{{dancer.instagram}}">@{{dancer.instagram}}</a>
   {% endif %}
 </p>

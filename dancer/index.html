@@ -17,7 +17,7 @@ title: Dancers
     <ul>
       {% for dancer in dancerList.perLetter[letter] %}
       <li><a href="/dancer/{{dancer.postfix}}">{{dancer.name}}</a>
-        {% if dancer.country != ''%}
+        {% if dancer.country != '(null)'%}
         <span class="flag-icon flag-icon-{{dancer.country}}"></span>
         {% endif %}
       </li>

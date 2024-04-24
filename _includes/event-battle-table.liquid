@@ -29,8 +29,12 @@
         <td class="permanent-date">{{battle.formattedDate}}</td>
 
         {% include winner-cell with battle %}
-        {% assign juddges = battleToJudges[battle.id] %}
-        {% include judge-cell with juddges %}
+        {% assign judges = battleToJudges[battle.id] %}
+        {% if judges.size > 0 %}
+            {% include judge-cell with judges %}
+        {% else %}
+            <td>Information not available.</td>
+        {% endif %}
 
         </tr>
         <tr class="details-sm

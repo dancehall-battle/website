@@ -21,7 +21,7 @@ permalink: /event/{{ pagination.items[0].slug }}/index.html
     {{ event.formattedDate }} in {{ event.location.name }}
   </p>
   <p>
-    {% if event.instagram != "" %}
+    {% if event.instagram != "(null)" %}
     Instagram: <a class="instagram" href="https://instagram.com/{{event.instagram}}">@{{event.instagram}}</a>
     {% endif %}
 
