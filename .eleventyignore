@@ -4,5 +4,6 @@ yarn.lock
 README.md
 CHANGELOG.md
 context.json
-tpf-severs.json
+tpf-servers.json
 .eleventy.js
+linkinator.config.json
