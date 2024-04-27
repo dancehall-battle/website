@@ -8,7 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## Unreleased
 
 ### Added
-- Judges to event pages 
+- Judges to event pages
+- Judges page
+
+### Updated
+- Text about when rankings are updated
 
 ## [5.2.4] - 2022-02-13
 

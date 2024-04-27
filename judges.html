@@ -1,0 +1,32 @@
+---
+layout: year-nav
+title: Judges
+---
+
+<script type="application/ld+json">
+  {{judgeList.originalQueryResults}}
+</script>
+
+<h3 id="judge-list-title" class="battle-title">Judges</h3>
+
+
+{% for letter in judgeList.letters %}
+  <div class="letter-list">
+    <p class="font-weight-bold">{{ letter }}</p>
+
+    <ul>
+      {% for judge in judgeList.perLetter[letter] %}
+      <li><a href="/dancer/{{judge.postfix}}">{{judge.name}}</a>
+        {% if judge.country != '(null)'%}
+        <span class="flag-icon flag-icon-{{judge.country}}"></span>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}
+
+<div class="mt-5 mb-5">
+  We only started tracking the judges since April 2024,
+  so information about the judges from battles before that is probably not available.
+</div>
