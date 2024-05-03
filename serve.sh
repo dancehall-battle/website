@@ -10,4 +10,4 @@ if [ "$1" == "-v" ]; then
     envVars="$envVars DEBUG=Eleventy*"
 fi
 
-eval $envVars node ./node_modules/@11ty/eleventy/cmd.js --serve --port 8080 --input=. --output=_site
+eval $envVars node ./node_modules/@11ty/eleventy/cmd.js --serve --port 8081 --input=. --output=_site

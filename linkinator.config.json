@@ -8,5 +8,5 @@
   "timeout": 0,
   "retry": false,
   "urlRewriteSearch": "https://dancehallbattle.org/",
-  "urlRewriteReplace": "http://localhost:8080/"
+  "urlRewriteReplace": "http://localhost:8081/"
 }

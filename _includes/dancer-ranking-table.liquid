@@ -26,7 +26,7 @@ grey-bckgrnd
     {% if forloop.first == true %}
     <td class="cell middle" rowspan="{{forloop.length}}">{{rank}}</td>
     {% endif %}
-    <td><a href="{{spot.dancer.id}}">{{spot.dancer.name}}</a>
+    <td><a href="/dancer/{{spot.dancer.postfix}}">{{spot.dancer.name}}</a>
       {% if spot.dancer.represents  != '(null)' %}
       <a<span class="flag-icon flag-icon-{{spot.dancer.represents}}"></span>
       {% endif %}</td>
