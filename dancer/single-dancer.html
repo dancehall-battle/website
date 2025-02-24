@@ -31,11 +31,13 @@ title: Dancer
   {% endif %}
 </p>
 
+{% if config.rankings.enabled %}
 <div id="ranks" class="table-responsive">
   <h4>Ranks</h4>
 
   {% include dancer-ranks-table, ranks: dancer.ranks %}
 </div>
+{% endif %}
 
 <div id="events" class="table-responsive mt-3">
   <h4>Wins</h4>

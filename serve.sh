@@ -3,6 +3,8 @@
 # Remove old folders
 rm -rf _site
 
+cp config.json _data
+
 envVars="ELEVENTY_SERVE=true ELEVENTY_PORT=8080"
 #envVars="ELEVENTY_SERVE=true ELEVENTY_PORT=8080"
 

@@ -1,8 +1,15 @@
 const cheerio = require('cheerio');
 const fs = require('fs-extra');
 const jsonld = require('jsonld');
+const config = require("./config.json");
 
 module.exports = function(eleventyConfig) {
+  if (config.rankings.enabled) {
+    fs.copy(".eleventyignore.with-rankings", ".eleventyignore");
+  } else {
+    fs.copy(".eleventyignore.without-rankings", ".eleventyignore");
+  }
+
   eleventyConfig.templateFormats = [
     "html",
     "md",
